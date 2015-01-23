@@ -1,0 +1,39 @@
+#logo img { max-width:100%!important; }
+#logo2 { margin-right: 1%; max-width: 30%; }
+#logo2 img { max-width: 100%!important; }
+#site-name { display: none; }
+.narrow {
+	display: inline-block!important;
+}
+#screen { width: 100%; }
+#header {
+	width:98%!important;
+	margin-left:1%;
+	display: block!important;
+}
+#main {
+	width:98%!important;
+	margin-left:1%;
+	display: block!important;
+}
+ul#main-menu li.onecol { width: 25%; }
+ul#main-menu li.twocol { width: 100%; max-width: 100%;}
+ul#main-menu input.search { width: 400px; max-width: 80%; }
+li.search { width: 100%!important; }
+body.science li.search { background: #FBC900; }
+body.network li.search { background: #3366DD; }
+body.education li.search { background: #009D00; }
+body.home li.search { background: #999999; }
+ul#main-menu form { text-align: center; }
+#main ul.menu input.btn, #main ul.menu input.form-submit { position: relative; }
+.row {
+	min-width: 0px;
+}
+.twocol, .threecol, .fourcol, .fivecol, .sixcol {
+	width: 100%;
+	display: block;
+}
+.row table, .row img, .row iframe {
+	max-width: 100%!important;
+}
+#slidecycle { max-width: 100%!important; overflow: hidden; }

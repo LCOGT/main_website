@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% load mezzanine_tags keyword_tags %}
+
+{% block meta_title %}Las Cumbres Observatory Global Telescope Network{% endblock %}
+
+{% block meta_keywords %}{% metablock %}
+{% keywords_for page as keywords %}
+{% for keyword in keywords %}
+    {% if not forloop.first %}, {% endif %}
+    {{ keyword }}
+{% endfor %}
+{% endmetablock %}{% endblock %}
+
+{% block meta_description %}{% metablock %}
+{{ page.description }}
+{% endmetablock %}{% endblock %}
+
+{% block body-class %}banner {%endblock%}
+
+{% block navigation %}{% endblock %}
+
+{% block title %}
+{% endblock %}
+
+{% block main-wrapper%}
+<div class="home_banner_region">
+	<ul class="lg_grey_horiz_buttons">
+		<li class="lg_public"><a href="">Public</a></li>
+		<li class="lg_scientists"><a href="">Scientists</a></li>
+	</ul>
+</div>
+{% endblock %}
+
+{% block alternate %}
+						<div class="row rowlast gray-7-grad">
+							<div class="twocol">
+								<h2><a href="http://lcogt.net/science">About</h2>
+									<ul>
+										<li><a href="/observe/">Observatory Login</a></li>
+										<li><a href="/observatory/status">Observatory Status</a></li>
+										<li><a href="/observatory">Observatory Info</a>
+										<li><a href="/people">Staff listing</a></li>
+									</ul>
+								<h2><a href="/alpha/job">Vacancies</a></h2>
+								<ul>
+									<li><a href="http://lcogt.net/job/post-doc-microlensing">Post-doc in microlensing</a></li>
+								</ul>
+							</div>
+							<div class="twocol">
+								<div class="twocol">
+									<h2 class="pane-title"><a href="/blog/archive">News &amp; Press Releases</a></h2>
+									<ul>	<li class="views-row views-row-1 views-row-odd views-row-first">  
+								  <span class="views-field views-field-created">        <span class="field-content">11 Dec</span>  </span>  
+								  <span class="views-field views-field-title">        <span class="field-content"><a href="/blog/egomez/santa-barbara-junior-high-meets-messier-bingo">Santa Barbara Junior High...</a></span>  </span></li><li class="views-row views-row-2 views-row-even">  
+								  <span class="views-field views-field-created">        <span class="field-content">08 Oct</span>  </span>  
+								  <span class="views-field views-field-title">        <span class="field-content"><a href="/blog/egomez/faulkes-south-celebrates-10-years-science">Faulkes South Celebrates 10...</a></span>  </span></li><li class="views-row views-row-3 views-row-odd">  
+								  <span class="views-field views-field-created">        <span class="field-content">01 Sep</span>  </span>  
+								  <span class="views-field views-field-title">        <span class="field-content"><a href="/blog/egomez/introducing-sky">Introducing On Sky</a></span>  </span></li><li class="views-row views-row-4 views-row-even views-row-last">  
+								  <span class="views-field views-field-created">        <span class="field-content">19 Aug</span>  </span>  
+								  <span class="views-field views-field-title">        <span class="field-content"><a href="/blog/admin/visibility-tool-update">Visibility Tool Update</a></span>  </span></li>  </ul>
+								</div>
+							<div class="twocol lastcol">
+							</div>
+						</div>
+{% endblock %}

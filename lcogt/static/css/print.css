@@ -1,0 +1,33 @@
+body { font-size: 12pt; line-height: 14pt; }
+h1 { font-size: 20pt; line-height: 22pt; }
+h2 { font-size: 18pt; line-height: 20pt; }
+h3 { font-size: 16pt; line-height: 18pt; }
+h4 { font-size: 14pt; line-height: 16pt; }
+/* Hide elements */
+#admin-menu, ul.primary, #navigation, #lcogt-bar,.panel-separator,.spacebook-menu,#footer ul.menu,#footer a,.panels-ipe-control, .region-page-bottom { display: none; }
+#page, #page-wrapper { background: none; }
+#screen { width: 98%; }
+#main {
+	width: 100%;
+	border: 0px!important;
+	box-shadow: 0px 0px 0px rgba(0,0,0,0.4);
+	-moz-box-shadow: 0px 0px 0px rgba(0,0,0,0.4);
+	-webkit-box-shadow: 0px 0px 0px rgba(0,0,0,0.4);
+}
+/* Stop Drupal field items from floating */
+.field-item { display: block; float: none; }
+/* Reformat rows and columns */
+.row { padding-left: 0px; padding-right: 0px; width: 100%; max-width: 100%; min-width: 90%; }
+.onecol,.twocol,.threecol,.fourcol,.fivecol,.sixcol { display: block; margin: 0px; width:100%; }
+
+ul.bios li {
+	-webkit-box-shadow: 0px 0px 0px rgba(0,0,0,.15);
+	-moz-box-shadow: 0px 0px 0px rgba(0,0,0,.15);
+	box-shadow: 0px 0px 0px rgba(0,0,0,.15);
+}
+
+#footer { min-height: 16px; margin-top: 8px; border-top:2px solid black; padding-top: 4px;}
+.bookmenu { display: none; }
+
+#main a:link:after, #main a:visited:after { content: " [" attr(href) "] "; }
+#main a[href^="/"]:after { content: " [http://lcogt.net" attr(href) "] "; }

@@ -1,0 +1,176 @@
+/* 
+	CSS to tame Drupal
+*/
+body.page-taxonomy #block-system-main {
+	margin: 0px 16px 16px 16px;
+}
+body.page-search #block-system-main {
+	margin: 0px 16px 16px 16px;
+}
+body.page-search ol {
+	margin-left: 0px;
+	padding-left: 0px;
+}
+article.node-teaser {
+	margin-bottom: 16px;
+}
+article.node-teaser .field-items p {
+	margin: 0px;
+}
+.field-name-taxonomy-vocabulary-1 .field-item {
+	display: inline;
+}
+.field-label {
+	float:left;
+}
+.field-items {
+}
+.field-item img {
+
+}
+.field-type-media .square_thumbnail {
+	width: 144px;
+}
+.field-type-media .small_thumbnail_sq {
+	width: 144px;
+	height: 144px;
+	display: inline-block;
+}
+.field-type-media .small_thumbnail_sq img {
+	width: 144px;
+	height: 144px;
+}
+
+.field-type-media .even {
+	margin-right: 16px;
+}
+.field-type-media .odd {
+	margin-right: 0px;
+}
+.field-item {
+	float: left;
+	margin-bottom: 8px;
+}
+.field-name-upload {
+	display: none;
+}
+.content li {
+	margin-bottom: 8px;
+}
+.view-data-node-created {
+	color: #999;
+}
+.search-results .search-info {
+	font-size: 1em;
+}
+li.search-result {
+	margin-bottom: 16px;
+}
+li.search-result p {
+	margin-bottom: 0px;
+}
+.search-snippet-info {
+	padding-left: 0px!important;
+}
+#contact-site-form {
+	margin-left: 16px;
+	margin-right: 16px;
+}
+/* Front page picture news items */
+.view-nodequeue-8 ul {
+	margin: 0px;
+	padding: 0px;
+	list-style: none;
+}
+.view-nodequeue-8 ul li {
+	clear: both;
+	height: 72px;
+}
+.view-nodequeue-8 ul .views-field-field-media {
+	width: 72px;
+	height: 72px;
+	float:left;
+}
+.view-nodequeue-8 ul li .small_thumbnail_sq img {
+	width: 64px;
+	height: 64px;
+}
+.view-featured-news ul {
+	padding: 0 0 0 0em;
+	margin: 0px;
+}
+.view-featured-news li {
+	margin-bottom: 4px;
+}
+.view-featured-news li.views-row-last {
+	margin-bottom: 0px;
+}
+.view-featured-news .views-field-created,.newslist .views-field-created,.paperslist .views-field-field-paper-date {
+	margin-right: 4px;
+}
+.newslist ul {
+	padding-left:0px;
+	list-style: none;
+	margin:0px;
+}
+.paperslist ul {
+	padding-left:1em;
+	margin:4px 0px 8px 0px;
+}
+.view-nodequeue-8 ul li.views-row-last {
+	height: 64px;
+}
+.view-nodequeue-8 ul li.views-row-last .views-field-field-media {
+	height: 64px;
+}
+.field-name-field-filters .field-item {
+	margin-right: 0.7em;
+}
+#lcogtcam {
+	margin: 0px!important;
+}
+#lcogtcam li.thumb {
+	padding: 0px!important;
+	margin-right: 16px!important;
+}
+#lcogtcam li.thumb:nth-child(3n) {
+	margin-right: 0px!important;
+}
+#lcogtcam li.thumb img {
+	width: 304px;
+	height: 228px;
+	margin: 0px;
+}
+.panel-separator {
+	clear:both;
+	height:16px;
+}
+.rowlast .panel-separator {
+	height: 0px;
+}
+.view-news-archive-block .views-field-field-media {
+	clear:both;
+	margin-top:8px;
+}
+.view-news-archive-block .views-row-first .views-field-field-media {
+	margin-top:0px;
+}
+.view-news-archive-block .small_thumbnail_sq {
+	float:left;
+	margin-right:16px;
+	margin-bottom:8px;
+}
+#footer ul.menu {
+	margin-bottom: 6px;
+}
+.field-type-taxonomy-term-reference .field-items a {
+	margin-right: 8px;
+}
+.warning,.error {
+	background-image: none;
+}
+ul.primary { margin: 0px; height: 1.3em; margin-top: 16px; padding-left: 8px; }
+ul.primary li { display: inline-block; }
+ul.primary li a { padding: 4px 8px; margin-right: 8px; }
+#admin-menu { box-shadow: 0 0 0; -o-background-size: 100% 100%;-moz-background-size: 100% 100%;-webkit-background-size: 100% 100%;background-size: 100% 100%;/* Internet Explorer */*background: #606060;background: #606060;filter: progid:DXImageTransform.Microsoft.gradient(gradientType=0, startColorstr=#FF404040, endColorstr=#FF606060);/* Recent browsers */background-image: -webkit-gradient(linear,left top, left bottom,from(#404040),to(#606060));background-image: -webkit-linear-gradient(top,#404040,#606060);background-image: -moz-linear-gradient(top,#404040,#606060);background-image: -o-linear-gradient(top,#404040,#606060);background-image: linear-gradient(top,#404040,#606060);color: white; }
+#admin-menu-wrapper { font-size: 0.8em; }
