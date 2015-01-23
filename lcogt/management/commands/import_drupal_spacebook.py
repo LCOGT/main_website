@@ -11,17 +11,16 @@ import re
 from django.core.management.base import CommandError, BaseCommand
 from django.utils.html import linebreaks
 
-from mezzanine.blog.management.base import BaseImporterCommand
 
 
-class Command(BaseImporterCommand):
+class Command(BaseCommand):
     """
     Implements a Drupal importer. Takes a file path or a URL for a JSON file
     from Drupal's Node Export i.e.
     ./drush node-export --type=book --format=json --file=book.json
     """
 
-    option_list = BaseImporterCommand.option_list + (
+    option_list = BaseCommand.option_list + (
         make_option("-u", "--url", dest="url", help="URL to import file"),
     )
 
@@ -29,7 +28,7 @@ class Command(BaseImporterCommand):
 
     categories = {'6':'Education','8':'Science'}
 
-    def handle_import(self, options):
+    def handle(self, *args, **options):
         """
         Gets the posts from either the provided URL or the path if it
         is local.

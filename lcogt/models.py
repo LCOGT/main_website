@@ -19,7 +19,7 @@ class Activity(Page, Ownable):
         help_text=_("A catchy introductory paragraph."),
         default="", blank=True)
     observing_time = models.IntegerField(_('Observing time'),blank=True,null=True)
-    archive_data = models.BooleanField(_('Archive data'))
+    archive_data = models.BooleanField(_('Archive data'),default=False)
     planning = RichTextField(_("planning"), 
         help_text=_("What do you need to do in preparation."),
         default="", blank=True)

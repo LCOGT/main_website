@@ -8,9 +8,14 @@ import re
 from time import mktime, timezone
 import json
 
-from django.core.management.base import CommandError
 from django.utils.html import linebreaks
 from django.contrib.auth.models import User
+from django.contrib.sites.models import Site
+from django.core.management.base import BaseCommand, CommandError
+from django.utils.encoding import force_text
+from django.utils.html import strip_tags
+
+from mezzanine.blog.models import BlogPost, BlogCategory
 
 from mezzanine.blog.management.base import BaseImporterCommand
 
@@ -27,21 +32,19 @@ class Command(BaseImporterCommand):
 
     categories = {'6':'Education','8':'Science'}
 
-    def handle_import(self, options):
+    def handle(self, *args, **options):
         """
-        Gets the posts from either the provided URL or the path if it
-        is local.
+        Processes the converted data into the Mezzanine database correctly.
 
-        Fields to keep:
-        - title
-        - body
-        - Discipline => category
-        - Attached image/media file
-        - Author
-        - Publication date
-        - Published/not published
+        Attributes:
+            mezzanine_user: the user to put this data in against
+            date_format: the format the dates are in for posts and comments
         """
+        prompt = False
+        verbosity = 2
+        site = Site.objects.get_current()
 
+        posts = []
         url = options.get("url")
         if url is None:
             raise CommandError("Usage is import_drupal_blog %s" % self.args)
@@ -65,21 +68,46 @@ class Command(BaseImporterCommand):
 
             if entry['type'] == "blog":
                 if entry['path']:
-                    # print (entry['body']['und'][0]['value'])
-                    # print (pub_date,terms["tag"], ",".join(cat_list),entry['path']['alias'])
-                    post = self.add_post(title=entry['title'], content=entry['body']['und'][0]['value'],
-                                         pub_date=pub_date, tags=terms["tag"],
-                                         categories=",".join(cat_list),
-                                         old_url=entry['path']['alias'])
-                    # Correct author 
                     try:
                         email = "%s@lcogt.net" % entry['name']
-                        mezzanine_user = User.objects.filter(username=email)
+                        mezzanine_user = User.objects.get(email=email)
                     except User.DoesNotExist:
-                        raise CommandError("Invalid Mezzanine user: %s" % email)
-                else:
-                    print "********* %s *********" % entry['title']
-
-
-
-
+                        mezzanine_user = User.objects.get(pk=1)
+                    blog_post = {
+                        "title": force_text(entry['title']),
+                        "publish_date": pub_date,
+                        "content": force_text(entry['body']['und'][0]['value']),
+                        "categories": cat_list,
+                        "tags": terms["tag"],
+                        "comments": [],
+                        "old_url": entry['path']['alias'],
+                        "user" : mezzanine_user,
+                    }
+                    posts.append(blog_post)
+        print "Found %s blog posts" % len(posts)
+        for post_data in posts:
+            categories = post_data.pop("categories")
+            tags = post_data.pop("tags")
+            comments = post_data.pop("comments")
+            old_url = post_data.pop("old_url")
+            post_data = self.trunc(BlogPost, prompt, **post_data)
+            initial = {
+                "title": post_data.pop("title"),
+                "user": post_data.pop('user'),
+            }
+            post, created = BlogPost.objects.get_or_create(**initial)
+            for k, v in post_data.items():
+                setattr(post, k, v)
+            port.allow_comments = False
+            post.save()
+            if created and verbosity >= 1:
+                print("Imported post: %s" % post)
+            for name in categories:
+                cat = self.trunc(BlogCategory, prompt, title=name)
+                if not cat["title"]:
+                    continue
+                cat, created = BlogCategory.objects.get_or_create(**cat)
+                if created and verbosity >= 1:
+                    print("Imported category: %s" % cat)
+                post.categories.add(cat)
+            self.add_meta(post, tags, prompt, verbosity, old_url)
