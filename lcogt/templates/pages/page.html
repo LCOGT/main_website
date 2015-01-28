@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load mezzanine_tags keyword_tags %}
+{% load mezzanine_tags keyword_tags block_tags %}
 
 {% block meta_title %}{{ page.meta_title }}{% endblock %}
 
@@ -20,4 +20,8 @@
 {% endblock %}
 
 {% block main %}
+{% endblock %}
+
+{% block right_panel %}
+{% richflatblock "Observatory block" %}
 {% endblock %}

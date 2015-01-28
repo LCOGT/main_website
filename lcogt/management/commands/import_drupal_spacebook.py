@@ -3,6 +3,7 @@ from collections import defaultdict
 from datetime import datetime, timedelta
 from future.builtins import int
 from mezzanine.pages.models import Page, RichTextPage
+from mezzanine.generic.models import Keyword, AssignedKeyword
 from optparse import make_option
 from time import mktime, timezone
 import json
@@ -26,7 +27,6 @@ class Command(BaseCommand):
 
     help = 'Import JSON files containing Drupal Users'
 
-    categories = {'6':'Education','8':'Science'}
 
     def handle(self, *args, **options):
         """
@@ -96,23 +96,35 @@ def near_parent(book,parents_lookup):
     nearest_parent = parents_lookup.get(parent,None)
     return nearest_parent
 
+def set_keywords(page, disciplines):
+    categories = {'6':'education','8':'science','5143':'observatory','9':'observatory','7':'observatory'}
+    for disc in disciplines:
+        try:
+            kw = categories[disc['nid']]
+            keyword_id = Keyword.objects.get_or_create(title=kw)[0].id
+            page.keywords.add(AssignedKeyword(keyword_id=keyword_id))
+        except Exception, e:
+            print e
+    keyword_id = Keyword.objects.get_or_create(title='spacebook')[0].id
+    page.keywords.add(AssignedKeyword(keyword_id=keyword_id))
+    return True
+
+
 def make_page(entry,parent=None):
     cat_list = []
-    if RichTextPage.objects.filter(title=entry['title']).count() == 0:
+    pages = RichTextPage.objects.filter(title=entry['title'])
+    if pages.count() == 0:
         rt = RichTextPage.objects.create(title=entry['title'], content=entry['body']['und'][0]['value'])
         pub_date = datetime.fromtimestamp(int(entry['created']))
         if entry['path']:
             rt.slug = entry['path']['alias']
-        rt.in_menus = []
-        for item in getattr(entry['field_discipline'], "und", []):
-            cat = categories.getattr(item,None)
-            if cat:
-                cat_list.append(cat)
+        # rt.in_menus = []
         rt.publish_date = pub_date
-        rt.keywords = ",".join(cat_list)
         rt.parent = parent
         rt.save()
+        if entry.get('field_discipline',False) and entry.get('field_discipline') != '':
+            set_keywords(rt, entry['field_discipline']['und'])
         return rt
     else:
-        return None
+        return pages[0]
 

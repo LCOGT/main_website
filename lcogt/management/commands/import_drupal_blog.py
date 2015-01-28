@@ -20,7 +20,7 @@ from mezzanine.blog.models import BlogPost, BlogCategory
 from mezzanine.blog.management.base import BaseImporterCommand
 
 
-class Command(BaseImporterCommand):
+class Command(BaseCommand):
     """
     Implements a Drupal importer. Takes a file path or a URL for a JSON file
     from Drupal's Node Export.
@@ -30,7 +30,7 @@ class Command(BaseImporterCommand):
         make_option("-u", "--url", dest="url", help="URL to import file"),
     )
 
-    categories = {'6':'Education','8':'Science'}
+    categories = {'6':'education','8':'science','5143':'observatory','9':'observatory','7':'observatory'}
 
     def handle(self, *args, **options):
         """
@@ -96,18 +96,22 @@ class Command(BaseImporterCommand):
                 "user": post_data.pop('user'),
             }
             post, created = BlogPost.objects.get_or_create(**initial)
+            if entry.get('field_discipline',None):
+                set_keywords(entry['field_discipline']['und'])
             for k, v in post_data.items():
                 setattr(post, k, v)
-            port.allow_comments = False
+            post.allow_comments = False
             post.save()
             if created and verbosity >= 1:
                 print("Imported post: %s" % post)
-            for name in categories:
-                cat = self.trunc(BlogCategory, prompt, title=name)
-                if not cat["title"]:
-                    continue
-                cat, created = BlogCategory.objects.get_or_create(**cat)
-                if created and verbosity >= 1:
-                    print("Imported category: %s" % cat)
-                post.categories.add(cat)
             self.add_meta(post, tags, prompt, verbosity, old_url)
+
+def set_keywords(page, disciplines):
+    for disc in disciplines:
+        try:
+            kw = categories[disc['nid']]
+            keyword_id = Keyword.objects.get_or_create(title=kw)[0].id
+            page.keywords.add(AssignedKeyword(keyword_id=keyword_id))
+        except:
+            pass
+    return True
