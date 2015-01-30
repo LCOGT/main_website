@@ -2,8 +2,7 @@ from __future__ import unicode_literals
 from collections import defaultdict
 from datetime import datetime, timedelta
 from future.builtins import int
-from mezzanine.pages.models import Page, RichTextPage
-from lcogt.models import Activity
+from lcogt.models import LCOPage
 from optparse import make_option
 from time import mktime, timezone
 from django.contrib.auth.models import User
@@ -12,6 +11,7 @@ import re
 
 from django.core.management.base import CommandError, BaseCommand
 from django.utils.html import linebreaks
+from lcogt.utils import *
 
 
 class Command(BaseCommand):
@@ -48,7 +48,8 @@ class Command(BaseCommand):
         except:
             raise CommandError("You must provide a URL/file location for the data file")
 
-        media = []
+        #find media files from Drupal DB
+        media = get_media('live_drupal_7_32')
         # Read the JSON in from file
         jd = open(url)
         # Full list of Activity nodes 
@@ -66,14 +67,9 @@ class Command(BaseCommand):
         else:
             print "Found Observatory page: %s" % observatory
         for page in entries:
-            if page['type'] in ['instrument_inst','article','spectrograph','site','class','telescope_inst']
-            new_page, media_url = make_page(page,observatory)
-            if media_url:
-                media.append(media_url)
-        if media:
-            print "Update the media links for these pages:"
-            for l in media:
-                print l
+            if page['type'] in ['instrument_inst','spectrograph','class','telescope_inst','page','article']:
+                new_page= make_page(page,media,observatory) 
+
 
 
 
@@ -86,32 +82,35 @@ def links_to_text(page_list, activities):
     html += "</ul>"
     return html
 
-def find_media_tag(content):
-    x = re.findall('\[\[\{"type":"media"(.*\n?)\}\]\]', content, re.MULTILINE)
-    if x:
-        return x
+def parse_extra_fields(entry):
+    text = ''
+    if entry['type'] == 'site':
+        for field in ['field_country','field_airport_code','field_latitude','field_longitude','field_elevation']:
+            if entry.get(field,None):
     else:
-        return None
+        return {'extra_info':text}
 
-
-
-def make_page(entry,parent):
-    if Page.objects.filter(title=entry['title']).count() == 0:
+def make_page(entry,media,parent=None):
+    status = {'0':1,'1':2}
+    if LCOPage.objects.filter(title=entry['title']).count() == 0:
         initial = {
-                'title' :entry['title'],
-                'content' :entry['body']['und'][0]['value'],
-                'parent':parent}
+                'title'   : entry['title'],
+                'content' : replace_media_tag(entry['body']['und'][0]['value'],media),
+                'parent'  : parent,
+                'status'  : status[entry['status']]
+                 }
         pub_date = datetime.fromtimestamp(int(entry['created']))
         if entry['path']:
             initial['slug'] = entry['path']['alias']
         initial['publish_date'] = pub_date
-        page, created = RichTextPage.objects.get_or_create(**initial)
-        media = find_media_tag(entry['body']['und'][0]['value'])
-        if media:
-            media_url = initial['slug']
+        extras = parse_extra_fields(entry)
+        initial = dict(initial.items() + extras.items())
+        page, created = LCOPage.objects.get_or_create(**initial)
+        if entry.get('field_discipline',False) and entry.get('field_discipline') != '':
+            set_keywords(page, entry['field_discipline']['und'])
         else:
-            media_url = None
-        return activity, media_url
+            set_keywords(page,['9'])
+        return page
     else:
-        return Activity.objects.filter(title=entry['title'])[0], None
+        return LCOPage.objects.filter(title=entry['title'])[0], None
 

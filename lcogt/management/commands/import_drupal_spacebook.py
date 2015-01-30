@@ -12,7 +12,7 @@ import re
 from django.core.management.base import CommandError, BaseCommand
 from django.utils.html import linebreaks
 
-
+from lcogt.utils import *
 
 class Command(BaseCommand):
     """
@@ -56,16 +56,19 @@ class Command(BaseCommand):
         sb_nodes = {e['book']['mlid']:e for e in entries if e['book']['bid']=='4012'}
         orphans = {}
 
+        #find media files from Drupal DB
+        media = get_media('live_drupal_7_32')
+
         print "Read %s SpaceBook pages" % len(sb_nodes)
         # Create SpaceBook home first
         spacebook = sb_nodes['503']
-        sb_page = make_page(spacebook)
+        sb_page = make_page(spacebook,media)
 
         # Create parent pages first
         parents_lookup = {}
         for entry in parents:
-            if entry != '0':
-                new_page = make_page(sb_nodes[entry],sb_page)
+            if entry != '0' and entry !='503':
+                new_page = make_page(sb_nodes[entry],media,sb_page)
                 if new_page:
                     parents_lookup[entry] = new_page
                     print "Parents Created - %s" % new_page
@@ -75,9 +78,9 @@ class Command(BaseCommand):
                 
             # Get the time struct of the published date if possible and
             # the updated date if we can't.
-            if key != '0':
+            if key != '0' and key !='503' and key not in parents:
                 print "Creating %s" % key
-                new_page = make_page(entry,direct_parent)
+                new_page = make_page(entry,media,direct_parent)
                 if new_page:
                     print "Pages Created - %s" % new_page
                     if not direct_parent:
@@ -96,26 +99,17 @@ def near_parent(book,parents_lookup):
     nearest_parent = parents_lookup.get(parent,None)
     return nearest_parent
 
-def set_keywords(page, disciplines):
-    categories = {'6':'education','8':'science','5143':'observatory','9':'observatory','7':'observatory'}
-    for disc in disciplines:
-        try:
-            kw = categories[disc['nid']]
-            keyword_id = Keyword.objects.get_or_create(title=kw)[0].id
-            page.keywords.add(AssignedKeyword(keyword_id=keyword_id))
-        except Exception, e:
-            print e
-    keyword_id = Keyword.objects.get_or_create(title='spacebook')[0].id
-    page.keywords.add(AssignedKeyword(keyword_id=keyword_id))
-    return True
 
-
-def make_page(entry,parent=None):
+def make_page(entry,media,parent=None):
+    status = {'0':1,'1':2}
     cat_list = []
     pages = RichTextPage.objects.filter(title=entry['title'])
     if pages.count() == 0:
-        rt = RichTextPage.objects.create(title=entry['title'], content=entry['body']['und'][0]['value'])
+        rt = RichTextPage.objects.create(title=entry['title'])
+        content = replace_media_tag(entry['body']['und'][0]['value'],media)
+        rt.content = content
         pub_date = datetime.fromtimestamp(int(entry['created']))
+        rt.status = status[entry['status']]
         if entry['path']:
             rt.slug = entry['path']['alias']
         # rt.in_menus = []
@@ -123,7 +117,7 @@ def make_page(entry,parent=None):
         rt.parent = parent
         rt.save()
         if entry.get('field_discipline',False) and entry.get('field_discipline') != '':
-            set_keywords(rt, entry['field_discipline']['und'])
+            set_keywords(rt, entry['field_discipline']['und'],True)
         return rt
     else:
         return pages[0]

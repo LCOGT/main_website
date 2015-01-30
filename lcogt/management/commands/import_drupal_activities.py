@@ -13,6 +13,7 @@ import re
 from django.core.management.base import CommandError, BaseCommand
 from django.utils.html import linebreaks
 
+from lcogt.utils import *
 
 class Command(BaseCommand):
     """
@@ -48,7 +49,8 @@ class Command(BaseCommand):
         except:
             raise CommandError("You must provide a URL/file location for the data file")
 
-        media = []
+        #find media files from Drupal DB
+        media = get_media('live_drupal_7_32')
         # Read the JSON in from file
         jd = open(url)
         # Full list of Activity nodes 
@@ -65,14 +67,8 @@ class Command(BaseCommand):
         else:
             print "Found Education and Activities page: %s" % activity_page
         for k, page in activities.items():
-            new_a, media_url = make_activity(page,activity_page)
+            new_a = make_activity(page,media,activity_page)
             activities[k]['new_activity'] = new_a
-            if media_url:
-                media.append(media_url)
-        if media:
-            print "Update the media links for these pages:"
-            for l in media:
-                print l
         # Add extra data fields
         for k, page in activities.items():
             # Add building blocks:
@@ -84,41 +80,17 @@ class Command(BaseCommand):
                             page['new_activity'].related_posts.add(activity['new_activity'])
 
 
-
-
-def links_to_text(page_list, activities):
-    html = "<ul>"
-    for item in page_list:
-        activity = activities[item]
-        html += "<li><a href='%s'>%s</li>" % ()
-    html += "</ul>"
-    return html
-
-def find_media_tag(content):
-    x = re.findall('\[\[\{"type":"media"(.*\n?)\}\]\]', content, re.MULTILINE)
-    if x:
-        return x
-    else:
-        return None
-
-def set_keywords(disciplines):
-    keywords = []
-    for disc in disciplines:
-        try:
-            kw = categories[disc['nid']]
-            keywords.append(kw)
-        except:
-            pass
-    return keywords
-
-
-def make_activity(entry,parent):
+def make_activity(entry,media,parent):
+    status = {'0':1,'1':2}
     if Activity.objects.filter(title=entry['title']).count() == 0:
         initial = {
                 'title' :entry['title'],
-                'full_text' :entry['body']['und'][0]['value'],
                 'parent':parent}
         pub_date = datetime.fromtimestamp(int(entry['created']))
+        content = replace_media_tag(entry['body']['und'][0]['value'],media)
+        initial['full_text'] = content
+        initial['status'] = status[entry['status']]
+
         try:
             email = "%s@lcogt.net" % entry['name']
             mezzanine_user = User.objects.get(email=email)
@@ -141,12 +113,7 @@ def make_activity(entry,parent):
         if entry.get('field_discipline',None):
             set_keywords(page, entry['field_discipline']['und'])
         activity, created = Activity.objects.get_or_create(**initial)
-        media = find_media_tag(entry['body']['und'][0]['value'])
-        if media:
-            media_url = initial['slug']
-        else:
-            media_url = None
-        return activity, media_url
+        return activity
     else:
         return Activity.objects.filter(title=entry['title'])[0], None
 

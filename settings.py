@@ -26,7 +26,7 @@ ADMIN_MENU_ORDER = (
             "pages.Page",
             "lcogt.Activity",
             "lcogt.Seminar",
-            "lcogt.LCOCategory",
+            "lcogt.LCOPage",
             "blog.BlogPost",
             "blog.BlogCategory",
             "mezzanine_blocks.Block",
@@ -92,7 +92,7 @@ ADMIN_MENU_ORDER = (
 
 # Setting to turn on featured images for blog posts. Defaults to False.
 #
-# BLOG_USE_FEATURED_IMAGE = True
+BLOG_USE_FEATURED_IMAGE = True
 
 # If True, the south application will be automatically added to the
 # INSTALLED_APPS setting.
@@ -232,7 +232,7 @@ STATIC_ROOT = os.path.join(PROJECT_ROOT, STATIC_URL.strip("/"))
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
 # Examples: "http://media.lawrence.com/media/", "http://example.com/media/"
-MEDIA_URL = STATIC_URL + "media/"
+MEDIA_URL = "/files/"
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"

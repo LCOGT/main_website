@@ -16,11 +16,10 @@ from django.utils.encoding import force_text
 from django.utils.html import strip_tags
 
 from mezzanine.blog.models import BlogPost, BlogCategory
-
 from mezzanine.blog.management.base import BaseImporterCommand
+from lcogt.utils import *
 
-
-class Command(BaseCommand):
+class Command(BaseImporterCommand):
     """
     Implements a Drupal importer. Takes a file path or a URL for a JSON file
     from Drupal's Node Export.
@@ -44,6 +43,9 @@ class Command(BaseCommand):
         verbosity = 2
         site = Site.objects.get_current()
 
+        #find media files from Drupal DB
+        media = get_media('live_drupal_7_32')
+
         posts = []
         url = options.get("url")
         if url is None:
@@ -52,6 +54,9 @@ class Command(BaseCommand):
         # Read the JSON in from file
         jd = open(url)
         entries = json.load(jd)
+
+        # Convert Drupal status to Mezzanine status
+        status = {'0':1,'1':2}
 
         for (i, entry) in enumerate(entries):
             # Get the time struct of the published date if possible and
@@ -73,15 +78,17 @@ class Command(BaseCommand):
                         mezzanine_user = User.objects.get(email=email)
                     except User.DoesNotExist:
                         mezzanine_user = User.objects.get(pk=1)
+                    content = replace_media_tag(entry['body']['und'][0]['value'],media)
                     blog_post = {
                         "title": force_text(entry['title']),
                         "publish_date": pub_date,
-                        "content": force_text(entry['body']['und'][0]['value']),
+                        "content": force_text(content),
                         "categories": cat_list,
                         "tags": terms["tag"],
                         "comments": [],
                         "old_url": entry['path']['alias'],
                         "user" : mezzanine_user,
+                        "status" : status[entry['status']]
                     }
                     posts.append(blog_post)
         print "Found %s blog posts" % len(posts)
@@ -105,13 +112,3 @@ class Command(BaseCommand):
             if created and verbosity >= 1:
                 print("Imported post: %s" % post)
             self.add_meta(post, tags, prompt, verbosity, old_url)
-
-def set_keywords(page, disciplines):
-    for disc in disciplines:
-        try:
-            kw = categories[disc['nid']]
-            keyword_id = Keyword.objects.get_or_create(title=kw)[0].id
-            page.keywords.add(AssignedKeyword(keyword_id=keyword_id))
-        except:
-            pass
-    return True

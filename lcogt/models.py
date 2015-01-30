@@ -8,6 +8,13 @@ from mezzanine.core.models import Displayable, RichText, Ownable
 from mezzanine.utils.models import AdminThumbMixin
 from filebrowser_safe.fields import FileBrowseField
 
+class LCOPage(Page):
+    content = RichTextField(_("Content"), default="", help_text=_('Main content'), blank=True)
+    extra_info = RichTextField(_("extra information"), default="", help_text=_('This information will appear in the side bar'), blank=True)
+    class Meta:
+        verbose_name = _("Page+")
+        verbose_name_plural = _("Pages+")
+
 class Activity(Page, Ownable):
     full_text = RichTextField(_("full text"),
             help_text=_("The full activity text"),
@@ -41,7 +48,7 @@ class Seminar(Page):
             default="", blank=True)
     date = models.DateTimeField(_('Seminar date/time'),default=datetime.now())
     speaker_name = models.CharField(max_length=255,blank=True,null=True)
-    speaker_institute = models.TextField(blank=True,null=True)
+    speaker_institute = models.CharField(max_length=255, blank=True,null=True)
     speaker_picture = FileBrowseField(_("Speaker mugshot"), max_length=200, directory="speakers/", extensions=[".jpg",".png",".gif"], blank=True, null=True)
     speaker_biog =   RichTextField(_("biography"),
             help_text=_("This field can contain HTML and should contain a few paragraphs describing the background of the person."),
@@ -70,8 +77,8 @@ class Profile(models.Model, AdminThumbMixin):
     search_fields = {"first_name", "last_name", "bio", "job_title",}
 
     class Meta:
-        verbose_name = _("Person")
-        verbose_name_plural = _("People")
+        verbose_name = _("LCOGT Person")
+        verbose_name_plural = _("LCOGT People")
 
     @property
     def full_name(self):
