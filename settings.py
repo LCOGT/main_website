@@ -14,12 +14,6 @@ import os, sys
 
 # Controls the ordering and grouping of the admin menu.
 #
-# ADMIN_MENU_ORDER = (
-#     ("Content", ("pages.Page", "blog.BlogPost",
-#        "generic.ThreadedComment", ("Media Library", "fb_browse"),)),
-#     ("Site", ("sites.Site", "redirects.Redirect", "conf.Setting")),
-#     ("Users", ("auth.User", "auth.Group",)),
-# )
 
 ADMIN_MENU_ORDER = (
     ("Content", (
@@ -42,11 +36,11 @@ ADMIN_MENU_ORDER = (
 # A three item sequence, each containing a sequence of template tags
 # used to render the admin dashboard.
 #
-# DASHBOARD_TAGS = (
-#     ("blog_tags.quick_blog", "mezzanine_tags.app_list"),
-#     ("comment_tags.recent_comments",),
-#     ("mezzanine_tags.recent_actions",),
-# )
+DASHBOARD_TAGS = (
+    ("blog_tags.quick_blog", "mezzanine_tags.app_list"),
+    ("mezzanine_tags.recent_actions",),
+    ("blog_tags.blog_recent_posts",),
+)
 
 # A sequence of templates used by the ``page_menu`` template tag. Each
 # item in the sequence is a three item sequence, containing a unique ID
@@ -272,6 +266,7 @@ INSTALLED_APPS = (
     "mezzanine.galleries",
     "mezzanine.twitter",
     "mezzanine_blocks",
+    'reversion',
     #"mezzanine.accounts",
     #"mezzanine.mobile",
 )

@@ -8,9 +8,9 @@ from settings import DATABASES as dbc
 from mezzanine.generic.models import Keyword, AssignedKeyword
 from django.conf import settings
 
-def get_media(dbname):
+def get_media(dbname,user,password,host):
     media_dict = {}
-    db = MySQLdb.connect(user=dbc['drupal']['USER'], passwd=dbc['drupal']['PASSWORD'], db=dbname, host=dbc['rbauth']['HOST'])
+    db = MySQLdb.connect(user=user, passwd=password, db=dbname, host=host)
 
     # Match supplied user name to one in Drupal database
     sql_users = "SELECT fid, uri FROM file_managed"
@@ -35,7 +35,7 @@ def links_to_text(page_list, activities):
 
 def find_media_tag(content):
     lines = []
-    medias = re.findall('(\[+\{"type":"media".*\n?\}\]+)', content, re.MULTILINE)
+    medias = re.findall('(\[+\{.*\n?\}\]+)', content, re.MULTILINE)
     if medias:
         for media in medias:
             try:                  
@@ -80,6 +80,7 @@ def set_keywords(page, disciplines, spacebook=False):
             kw = categories[disc['nid']]
             keyword_id = Keyword.objects.get_or_create(title=kw)[0].id
             page.keywords.add(AssignedKeyword(keyword_id=keyword_id))
+            print "Added keyword %s to %s" % (kw, page)
         except Exception, e:
             print e
     if spacebook:

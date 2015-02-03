@@ -12,4 +12,4 @@ def body_class(keywords):
 	elif 'observatory' in lower_keys or 'network' in lower_keys or 'engineering' in lower_keys or 'operations' in lower_keys:
 		return 'observatory'
 	else:
-		return ''
+		return 'home'

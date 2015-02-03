@@ -46,7 +46,7 @@ class Seminar(Page):
     abstract = RichTextField(_("abstract"),
             help_text=_("What the talk will be about."),
             default="", blank=True)
-    date = models.DateTimeField(_('Seminar date/time'),default=datetime.now())
+    seminardate = models.DateTimeField(_('Seminar date/time'),default=datetime.now())
     speaker_name = models.CharField(max_length=255,blank=True,null=True)
     speaker_institute = models.CharField(max_length=255, blank=True,null=True)
     speaker_picture = FileBrowseField(_("Speaker mugshot"), max_length=200, directory="speakers/", extensions=[".jpg",".png",".gif"], blank=True, null=True)
