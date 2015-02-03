@@ -27,24 +27,58 @@ class Command(BaseImporterCommand):
 
     option_list = BaseImporterCommand.option_list + (
         make_option("-u", "--url", dest="url", help="URL to import file"),
+        make_option("-d", "--dbname", dest="dbname", help="Name of the Drupal DB name"),
+        make_option("-i", "--user", dest="user", help="Username for the Drupal DB"),
+        make_option("-p", "--password", dest="password", help="Password for the Drupal DB"),
+        make_option("-t", "--host", dest="host", help="Host for the Drupal DB"),
     )
 
-    categories = {'6':'education','8':'science','5143':'observatory','9':'observatory','7':'observatory'}
+    help = 'Import JSON file containing blog content'
 
-    def handle(self, *args, **options):
+    def handle(self, **options):
         """
-        Processes the converted data into the Mezzanine database correctly.
+        Gets the posts from either the provided URL or the path if it
+        is local.
 
-        Attributes:
-            mezzanine_user: the user to put this data in against
-            date_format: the format the dates are in for posts and comments
+        Fields to keep:
+        - title
+        - body
+        - Discipline => category
+        - Attached image/media file
+        - Author
+        - Publication date
+        - Published/not published
         """
+        try:
+            url = options.get("url")
+        except:
+            raise CommandError("You must provide a URL/file location for the data file.")
+        try:
+            dbname = options.get("dbname")
+        except:
+            raise CommandError("You must provide the database name")
+        try:
+            user = options.get("user")
+        except:
+            raise CommandError("You must provide the database user name")
+        try:
+            password = options.get("password")
+        except:
+            raise CommandError("You must provide the database password")
+        try:
+            host = options.get("host")
+        except:
+            raise CommandError("You must provide the database hostname")
+
+        # Translate Drupal field_discipline to keywords
+        categories = {'6':'education','8':'science','5143':'observatory','9':'observatory','7':'observatory'}
+
+
+        #find media files from Drupal DB
+        media = get_media(dbname,user,password,host)
         prompt = False
         verbosity = 2
         site = Site.objects.get_current()
-
-        #find media files from Drupal DB
-        media = get_media('live_drupal_7_32')
 
         posts = []
         url = options.get("url")
@@ -65,11 +99,6 @@ class Command(BaseImporterCommand):
 
             # Tags and categories are all under "tags" marked with a scheme.
             terms = defaultdict(set)
-            cat_list = []
-            for item in getattr(entry['field_discipline'], "und", []):
-                cat = categories.getattr(item,None)
-                if cat:
-                    cat_list.append(cat)
 
             if entry['type'] == "blog":
                 if entry['path']:
@@ -83,7 +112,7 @@ class Command(BaseImporterCommand):
                         "title": force_text(entry['title']),
                         "publish_date": pub_date,
                         "content": force_text(content),
-                        "categories": cat_list,
+                        "categories": [],
                         "tags": terms["tag"],
                         "comments": [],
                         "old_url": entry['path']['alias'],
@@ -104,7 +133,7 @@ class Command(BaseImporterCommand):
             }
             post, created = BlogPost.objects.get_or_create(**initial)
             if entry.get('field_discipline',None):
-                set_keywords(entry['field_discipline']['und'])
+                set_keywords(post, entry['field_discipline']['und'])
             for k, v in post_data.items():
                 setattr(post, k, v)
             post.allow_comments = False

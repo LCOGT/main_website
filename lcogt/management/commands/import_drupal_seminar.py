@@ -2,8 +2,8 @@ from __future__ import unicode_literals
 from collections import defaultdict
 from datetime import datetime, timedelta
 from future.builtins import int
-from lcogt.models import LCOPage
-from mezzanine.pages.models import RichTextPage
+from mezzanine.pages.models import Page, RichTextPage
+from lcogt.models import Seminar
 from optparse import make_option
 from time import mktime, timezone
 from django.contrib.auth.models import User
@@ -12,8 +12,8 @@ import re
 
 from django.core.management.base import CommandError, BaseCommand
 from django.utils.html import linebreaks
-from lcogt.utils import *
 
+from lcogt.utils import *
 
 class Command(BaseCommand):
     """
@@ -74,59 +74,52 @@ class Command(BaseCommand):
         # Full list of Activity nodes 
         entries = json.load(jd)
 
-        print "Read %s Pages" % len(entries)
+        print "Read %s Activities" % len(entries)
 
-        observatory,created = RichTextPage.objects.get_or_create(title='Observatory',slug='observatory',content='[Temp]')
-        sites,created = RichTextPage.objects.get_or_create(title='Observatory Sites',slug='observatory/site',content='[Temp]', parent=observatory)
-        telescopes,created = RichTextPage.objects.get_or_create(title='Telescopes',slug='observatory/telescope',content='[Temp]', parent=observatory)
-        instruments,created = RichTextPage.objects.get_or_create(title='Observatory Sites',slug='observatory/instruments',content='[Temp]', parent=observatory)
-
-        parents = {'instrument_inst':instruments,'spectrograph':instruments,'class':telescopes,'telescope_inst':telescopes, 'site': sites, 'page':None, 'article': None}
+        science_page,created = RichTextPage.objects.get_or_create(title='Science',slug='science',content='[Temp]')
+        seminar_page,created = RichTextPage.objects.get_or_create(title='Science Seminars',slug='science/seminars',content='[Temp]')
         # Create activities
         if created:
-            print "Created Observatory page: %s" % observatory
+            print "Created Science page: %s" % seminar_page
         else:
-            print "Found Observatory page: %s" % observatory
+            print "Found Science page: %s" % seminar_page
         for page in entries:
-            if page['type'] in parents:
-                new_page= make_page(page,media,parents[page['type']]) 
+            new_a = make_seminar(page,media,seminar_page)
 
 
-def add_attached_media(media, entry):
-    image = ''
-    if entry['field_media'] and entry['field_media'] != '':
-        for line in entry['field_media']['und']:
-            if not line.get('attributes',None):
-                line['attributes'] ={'css_class' : 'side-image'}
-            image += make_img_tag(media,line)
-    return {'extra_info':image}
-
-def make_page(entry,media,parent=None):
+def make_seminar(entry,media,parent):
     status = {'0':1,'1':2}
-    if LCOPage.objects.filter(title=entry['title']).count() == 0:
+    if Seminar.objects.filter(title=entry['title']).count() == 0:
         initial = {
-                'title'   : entry['title'],
-                'content' : replace_media_tag(entry['body']['und'][0]['value'],media),
-                'parent'  : parent,
-                'status'  : status[entry['status']]
-                 }
+                'title' :entry['title'],
+                'parent':parent}
         pub_date = datetime.fromtimestamp(int(entry['created']))
+        content = replace_media_tag(entry['body']['und'][0]['value'],media)
+        initial['abstract'] = content
+        initial['status'] = status[entry['status']]
+
         if entry['path']:
             initial['slug'] = entry['path']['alias']
-        initial['publish_date'] = pub_date
-        if entry.get('field_media',None):
-            extras = add_attached_media(media, entry)
-        else:
-            extras = {}
-        initial = dict(initial.items() + extras.items())
-        page, created = LCOPage.objects.get_or_create(**initial)
-        if entry.get('field_discipline',False) and entry.get('field_discipline') != '':
-            set_keywords(page, entry['field_discipline']['und'])
-        else:
-            set_keywords(page,['9'])
+        if entry['field_seminardate']:
+            initial['seminardate'] = datetime.strptime(entry['field_seminardate']['und'][0]['value'], "%Y-%m-%dT%H:%M:%S")
+        if entry['field_speaker']:
+            initial['speaker_name'] = entry['field_speaker']['und'][0]['value']
+        if entry['field_place']:
+            initial['speaker_institute'] = entry['field_place']['und'][0]['value']
+        if entry['field_about_me']:
+            initial['speaker_biog'] = entry['field_speaker']['und'][0]['value']
+        if entry['field_link']:
+            initial['speaker_link'] = entry['field_speaker']['und'][0]['value']
+        if entry['field_profile']:
+            fid = entry['field_profile']['und'][0]['fid']
+            filename = media.get(fid,None)
+            initial['speaker_picture'] = filename
+        seminar, created = Seminar.objects.get_or_create(**initial)
+        if entry.get('field_discipline',None):
+            set_keywords(seminar, entry['field_discipline']['und'])
         if created:
-            print("Imported %s: %s" % (entry['type'],page))
-        return page
+            print("Imported Seminar: %s" % seminar)
+        return seminar
     else:
-        return LCOPage.objects.filter(title=entry['title'])[0], None
+        return Seminar.objects.filter(title=entry['title'])[0], None
 

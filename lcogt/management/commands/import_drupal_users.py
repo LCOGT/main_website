@@ -36,7 +36,7 @@ class Command(BaseImporterCommand):
             raise CommandError("Usage is import_drupal_spacebook %s" % self.args)
 
         try:
-            group = Group.objects.get(name='Editor')
+            group,created = Group.objects.get_or_create(name='Editor')
         except:
             raise CommandError("You must initialise a Group called 'Editor'")
 
@@ -46,7 +46,7 @@ class Command(BaseImporterCommand):
         staff = {v.name : v for k,v in entries['users'].items() if len(v.roles)>1}
 
         for username, entry in staff.items():
-            if username not in ['admin','atripp','proche','sroberts','hgomez','edward','rpiller']:
+            if username not in ['admin','atripp','proche','sroberts','hgomez','edward','rpiller','cwarren','ogomez','jhughes']:
                 email = entry.init
                 if not email or email.find('@lcogt.net') == -1:
                     email = "%s@lcogt.net" % username
