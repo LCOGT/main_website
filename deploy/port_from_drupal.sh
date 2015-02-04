@@ -16,6 +16,7 @@ cp *.dataset /tmp/users.dataset
 # Start virtualenv of Mezzanine website and cd to the base of that project
 # Database settings need to be added for the Drupal database and database user
 
+python manage.py createdb --noinput --nodata
 python manage.py createinitialrevisions
 python manage.py import_drupal_users --url=/tmp/users.dataset --mezzanine-user='admin'
 python manage.py import_drupal_blog --url=data/blog.json --user='' --password='' --host='' --dbname='' --mezzanine-user='admin'

@@ -71,7 +71,8 @@ class Profile(models.Model, AdminThumbMixin):
     bio = RichTextField(_("biography"),
                           help_text=_("This field can contain HTML and should contain a few paragraphs describing the background of the person."),
                           default="", blank=True)
-    job_title = models.CharField(_("job title"), max_length=60, blank=True, help_text=_("Example: First Grade Teacher"))
+    job_title = models.CharField(_("job title"), max_length=60, blank=True, help_text=_("Example: Observatory Director"))
+    research_interests = models.CharField(_("research interests"), max_length=255, blank=True, help_text=_("Comma separated list"))
     active = models.BooleanField(_("current staff"),default=True)
     admin_thumb_field = "mugshot"
     search_fields = {"first_name", "last_name", "bio", "job_title",}
@@ -91,13 +92,3 @@ class Profile(models.Model, AdminThumbMixin):
     def __unicode__(self):
         return "Profile for %s, %s" % (self.user.last_name, self.user.first_name)
 
-# class LCOCategory(Slugged):
-#     """
-#     A category for grouping content.
-#     """
-#     class Meta:
-#         verbose_name = _("LCO Category")
-#         verbose_name_plural = _("LCO Categories")
-#     @models.permalink
-#     def get_absolute_url(self):
-#         return ("lco_list_category", (), {"slug": self.slug})

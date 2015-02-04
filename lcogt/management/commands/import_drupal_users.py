@@ -31,6 +31,7 @@ class Command(BaseImporterCommand):
 
     def handle_import(self, options):
         active = {'0':True,'1':False}
+        mugshots = []
         url = options.get("url")
         if url is None:
             raise CommandError("Usage is import_drupal_spacebook %s" % self.args)
@@ -67,7 +68,8 @@ class Command(BaseImporterCommand):
                         profile.bio = entry.field_about_me['und'][0]['value']
                         text += " and BIO"
                     if entry.picture:
-                        profile.mugshot = "people/%s" % entry.picture.filename
+                        profile.mugshot = entry.picture.filename
+                        mugshots.append(entry.picture.filename)
                     if entry.field_alumnus:
                         profile.active = active[entry.field_alumnus['und'][0]['value']]
                     else:

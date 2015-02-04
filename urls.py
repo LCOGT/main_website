@@ -48,7 +48,10 @@ urlpatterns += patterns('',
 
     url("^$", "mezzanine.pages.views.page", {"slug": "/"}, name="home"),
     url("^public$", "mezzanine.pages.views.page", {"slug": "/public/"}, name="public"),
-    url("^scientists$", "mezzanine.pages.views.page", {"slug": "/scientists/"}, name="scientists"),
+    url("^astronomers$", "mezzanine.pages.views.page", {"slug": "/astronomers/"}, name="astronomers"),
+    url("^people/$", "lcogt.views.people", {'active':True}, name="people"),
+    url("^people/alumni/$", "lcogt.views.people", {'active':False}, name="people"),
+    url(r'^user/(?P<username>\w+)/$',"lcogt.views.user_profile", name="userprofile"),
 
     # HOMEPAGE FOR A BLOG-ONLY SITE
     # -----------------------------

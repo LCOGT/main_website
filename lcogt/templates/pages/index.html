@@ -43,20 +43,8 @@
 								<ul class="popular-posts">
 								{% for recent_post in recent_posts %}
 								<li>
-									
-									{% if settings.BLOG_USE_FEATURED_IMAGE and recent_post.featured_image %}
-								{% block blog_post_list_post_featured_image %}
-
-								<a href="{{ recent_post.get_absolute_url }}">
-								    <img  src="{{ MEDIA_URL }}{% thumbnail recent_post.featured_image 70 70 %}">
-								</a>
-
-								{% endblock %}
-								{% endif %}
-
-									<a href="{{ recent_post.get_absolute_url }}">{{ recent_post.title }}</a>
-
-								    </li>
+									<span class="blog-date">{{ recent_post.publish_date|date:"d M" }}</span><span class="blog-title"><a href="{{ recent_post.get_absolute_url }}"> {{ recent_post.title }}</a></span>
+								</li>
 								{% endfor %}
 								</ul>
 								{% endif %}	

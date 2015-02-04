@@ -741,12 +741,8 @@ ul.polaroids li.polaroid {
 	font-size: 0.8em;
 	width: 144px;
 	height: 192px;
-	margin: 0 16px 16px 0px;
+	margin: 0 8px 16px 0px;
 	-webkit-transition: -webkit-transform .15s linear;
-	-webkit-transform: rotate(-1deg);
-	-moz-transform: rotate(-1deg);
-	-o-transform: rotate(-1deg);
-	transform: rotate(-1deg);
 }
 ul.polaroids img {
 	display: block;
@@ -758,12 +754,10 @@ ul.polaroids img {
 	width: 124px;
 	height: 124px;
 }
-ul.polaroids li:nth-child(even) { -webkit-transform: rotate(0.5deg); -moz-transform: rotate(0.5deg); -o-transform: rotate(0.5deg); transform: rotate(0.5deg); }
-ul.polaroids li:nth-child(3n) { -webkit-transform: none; -moz-transform: none; -o-transform: none; transform: none; position: relative; top: -3px; }
-ul.polaroids li:nth-child(5n) { -webkit-transform: rotate(1deg); -moz-transform: rotate(1deg); -o-transform: rotate(1deg); transform: rotate(1deg); position: relative; right: 0px; }
-ul.polaroids li:nth-child(6n) { margin-right: 0px; }
-ul.polaroids li:nth-child(8n) { position: relative; right: 5px; top: 8px; }
+ul.polaroids li:nth-child(4n) { margin-right: 0px; }
+/*ul.polaroids li:nth-child(8n) { position: relative; right: 5px; top: 8px; }
 ul.polaroids li:nth-child(11n) { position: relative; left: -5px; top: 3px; }
+*/
 ul.polaroids li:hover { -webkit-transform: scale(1.25); -moz-transform: scale(1.25); -webkit-box-shadow: 0 3px 6px rgba(0,0,0,.5); -moz-box-shadow: 0 3px 6px rgba(0,0,0,.5); position: relative; z-index: 5; }
 .polaroid p {
 	margin:auto;
@@ -775,6 +769,8 @@ ul.polaroids li:hover { -webkit-transform: scale(1.25); -moz-transform: scale(1.
 .staff-list .views-field { margin: 0px 10px; }
 .staff-list .user-picture { margin-top:10px; }
 .staff-list .user-picture img { width: 124px; height: 124px;}
+
+.yellow-highlight { color: #840;background-color: #ffffcc;border: 1px solid #c3c39e; padding:4px; margin:8px 0 8px 0;}
 
 li.node-readmore {
 /*	background: url('/sites/default/themes/lcogt/images/bullet.jpg') no-repeat;*/
@@ -896,7 +892,7 @@ ul.bios li .views-label-field-fullname {
 body.banner #main { border-bottom: 4px solid #999999; }
 
 .home_banner_region{
-	background-image: url('images/home_bg_M42.jpg');
+	background-image: url('home_bg_M42.jpg');
 	height:500px;
 	border-bottom: 4px solid #999999;
 	display:block;
@@ -921,6 +917,35 @@ ul.lg_grey_horiz_buttons li {
 	height: 2em;
 	display: inline;
 	margin-left: 20px;
+}
+
+.science_banner_region{
+	background-image: url('science_bg_ngc2359.jpg');
+	height:500px;
+	border-bottom: 4px solid #999999;
+	display:block;
+}
+
+ul.lg_grey_vert_buttons {
+	text-align:left;
+	list-style-type: none;
+	position: relative;
+	top:20%;
+	padding-left: 0;
+}
+
+ul.lg_grey_vert_buttons li {
+	width:47%;
+	background:#000000;
+    opacity: 0.6;
+    filter: alpha(opacity=60); 
+    font-size: 2em;
+    color:#ffffff;
+    padding:10px;
+	height: 2em;
+	display: block;
+	margin-left: 20px;
+	margin-bottom: 5px;
 }
 
 /*ul.lg_grey_horiz_buttons li a {

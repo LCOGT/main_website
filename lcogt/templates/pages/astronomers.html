@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load mezzanine_tags keyword_tags %}
 
-{% block meta_title %}For the Public{% endblock %}
+{% block meta_title %}For Astronomers{% endblock %}
 
 {% block meta_keywords %}{% metablock %}
 {% keywords_for page as keywords %}
@@ -25,7 +25,7 @@
 {% block main-wrapper %}
 
 {% editable page.richtextpage.content %}
-<div class="public_banner_region">{{ page.richtextpage.content|richtext_filters|safe }}</div>
+<div class="scientists_banner_region">{{ page.richtextpage.content|richtext_filters|safe }}</div>
 {% endeditable %}
 
 {% endblock %}
@@ -34,6 +34,7 @@
 						<div class="row rowlast gray-7-grad">
 							<div class="twocol">
 								{% richflatblock "common.block" %}
+
 							</div>
 							<div class="twocol">
 								<h2 class="pane-title"><a href="">News &amp; Press Releases</a></h2>
@@ -49,7 +50,7 @@
 								{% endif %}	
 							</div>
 							<div class="twocol lastcol">
-							{% richflatblock "public.short.block" %}
+							{% richflatblock "astronomers.short.block" %}
 							</div>
 						</div>
 {% endblock %}
