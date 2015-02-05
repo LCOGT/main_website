@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load mezzanine_tags keyword_tags %}
+{% load mezzanine_tags keyword_tags blog_tags block_tags %}
 
 {% block meta_title %}For Astronomers{% endblock %}
 
@@ -25,7 +25,7 @@
 {% block main-wrapper %}
 
 {% editable page.richtextpage.content %}
-<div class="scientists_banner_region">{{ page.richtextpage.content|richtext_filters|safe }}</div>
+<div class="science_banner_region">{{ page.richtextpage.content|richtext_filters|safe }}</div>
 {% endeditable %}
 
 {% endblock %}
