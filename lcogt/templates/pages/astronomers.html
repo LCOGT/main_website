@@ -37,10 +37,13 @@
 
 							</div>
 							<div class="twocol">
-								<h2 class="pane-title"><a href="">News &amp; Press Releases</a></h2>
+							{% richflatblock "astronomers.quicklinks" %}
+							</div>
+							<div class="twocol lastcol">
+								<h2><a href="">News &amp; Press Releases</a></h2>
 								{% blog_recent_posts 5 as recent_posts %}
 								{% if recent_posts %}
-								<ul class="popular-posts">
+								<ul class="newslist">
 								{% for recent_post in recent_posts %}
 								<li>
 									<span class="blog-date">{{ recent_post.publish_date|date:"d M" }}</span><span class="blog-title"><a href="{{ recent_post.get_absolute_url }}"> {{ recent_post.title }}</a></span>
@@ -48,9 +51,6 @@
 								{% endfor %}
 								</ul>
 								{% endif %}	
-							</div>
-							<div class="twocol lastcol">
-							{% richflatblock "astronomers.short.block" %}
 							</div>
 						</div>
 {% endblock %}

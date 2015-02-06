@@ -1,6 +1,6 @@
 {% extends "pages/page.html" %}
 
-{% load mezzanine_tags %}
+{% load mezzanine_tags block_tags %}
 {% block left_wrapper %}
 {% endblock %}
 <div class="col-md-{% block main_width %}12 {% endblock %} middle">
@@ -26,6 +26,8 @@
 	<div class="back-button">
 	<a href="/{{page.parent.slug}}">Back to {{page.parent}} &rarr;</a>
 	</div>
+
+	{% richtextblock 'observatory.side.block' %}
 {% endif%}
 {%endblock%}
 
