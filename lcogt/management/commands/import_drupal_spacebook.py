@@ -23,12 +23,15 @@ class Command(BaseCommand):
 
     option_list = BaseCommand.option_list + (
         make_option("-u", "--url", dest="url", help="URL to import file"),
+        make_option("-d", "--dbname", dest="dbname", help="Name of the Drupal DB name"),
+        make_option("-i", "--user", dest="user", help="Username for the Drupal DB"),
+        make_option("-p", "--password", dest="password", help="Password for the Drupal DB"),
+        make_option("-n", "--host", dest="host", help="Host for the Drupal DB"),
     )
 
-    help = 'Import JSON files containing Drupal Users'
+    help = 'Import JSON file containing misc content'
 
-
-    def handle(self, *args, **options):
+    def handle(self, **options):
         """
         Gets the posts from either the provided URL or the path if it
         is local.
@@ -42,10 +45,29 @@ class Command(BaseCommand):
         - Publication date
         - Published/not published
         """
+        try:
+            url = options.get("url")
+        except:
+            raise CommandError("You must provide a URL/file location for the data file.")
+        try:
+            dbname = options.get("dbname")
+        except:
+            raise CommandError("You must provide the database name")
+        try:
+            user = options.get("user")
+        except:
+            raise CommandError("You must provide the database user name")
+        try:
+            password = options.get("password")
+        except:
+            raise CommandError("You must provide the database password")
+        try:
+            host = options.get("host")
+        except:
+            raise CommandError("You must provide the database hostname")
 
-        url = options.get("url")
-        if url is None:
-            raise CommandError("Usage is import_drupal_spacebook %s" % self.args)
+        #find media files from Drupal DB
+        media = get_media(dbname,user,password,host)
 
         # Read the JSON in from file
         jd = open(url)
@@ -55,9 +77,6 @@ class Command(BaseCommand):
         # Full list of nodes in SpaceBook
         sb_nodes = {e['book']['mlid']:e for e in entries if e['book']['bid']=='4012'}
         orphans = {}
-
-        #find media files from Drupal DB
-        media = get_media('live_drupal_7_32')
 
         print "Read %s SpaceBook pages" % len(sb_nodes)
         # Create SpaceBook home first

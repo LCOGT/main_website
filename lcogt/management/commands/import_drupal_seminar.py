@@ -77,7 +77,7 @@ class Command(BaseCommand):
         print "Read %s Activities" % len(entries)
 
         science_page,created = RichTextPage.objects.get_or_create(title='Science',slug='science',content='[Temp]')
-        seminar_page,created = RichTextPage.objects.get_or_create(title='Science Seminars',slug='science/seminars',content='[Temp]')
+        seminar_page,created = RichTextPage.objects.get_or_create(title='Science Seminars',slug='science/seminars',content='[Temp]',parent=science_page)
         # Create activities
         if created:
             print "Created Science page: %s" % seminar_page
@@ -107,16 +107,16 @@ def make_seminar(entry,media,parent):
         if entry['field_place']:
             initial['speaker_institute'] = entry['field_place']['und'][0]['value']
         if entry['field_about_me']:
-            initial['speaker_biog'] = entry['field_speaker']['und'][0]['value']
+            initial['speaker_biog'] = entry['field_about_me']['und'][0]['value']
         if entry['field_link']:
-            initial['speaker_link'] = entry['field_speaker']['und'][0]['value']
+            initial['speaker_link'] = entry['field_link']['und'][0]['value']
         if entry['field_profile']:
             fid = entry['field_profile']['und'][0]['fid']
             filename = media.get(fid,None)
             initial['speaker_picture'] = filename
         seminar, created = Seminar.objects.get_or_create(**initial)
         if entry.get('field_discipline',None):
-            set_keywords(seminar, entry['field_discipline']['und'])
+            set_keywords(seminar, [{'nid':'8'}])
         if created:
             print("Imported Seminar: %s" % seminar)
         return seminar
