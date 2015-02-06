@@ -5,30 +5,30 @@
 {% endblock %}
 <div class="col-md-{% block main_width %}12 {% endblock %} middle">
 
-{% block main_span_size %}{% if page.lcopage.extra_info %}fourcol{%else%}sixcol lastcol{%endif%}{% endblock %}
+{% block main_span_size %}fourcol{% endblock %}
 
 {% block main %}{{ block.super }}
 
-{% editable page.lcopage.content %}
-{{ page.lcopage.content|richtext_filters|safe }}
+{% editable page.seminar.speaker_name %}
+<h3>{{ page.seminar.speaker_name|richtext_filters|safe }}</h3>
+{% endeditable %}
+
+{% editable page.seminar.abstract %}
+{{ page.seminar.abstract|richtext_filters|safe }}
 {% endeditable %}
 
 {% endblock %}
 
 {% block right_panel %}
-{% if page.lcopage.extra_info %}
-{{ block.super }}
 
-	{% editable page.lcopage.extra_info %}
-	{{ page.lcopage.extra_info|richtext_filters|safe }}
+	{% editable page.seminar.speaker_biog %}
+	{{ page.seminar.speaker_biog|richtext_filters|safe }}
 	{% endeditable %}
 
 	<div class="back-button">
 	<a href="/{{page.parent.slug}}">Back to {{page.parent}} &rarr;</a>
 	</div>
 
-	{% richflatblock 'observatory.side.block' %}
-{% endif%}
 {%endblock%}
 
 
