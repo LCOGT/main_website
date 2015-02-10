@@ -77,7 +77,7 @@ class Command(BaseCommand):
         print "Read %s Activities" % len(entries)
 
         science_page,created = RichTextPage.objects.get_or_create(title='Science',slug='science',content='[Temp]')
-        seminar_page,created = RichTextPage.objects.get_or_create(title='Science Seminars',slug='science/seminars',content='[Temp]',parent=science_page)
+        seminar_page,created = RichTextPage.objects.get_or_create(title='Science Seminars',slug='seminar',content='[Temp]',parent=science_page)
         # Create activities
         if created:
             print "Created Science page: %s" % seminar_page

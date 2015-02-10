@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load mezzanine_tags block_tags %}
+
+{% block meta_title %}Seminar List{% endblock %} 
+
+{% block body-class %}science {%endblock%}
+
+{% block banner-title %}
+<div class="row seminar-banner" style="background: url("http://lcogt.net/files/media/seminar_series.jpg") repeat scroll center center / 976px auto transparent; text-shadow: 0px 0px 10px black;">
+<div class="sixcol">
+<h1 class="title">Seminar series</h1>
+<div class="tabs"></div>
+</div>
+</div>
+{% endblock %}
+
+{% block main_span_size %}fourcol{% endblock %}
+
+{% block main %}
+<h3 class="field-content">{{nearest_seminar.speaker_name}}</h3>
+<h2 class="field-content"><a href="{{nearest_seminar.get_absolute_url}}">{{nearest_seminar.title}}</a></h2>
+<h3><span content="2015-02-19T15:30:00+00:00" datatype="xsd:dateTime" property="dc:date" class="date-display-single">{{nearest_seminar.seminardate|date:"d M Y"}}</span></h3>
+ 
+{% richflatblock "seminar.details.block" %}
+{% endblock %}
+
+{% block right_panel %}
+      <h2>Future seminars speaker</h2>
+      <div class="newslist">
+      	<ul>
+      		{% for seminar in seminars %}
+			<li><span class="blog-date">{{seminar.seminardate|date:"d M Y"}}</span><span class="blog-title"><a href="{{nearest_seminar.get_absolute_url}}">{{seminar.speaker_name}}</a></span></li>
+			{% empty %}
+			<li>There are no seminars planned in the future.</li>
+      		{% endfor %}
+      	</ul>
+      </div>
+      <div class="back-button">
+      <a href="{% url 'seminars' %}">Past seminars &rarr;</a>
+      </div>
+{%endblock%}

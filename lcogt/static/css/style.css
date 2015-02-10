@@ -1015,6 +1015,19 @@ ul.lg_grey_buttons li a
 	text-decoration: none;
 	margin-left:8px;
 }
+.seminar-banner h1.title{color:#fff;font-size: 1.6em;}
+.seminar-banner{
+	position:relative;
+	top:-16px;
+	background: url('http://lcogt.net/files/media/seminar_series.jpg') repeat scroll center center / 976px auto transparent; text-shadow: 0px 0px 10px black;
+    border-bottom: 4px solid #cccccc;
+    clear: both;
+    font-size: 1.6em;
+    padding: 0.5em;
+}
+
+/* responsive design parts */
+
 @media (max-width: 1024px), (max-device-width: 1024px) { 
 	#logo img { max-width:100%!important; }
 	#logo2 { margin-right: 1%; max-width: 30%; }

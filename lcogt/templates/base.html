@@ -115,9 +115,11 @@
 						{% endif %}
 						{% endnevercache %}
 
+						{% block title_banner %}
 						<div class="row">
 							<h1>{% block title %}{% endblock %}</h1>
 						</div>
+						{% endblock %}
 
 						<div class="row">
 							<div class="{% block main_span_size %}fourcol{% endblock %}">

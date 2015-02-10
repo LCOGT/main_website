@@ -52,6 +52,8 @@ urlpatterns += patterns('',
     url("^people/$", "lcogt.views.people", {'active':True}, name="people"),
     url("^people/alumni/$", "lcogt.views.people", {'active':False}, name="people"),
     url(r'^user/(?P<username>\w+)/$',"lcogt.views.user_profile", name="userprofile"),
+    url(r'^seminars/$','lcogt.views.seminar_home',name='seminar_home'),
+    url(r'^seminars/archive/$','lcogt.views.seminar_list',name='seminars'),
 
     # HOMEPAGE FOR A BLOG-ONLY SITE
     # -----------------------------

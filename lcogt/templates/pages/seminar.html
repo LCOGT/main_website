@@ -3,30 +3,44 @@
 {% load mezzanine_tags block_tags %}
 {% block left_wrapper %}
 {% endblock %}
-<div class="col-md-{% block main_width %}12 {% endblock %} middle">
+
+{% block body-class %}science {%endblock%}
 
 {% block main_span_size %}fourcol{% endblock %}
 
+{% block title_banner %}
+<div class="row seminar-banner" style="background: url("http://lcogt.net/files/media/seminar_series.jpg") repeat scroll center center / 976px auto transparent; text-shadow: 0px 0px 10px black;">
+<div class="sixcol">
+<h1 class="title">Seminar by {{page.seminar.speaker_name}}</h1>
+<div class="tabs"></div>
+</div>
+</div>
+{% endblock %}
+
 {% block main %}{{ block.super }}
 
-{% editable page.seminar.speaker_name %}
-<h3>{{ page.seminar.speaker_name|richtext_filters|safe }}</h3>
-{% endeditable %}
+<h3><a href="{{page.seminar.speaker_link}}">{{ page.seminar.speaker_name|safe }}, {{page.seminar.speaker_institute}}</a></h3>
+
+<h3>{{ page.seminar.seminardate|date:"d M Y - H:i" }}</h3>
 
 {% editable page.seminar.abstract %}
-{{ page.seminar.abstract|richtext_filters|safe }}
+<p>{{ page.seminar.abstract|richtext_filters|safe }}</p>
 {% endeditable %}
 
 {% endblock %}
 
 {% block right_panel %}
+	<h3>Biography</h3>
+	{% if page.seminar.mugshot%}
+	<img src="{% thumbnail page.seminar.mugshot 120 0 %}" />
+	{% endif %}
 
 	{% editable page.seminar.speaker_biog %}
 	{{ page.seminar.speaker_biog|richtext_filters|safe }}
 	{% endeditable %}
 
 	<div class="back-button">
-	<a href="/{{page.parent.slug}}">Back to {{page.parent}} &rarr;</a>
+	<a href="{{page.parent.get_absolute_url}}">Back to {{page.parent}} &rarr;</a>
 	</div>
 
 {%endblock%}
