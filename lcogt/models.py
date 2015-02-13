@@ -75,7 +75,7 @@ class Profile(models.Model, AdminThumbMixin):
     research_interests = models.CharField(_("research interests"), max_length=255, blank=True, help_text=_("Comma separated list"))
     active = models.BooleanField(_("current staff"),default=True)
     admin_thumb_field = "mugshot"
-    search_fields = {"first_name", "last_name", "bio", "job_title",}
+    search_fields = ("first_name", "last_name", "bio", "job_title",)
 
     class Meta:
         verbose_name = _("LCOGT Person")

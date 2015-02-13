@@ -44,7 +44,7 @@ class Command(BaseImporterCommand):
         # Read the JSON in from file
         userdata = open(url)
         entries = loads(userdata.read(), object_hook=phpobject)
-        staff = {v.name : v for k,v in entries['users'].items() if len(v.roles)>1}
+        staff = dict((v.name, v) for k,v in entries['users'].items() if len(v.roles)>1)
 
         for username, entry in staff.items():
             if username not in ['admin','atripp','proche','sroberts','hgomez','edward','rpiller','cwarren','ogomez','jhughes']:

@@ -9,6 +9,7 @@ from time import mktime, timezone
 from django.contrib.auth.models import User
 import json
 import re
+from dateutil import parser
 
 from django.core.management.base import CommandError, BaseCommand
 from django.utils.html import linebreaks
@@ -101,7 +102,7 @@ def make_seminar(entry,media,parent):
         if entry['path']:
             initial['slug'] = entry['path']['alias']
         if entry['field_seminardate']:
-            initial['seminardate'] = datetime.strptime(entry['field_seminardate']['und'][0]['value'], "%Y-%m-%dT%H:%M:%S")
+            initial['seminardate'] = parser.parse(entry['field_seminardate']['und'][0]['value']+" UTC")
         if entry['field_speaker']:
             initial['speaker_name'] = entry['field_speaker']['und'][0]['value']
         if entry['field_place']:
@@ -109,7 +110,7 @@ def make_seminar(entry,media,parent):
         if entry['field_about_me']:
             initial['speaker_biog'] = entry['field_about_me']['und'][0]['value']
         if entry['field_link']:
-            initial['speaker_link'] = entry['field_link']['und'][0]['value']
+            initial['speaker_link'] = entry['field_link']['und'][0]['url']
         if entry['field_profile']:
             fid = entry['field_profile']['und'][0]['fid']
             filename = media.get(fid,None)

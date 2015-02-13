@@ -8,7 +8,7 @@ from optparse import make_option
 from time import mktime, timezone
 from django.contrib.auth.models import User
 import json
-import re
+import re, pytz
 
 from django.core.management.base import CommandError, BaseCommand
 from django.utils.html import linebreaks
@@ -79,9 +79,9 @@ class Command(BaseCommand):
         observatory,created = RichTextPage.objects.get_or_create(title='Observatory',slug='observatory',content='[Temp]')
         sites,created = RichTextPage.objects.get_or_create(title='Observatory Sites',slug='observatory/site',content='[Temp]', parent=observatory)
         telescopes,created = RichTextPage.objects.get_or_create(title='Telescopes',slug='observatory/telescope',content='[Temp]', parent=observatory)
-        instruments,created = RichTextPage.objects.get_or_create(title='Observatory Sites',slug='observatory/instruments',content='[Temp]', parent=observatory)
+        instruments,created = RichTextPage.objects.get_or_create(title='Instrumentation',slug='observatory/instruments',content='[Temp]', parent=observatory)
 
-        parents = {'instrument_inst':instruments,'spectrograph':instruments,'class':telescopes,'telescope_inst':telescopes, 'site': sites, 'page':None, 'article': None}
+        parents = {'instrument':instruments,'instrument_inst':instruments,'spectrograph':instruments,'class':telescopes,'telescope_inst':telescopes, 'site': sites, 'page':None, 'article': None}
         # Create activities
         if created:
             print "Created Observatory page: %s" % observatory
@@ -110,7 +110,7 @@ def make_page(entry,media,parent=None):
                 'parent'  : parent,
                 'status'  : status[entry['status']]
                  }
-        pub_date = datetime.fromtimestamp(int(entry['created']))
+        pub_date = datetime.fromtimestamp(int(entry['created']), tz=pytz.UTC)
         if entry['path']:
             initial['slug'] = entry['path']['alias']
         initial['publish_date'] = pub_date

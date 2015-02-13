@@ -6,7 +6,7 @@ from datetime import datetime, timedelta
 from optparse import make_option
 import re
 from time import mktime, timezone
-import json
+import json, pytz
 
 from django.utils.html import linebreaks
 from django.contrib.auth.models import User
@@ -95,7 +95,7 @@ class Command(BaseImporterCommand):
         for (i, entry) in enumerate(entries):
             # Get the time struct of the published date if possible and
             # the updated date if we can't.
-            pub_date = datetime.fromtimestamp(int(entry['created']))
+            pub_date = datetime.fromtimestamp(int(entry['created']), tz=pytz.UTC)
 
             # Tags and categories are all under "tags" marked with a scheme.
             terms = defaultdict(set)

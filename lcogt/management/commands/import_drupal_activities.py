@@ -9,6 +9,7 @@ from time import mktime, timezone
 from django.contrib.auth.models import User
 import json
 import re
+import pytz
 
 from django.core.management.base import CommandError, BaseCommand
 from django.utils.html import linebreaks
@@ -73,7 +74,7 @@ class Command(BaseCommand):
         jd = open(url)
         # Full list of Activity nodes 
         entries = json.load(jd)
-        activities = {e['nid']:e for e in entries}
+        activities = dict((e['nid'], e) for e in entries)
 
         print "Read %s Activities" % len(entries)
 
@@ -104,7 +105,7 @@ def make_activity(entry,media,parent):
         initial = {
                 'title' :entry['title'],
                 'parent':parent}
-        pub_date = datetime.fromtimestamp(int(entry['created']))
+        pub_date = datetime.fromtimestamp(int(entry['created']), tz=pytz.UTC)
         content = replace_media_tag(entry['body']['und'][0]['value'],media)
         initial['full_text'] = content
         initial['status'] = status[entry['status']]

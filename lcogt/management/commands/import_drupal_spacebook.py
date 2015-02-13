@@ -7,7 +7,7 @@ from mezzanine.generic.models import Keyword, AssignedKeyword
 from optparse import make_option
 from time import mktime, timezone
 import json
-import re
+import re, pytz
 
 from django.core.management.base import CommandError, BaseCommand
 from django.utils.html import linebreaks
@@ -75,7 +75,7 @@ class Command(BaseCommand):
         # Make a flat list of all the nodes which are parents to other nodes in Spacebook
         parents = set([e['book']['plid'] for e in entries if e['book']['bid']=='4012'])
         # Full list of nodes in SpaceBook
-        sb_nodes = {e['book']['mlid']:e for e in entries if e['book']['bid']=='4012'}
+        sb_nodes = dict((e['book']['mlid'], e) for e in entries if e['book']['bid']=='4012')
         orphans = {}
 
         print "Read %s SpaceBook pages" % len(sb_nodes)
@@ -127,7 +127,7 @@ def make_page(entry,media,parent=None):
         rt = RichTextPage.objects.create(title=entry['title'])
         content = replace_media_tag(entry['body']['und'][0]['value'],media)
         rt.content = content
-        pub_date = datetime.fromtimestamp(int(entry['created']))
+        pub_date = datetime.fromtimestamp(int(entry['created']), tz=pytz.UTC)
         rt.status = status[entry['status']]
         if entry['path']:
             rt.slug = entry['path']['alias']

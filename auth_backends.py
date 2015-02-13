@@ -11,7 +11,11 @@ from django.contrib.auth.models import Group
         
 def matchRBauthPass(email,password):
     # Retreive the database user information from the settings
-    db = MySQLdb.connect(user=dbc['rbauth']['USER'], passwd=dbc['rbauth']['PASSWORD'], db=dbc['rbauth']['NAME'], host=dbc['rbauth']['HOST'])
+    try:
+        db = MySQLdb.connect(user=dbc['rbauth']['USER'], passwd=dbc['rbauth']['PASSWORD'], db=dbc['rbauth']['NAME'], host=dbc['rbauth']['HOST'])
+    except:
+        print("DB01SBA not available")
+        return False
 
     # Match supplied user name to one in Drupal database
     sql_users = "SELECT username, password, first_name, last_name FROM auth_user WHERE email = '%s'" % email

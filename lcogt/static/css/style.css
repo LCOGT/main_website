@@ -1026,6 +1026,10 @@ ul.lg_grey_buttons li a
     padding: 0.5em;
 }
 
+.pagination {
+	border-top:1px dashed #555;
+}
+
 /* responsive design parts */
 
 @media (max-width: 1024px), (max-device-width: 1024px) { 
