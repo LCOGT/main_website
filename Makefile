@@ -23,7 +23,7 @@ BRANCH := $(shell git rev-parse --abbrev-ref HEAD)
 BUILDDATE := $(shell date +%Y%m%d%H%M)
 TAG0 := webbase
 TAG1 := lcogt_mezzanine_${BRANCH}
-PREFIX := '/lcogt_mezzanine'
+PREFIX := '/'
 
 .PHONY: all lcogt_mezzanine test login install
 

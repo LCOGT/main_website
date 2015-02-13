@@ -8,3 +8,6 @@ local_settings.py
 /data
 /files
 Dockerfile
+/src
+/src/*
+
