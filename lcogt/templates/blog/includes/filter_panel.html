@@ -47,34 +47,9 @@
 {% endblock %}
 <div class="spacing"></div>
 {% block blog_categories %}
-{% blog_categories as categories %}
-{% if categories %}
-<h4>{% trans "Categories" %}</h4>
-<div class="hline"></div>
-
-{% for category in categories %}
-<p><a href="{% url "blog_post_list_category" category.slug %}"><i class="fa fa-angle-right"></i> {{ category }}</a> <span class="badge badge-theme pull-right">{{ category.post_count }}</span></p>
-{% endfor %}
-
-
-{% endif %}
 {% endblock %}
 
 {% block blog_keywords %}
-{% keywords_for blog.blogpost as tags %}
-{% if tags %}
-<div class="spacing"></div>
-<h4>{% trans "Tags" %}</h4>
-<div class="hline"></div>
-
-<p>
-{% for tag in tags %}
-    
-    <a role="button" href="{% url "blog_post_list_tag" tag.slug %}" class="btn btn-theme">{{ tag }}({{ tag.item_count }})</a>
-
-{% endfor %}
-</p>
-{% endif %}
 {% endblock %}
 
 {% block blog_authors %}

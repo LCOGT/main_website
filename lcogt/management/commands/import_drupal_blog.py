@@ -95,7 +95,7 @@ class Command(BaseImporterCommand):
         for (i, entry) in enumerate(entries):
             # Get the time struct of the published date if possible and
             # the updated date if we can't.
-            pub_date = datetime.fromtimestamp(int(entry['created']), tz=pytz.UTC)
+            pub_date = datetime.fromtimestamp(int(entry['created']))
 
             # Tags and categories are all under "tags" marked with a scheme.
             terms = defaultdict(set)

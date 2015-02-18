@@ -116,10 +116,10 @@ ALLOWED_HOSTS = ['localhost', '127.0.0.1','lcogt.net','vip.website.lco.gtn']
 # timezone as the operating system.
 # If running in a Windows environment this must be set to the same as your
 # system time zone.
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Etc/Universal'
 
 # If you set this to True, Django will use timezone-aware datetimes.
-USE_TZ = True
+USE_TZ = False
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
@@ -222,7 +222,7 @@ STATIC_URL = "/static/"
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/home/media/media.lawrence.com/static/"
 #os.path.join(PROJECT_ROOT, STATIC_URL.strip("/"))
-STATIC_ROOT = '/var/www/html/static/' 
+STATIC_ROOT = '/var/www/html/static/'
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
@@ -257,6 +257,7 @@ INSTALLED_APPS = (
     "django.contrib.sites",
     "django.contrib.sitemaps",
     "django.contrib.staticfiles",
+    'mezzanine_wymeditor',
     "mezzanine.boot",
     "mezzanine.conf",
     "mezzanine.core",

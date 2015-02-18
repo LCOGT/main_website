@@ -1,5 +1,5 @@
 #!/bin/bash
-cd /var/www/apps/lcogt_mezzanine
+#cd /var/www/apps/lcogt_mezzanine
 python manage.py createdb --noinput --nodata
 python manage.py createinitialrevisions
 python manage.py import_drupal_users --url=fixtures/users.dataset --mezzanine-user='admin'

@@ -102,7 +102,7 @@ def make_seminar(entry,media,parent):
         if entry['path']:
             initial['slug'] = entry['path']['alias']
         if entry['field_seminardate']:
-            initial['seminardate'] = parser.parse(entry['field_seminardate']['und'][0]['value']+" UTC")
+            initial['seminardate'] = parser.parse(entry['field_seminardate']['und'][0]['value'])
         if entry['field_speaker']:
             initial['speaker_name'] = entry['field_speaker']['und'][0]['value']
         if entry['field_place']:

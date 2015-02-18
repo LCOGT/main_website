@@ -105,7 +105,7 @@ def make_activity(entry,media,parent):
         initial = {
                 'title' :entry['title'],
                 'parent':parent}
-        pub_date = datetime.fromtimestamp(int(entry['created']), tz=pytz.UTC)
+        pub_date = datetime.fromtimestamp(int(entry['created']))
         content = replace_media_tag(entry['body']['und'][0]['value'],media)
         initial['full_text'] = content
         initial['status'] = status[entry['status']]

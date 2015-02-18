@@ -9,8 +9,8 @@
 # Once built, this image can be pushed up the docker hub repository via 'make install',
 # and can then be run via something like:
 #
-# docker run -d --name=lcogt_mezzanine_wsgi -e PREFIX=/lcogt_mezzanine2 lcogtwebmaster/lcogt:lcogt_mezzanine_$BRANCH /var/www/apps/lcogt_mezzanine/docker/bin/uwsgi.sh
-# docker run -d --name=lcogt_mezzanine_nginx -p 8000:8000 -e PREFIX=/lcogt_mezzanine2 --link lcogt_mezzanine_wsgi:lcogt_mezzanine_wsgi lcogtwebmaster/lcogt:lcogt_mezzanine_$BRANCH /var/www/apps/lcogt_mezzanine/docker/bin/nginx.sh
+# docker run -d --name=lcogt_mezzanine_wsgi -e PREFIX='' lcogtwebmaster/lcogt:lcogt_mezzanine_$BRANCH /var/www/apps/lcogt_mezzanine/docker/bin/uwsgi.sh
+# docker run -d --name=lcogt_mezzanine_nginx -p 8000:8000 -e PREFIX='' --link lcogt_mezzanine_wsgi:lcogt_mezzanine_wsgi lcogtwebmaster/lcogt:lcogt_mezzanine_$BRANCH /var/www/apps/lcogt_mezzanine/docker/bin/nginx.sh
 #
 # at which point the app will be exposed on the target host at port 8000
 #
@@ -23,7 +23,7 @@ BRANCH := $(shell git rev-parse --abbrev-ref HEAD)
 BUILDDATE := $(shell date +%Y%m%d%H%M)
 TAG0 := webbase
 TAG1 := lcogt_mezzanine_${BRANCH}
-PREFIX := '/'
+PREFIX := ''
 
 .PHONY: all lcogt_mezzanine test login install
 

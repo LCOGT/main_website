@@ -110,7 +110,7 @@ def make_page(entry,media,parent=None):
                 'parent'  : parent,
                 'status'  : status[entry['status']]
                  }
-        pub_date = datetime.fromtimestamp(int(entry['created']), tz=pytz.UTC)
+        pub_date = datetime.fromtimestamp(int(entry['created']))
         if entry['path']:
             initial['slug'] = entry['path']['alias']
         initial['publish_date'] = pub_date

@@ -127,7 +127,7 @@ def make_page(entry,media,parent=None):
         rt = RichTextPage.objects.create(title=entry['title'])
         content = replace_media_tag(entry['body']['und'][0]['value'],media)
         rt.content = content
-        pub_date = datetime.fromtimestamp(int(entry['created']), tz=pytz.UTC)
+        pub_date = datetime.fromtimestamp(int(entry['created']))
         rt.status = status[entry['status']]
         if entry['path']:
             rt.slug = entry['path']['alias']
