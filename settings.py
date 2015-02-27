@@ -269,6 +269,7 @@ INSTALLED_APPS = (
     "mezzanine.twitter",
     "mezzanine_blocks",
     'reversion',
+    'biblio',
     #"mezzanine.accounts",
     #"mezzanine.mobile",
 )

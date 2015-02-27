@@ -1,0 +1,12 @@
+{% extends "pages/lcopage.html" %}
+{% load mezzanine_tags keyword_tags blog_tags block_tags biblio_tags %}
+
+{% block main %}
+
+{% editable page.richtextpage.content %}
+{{ page.richtextpage.content|richtext_filters|safe }}
+{% endeditable %}
+
+{% papers_list 5 %}
+
+{% endblock %}

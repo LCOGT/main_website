@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load mezzanine_tags block_tags %}
+
+{% block meta_title %}Activity List{% endblock %} 
+
+{% block body-class %}education {%endblock%}
+
+{% block title %}
+Education Activities
+{% endblock %}
+
+{% block main_span_size %}fourcol{% endblock %}
+
+{% block main %}
+
+<ul class="newslist">
+{% for activity in activities %}
+    <li>
+      <h3 class="list-item-title"><a href="{{activity.get_absolute_url}}">{{ activity.title }}</a></h3>
+      <div>{{activity.summary|safe}}</div>
+    </li>
+{% endfor %}
+</ul>
+
+<div class="pagination">
+    <span class="step-links">
+        {% if activities.has_previous %}
+            <a href="?page={{ activities.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ activities.number }} of {{ activities.paginator.num_pages }}.
+        </span>
+
+        {% if activities.has_next %}
+            <a href="?page={{ activities.next_page_number }}">next</a>
+        {% endif %}
+    </span>
+</div>
+{% endblock %}
+
+{% block right_panel %}
+{% richflatblock "education.side.block" %}
+{%endblock%}

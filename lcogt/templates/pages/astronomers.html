@@ -40,7 +40,7 @@
 							{% richflatblock "astronomers.quicklinks" %}
 							</div>
 							<div class="twocol lastcol">
-								<h2><a href="">News &amp; Press Releases</a></h2>
+								<h2><a href="{% url 'mezzanine.blog.views.blog_post_list' %}">News &amp; Press Releases</a></h2>
 								{% blog_recent_posts 5 as recent_posts %}
 								{% if recent_posts %}
 								<ul class="newslist">

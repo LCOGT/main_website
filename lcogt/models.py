@@ -36,7 +36,7 @@ class Activity(Page, Ownable):
     next_steps = RichTextField(_("next steps"), 
         help_text=_("What can the audience do after this activity?"),
         default="", blank=True)
-    featured_image = FileBrowseField("Image", max_length=200, directory="images/", extensions=[".jpg",".png",".gif"], blank=True, null=True)
+    featured_image = FileBrowseField("Image", max_length=200, directory="files/", extensions=[".jpg",".png",".gif"], blank=True, null=True)
     related_posts = models.ManyToManyField("self",
                                  verbose_name=_("Related activities"), blank=True)
 

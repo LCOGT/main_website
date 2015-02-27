@@ -49,11 +49,16 @@ urlpatterns += patterns('',
     url("^$", "mezzanine.pages.views.page", {"slug": "/"}, name="home"),
     url("^public$", "mezzanine.pages.views.page", {"slug": "/public/"}, name="public"),
     url("^astronomers$", "mezzanine.pages.views.page", {"slug": "/astronomers/"}, name="astronomers"),
+    url("^science$", "mezzanine.pages.views.page", {"slug": "/science/"}, name="science"),
     url("^people/$", "lcogt.views.people", {'active':True}, name="people"),
     url("^people/alumni/$", "lcogt.views.people", {'active':False}, name="people"),
     url(r'^user/(?P<username>\w+)/$',"lcogt.views.user_profile", name="userprofile"),
     url(r'^seminar/$','lcogt.views.seminar_home',name='seminar_home'),
     url(r'^seminar/archive/$','lcogt.views.seminar_list',name='seminars'),
+    url(r'^education/activity/$','lcogt.views.activity_list',name='activities'),
+    url(r'^publications/$', 'biblio.views.home', name='bibliohome'),
+    url(r'publications/stats/(?P<year>\d{4})/$','biblio.views.summary',name='bibliostats_year'),
+    url(r'publications/stats/$','biblio.views.summary',name='bibliostats'),
 
     # HOMEPAGE FOR A BLOG-ONLY SITE
     # -----------------------------

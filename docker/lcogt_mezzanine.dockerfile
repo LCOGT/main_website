@@ -12,7 +12,7 @@ RUN cat docker/config/nginx.conf | envsubst '$PREFIX $LCOGT_MEZZANINE_UWSGI_PORT
 RUN pip install -r pip-requirements.txt
 RUN python manage.py collectstatic --noinput;
 RUN chmod 777 /var/www/apps/lcogt_mezzanine/files/.thumbnails/
-RUN mount mfs.lco.gtn:/data4/webfiles /var/www/apps/lcogt_mezzanine/files/
+# RUN mount_nfs -o resvport mfs.lco.gtn:/data4/webfiles /var/www/apps/lcogt_mezzanine/files
 
 ENV PYTHONPATH /var/www/apps
 ENV DJANGO_SETTINGS_MODULE lcogt_mezzanine.settings

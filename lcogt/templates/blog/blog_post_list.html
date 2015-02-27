@@ -88,7 +88,7 @@
 {% block blog_post_list_post_title %}
 {% editable blog_post.title %}
 
-    <a href="{{ blog_post.get_absolute_url }}"><h3 class="ctitle">{{ blog_post.title }}</h3></a>
+    <h3 class="ctitle"><a href="{{ blog_post.get_absolute_url }}">{{ blog_post.title }}</a></h3>
 
 {% endeditable %}
 {% endblock %}
@@ -134,26 +134,6 @@
 {% block blog_post_list_post_metainfo %}{% endblock %}
 
 {% block right_panel %}
-
-{% with blog_post.user as author %}
-<ul class="bios">
-    <li>  
-        <a href="{% url 'userprofile' author.username %}">
-        <img title="{{ author.get_full_name }}'s picture" alt="{{ author.get_full_name }}'s picture" src="{% thumbnail author.profile.mugshot 64 64 %}" typeof="foaf:Image">
-        </a>
-        <span class="views-label views-label-field-fullname">Author: </span>
-        <div class="field-content author-polaroid"><a href="{% url 'userprofile' author.username %}">{{ author.get_full_name }}</a></div>
-    <div class="views-field views-field-field-job-title">({{author.profile.job_title}})</div>
-    <a href="{% url "blog_post_list_author" author %}">News items</a>
-    {% endwith %}
-  </li> 
-  </ul>
-
-{% editable blog_post.publish_date %}
-     <csmall>
-    Published: {% blocktrans with sometime=blog_post.publish_date|timesince %}{{ sometime }} ago{% endblocktrans %}
-     </csmall>
-{% endeditable %}
 {% include "blog/includes/filter_panel.html" %}
 {% endblock %}
 </div>

@@ -19,6 +19,8 @@
 
 {% block main %}{{ block.super }}
 
+<h2>{{page.seminar.title}}</h2>
+
 <h3><a href="{{page.seminar.speaker_link}}">{{ page.seminar.speaker_name|safe }}, {{page.seminar.speaker_institute}}</a></h3>
 
 <h3>{{ page.seminar.seminardate|date:"d M Y - H:i" }}</h3>

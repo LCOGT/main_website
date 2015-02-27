@@ -1026,8 +1026,76 @@ ul.lg_grey_buttons li a
     padding: 0.5em;
 }
 
+#seminar-home {
+    line-height: 3em;
+    text-align: center;
+}
+
 .pagination {
-	border-top:1px dashed #555;
+	border-top:1px dashed #404040;
+	padding-top:8px;
+}
+
+ul.pagination {
+	list-style: outside none none;
+	margin: 0;
+	padding-left: 0;
+	text-align: center;
+}
+
+ul.pagination li { display: inline; }
+
+
+/* Publications */
+.largenumber {
+    color: #404040;
+    font-family: Century Gothic,sans-serif;
+    font-weight: bold;
+    margin-top: 0;
+    font-size: 2em;
+    text-align: center;
+}
+.description{
+	text-align: center;
+}
+
+ul.list-papers {
+	list-style:none;
+	padding-left: 0px;
+}
+ul.list-papers li{
+    margin-bottom: 8px !important;
+    min-height: 16px;
+}
+
+.paper-authors,
+.description{
+	color:#999;
+	font-size: 90%;
+}
+
+.paper-status{
+	padding:0px 0px 6px 0px;
+}
+
+.lcogt-author {
+	color:#555;
+}
+
+.metrics_section{
+	width:100%;
+	border-bottom: 1px #555 solid;
+}
+.navlist{
+    list-style: none outside none;
+    margin: 0;
+    padding: 0;
+}
+
+.navlist li{
+    margin: 0;
+    padding-left: 10px;
+    display: inline-block;
 }
 
 /* responsive design parts */

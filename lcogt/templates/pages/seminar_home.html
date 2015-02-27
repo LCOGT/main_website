@@ -17,9 +17,13 @@
 {% block main_span_size %}fourcol{% endblock %}
 
 {% block main %}
-<h3 class="field-content">{{nearest_seminar.speaker_name}}</h3>
-<h2 class="field-content"><a href="{{nearest_seminar.get_absolute_url}}">{{nearest_seminar.title}}</a></h2>
-<h3><span content="2015-02-19T15:30:00+00:00" datatype="xsd:dateTime" property="dc:date" class="date-display-single">{{nearest_seminar.seminardate|date:"d M Y"}}</span></h3>
+<div id="seminar-home">
+<ul class="newslist">
+      <li><h3 class="field-content">{{nearest_seminar.speaker_name}}</h3></li>
+      <li><h2 class="field-content"><a href="{{nearest_seminar.get_absolute_url}}">{{nearest_seminar.title}}</a></h2></li>
+      <li><h3><span content="2015-02-19T15:30:00+00:00" datatype="xsd:dateTime" property="dc:date" class="date-display-single">{{nearest_seminar.seminardate|date:"d M Y"}}</span></h3></li>
+</ul>
+</div>
  
 {% richflatblock "seminar.details.block" %}
 {% endblock %}
