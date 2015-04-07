@@ -1,23 +1,77 @@
+################################################################################
 #
-# lcogt_mezzanine dockerfile
+# Runs the LCOGT Python Django Mezzanine webapp using nginx + uwsgi
 #
-FROM lcogtwebmaster/lcogt:webbase
+# The decision to run both nginx and uwsgi in the same container was made because
+# it avoids duplicating all of the Python code and static files in two containers.
+# It is convenient to have the whole webapp logically grouped into the same container.
+#
+# You can choose to expose the nginx and uwsgi ports separately, or you can
+# just default to using the nginx port only (recommended). There is no
+# requirement to map all exposed container ports onto host ports.
+#
+# To run with nginx only:
+# docker run -d -p 8100:8100 --name=mezzanine lcogtwebmaster/lcogt:lcogt_mezzanine_$BRANCH
+#
+# To run with nginx + uwsgi both exposed:
+# docker run -d -p 8100:8100 -p 8101:8101 --name=mezzanine lcogtwebmaster/lcogt:lcogt_mezzanine_$BRANCH
+#
+# See the notes in the code below about NFS mounts.
+#
+################################################################################
+
+FROM centos:centos7
 MAINTAINER LCOGT <webmaster@lcogt.net>
-RUN yum -y update; yum clean all
 
-ADD . /var/www/apps/lcogt_mezzanine
-WORKDIR /var/www/apps/lcogt_mezzanine
-RUN cat docker/config/nginx.conf | envsubst '$PREFIX $LCOGT_MEZZANINE_UWSGI_PORT_8101_TCP_ADDR' > /etc/nginx/nginx.conf
+# Install package repositories
+RUN yum -y install epel-release
 
-RUN pip install -r pip-requirements.txt
-RUN python manage.py collectstatic --noinput;
-RUN chmod 777 /var/www/apps/lcogt_mezzanine/files/.thumbnails/
-# RUN mount_nfs -o resvport mfs.lco.gtn:/data4/webfiles /var/www/apps/lcogt_mezzanine/files
+# Install packages and update base system
+RUN yum -y install nginx python-pip mysql-devel python-devel supervisor
+RUN yum -y groupinstall "Development Tools"
+RUN yum -y update
 
+# Copy the LCOGT Mezzanine webapp files
+COPY lcogt_mezzanine /var/www/apps/lcogt_mezzanine
+
+# Install the LCOGT Mezzanine webapp Python required packages
+RUN pip install pip==1.3 && pip install uwsgi==2.0.8
+RUN pip install -r /var/www/apps/lcogt_mezzanine/pip-requirements.txt
+
+# Setup the Python Django environment
 ENV PYTHONPATH /var/www/apps
 ENV DJANGO_SETTINGS_MODULE lcogt_mezzanine.settings
 ENV BRANCH ${BRANCH}
-ENV BUILDDATE ${BUILDDATE}
+#ENV BUILDDATE ${BUILDDATE}
 
-EXPOSE 8100
-EXPOSE 8101
+# It is not possible to access NFS mount points during the docker build
+# process. If the chmod cannot be run externally, and must be run every
+# time this docker image is started, supervisord can handle it with some
+# additional configuration.
+#
+# Likewise, if the "python manage.py collectstatic" process needs to be
+# run every time this node is restarted, supervisord can handle it with
+# some additional configuration.
+#
+# In order to access the NFS mount while this docker image is running,
+# you must start the instance with the argument:
+#
+# -d /path/to/nfs/mount/on/docker/host:/var/www/apps/lcogt_mezzanine/files
+#
+# These commands are left here for reference:
+# RUN chmod 777 /var/www/apps/lcogt_mezzanine/files/.thumbnails/
+# RUN mount_nfs -o resvport mfs.lco.gtn:/data4/webfiles /var/www/apps/lcogt_mezzanine/files
+
+# Setup the LCOGT Mezzanine webapp
+RUN python /var/www/apps/lcogt_mezzanine/manage.py collectstatic --noinput
+
+# Copy configuration files
+COPY config/uwsgi.ini /etc/uwsgi.ini
+COPY config/nginx.conf /etc/nginx/nginx.conf
+COPY config/lcogt_mezzanine.ini /etc/supervisord.d/lcogt_mezzanine.ini
+
+# nginx runs on port 8100, uwsgi runs on port 8101
+EXPOSE 8100 8101
+
+# Entry point is the supervisord daemon
+ENTRYPOINT [ "/usr/bin/supervisord", "-n" ]

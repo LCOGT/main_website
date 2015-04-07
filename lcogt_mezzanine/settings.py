@@ -242,6 +242,8 @@ ROOT_URLCONF = "%s.urls" % PROJECT_DIRNAME
 # Don't forget to use absolute paths, not relative paths.
 TEMPLATE_DIRS = (os.path.join(PROJECT_ROOT, "templates"),)
 
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = 'db@220ty0w8dv_ymhg+@)8$=va^vqbus75$55vghwlksb%q-xj'
 
 ################
 # APPLICATIONS #
