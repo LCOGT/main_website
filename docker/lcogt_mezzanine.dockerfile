@@ -67,6 +67,7 @@ RUN python /var/www/apps/lcogt_mezzanine/manage.py collectstatic --noinput
 
 # Copy configuration files
 COPY config/uwsgi.ini /etc/uwsgi.ini
+COPY config/uwsgi_params /etc/uwsgi_params
 COPY config/nginx.conf /etc/nginx/nginx.conf
 COPY config/lcogt_mezzanine.ini /etc/supervisord.d/lcogt_mezzanine.ini
 COPY config/crontab.root /var/spool/cron/root

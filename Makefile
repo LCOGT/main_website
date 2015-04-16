@@ -35,7 +35,7 @@ login:
 lcogt_mezzanine:
 	export BUILDDATE=$(BUILDDATE) && \
 	export BRANCH=$(BRANCH) && \
-	cat docker/lcogt_mezzanine.dockerfile | /bin/envsubst '$$BRANCH $$BUILDDATE' > Dockerfile
+	cat docker/lcogt_mezzanine.dockerfile | envsubst '$$BRANCH $$BUILDDATE' > Dockerfile
 	docker build -t $(NAME):$(TAG1) --rm .
 	rm -f Dockerfile
 
