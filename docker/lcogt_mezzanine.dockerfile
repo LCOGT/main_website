@@ -66,7 +66,7 @@ ENV BRANCH ${BRANCH}
 RUN python /var/www/apps/lcogt_mezzanine/manage.py collectstatic --noinput
 
 # Upload the latest version of the data for the django_lcogtbiblio (Bibliometrics) app
-RUN python /var/www/apps/lcogt_mezzanine/manage.py loaddata /var/www/apps/lcogt_mezzanine/fixtures/biblio_snapshot.json
+# RUN python /var/www/apps/lcogt_mezzanine/manage.py loaddata /var/www/apps/lcogt_mezzanine/fixtures/biblio_snapshot.json
 
 # Copy configuration files
 COPY config/uwsgi.ini /etc/uwsgi.ini
