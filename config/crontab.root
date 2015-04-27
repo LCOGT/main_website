@@ -1,0 +1,2 @@
+# Put your cron jobs here
+10 5 * * * python /var/www/apps/lcogt_mezzanine/manage.py poll_repos >> /var/www/apps/publications.log
