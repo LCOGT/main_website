@@ -27,7 +27,7 @@ MAINTAINER LCOGT <webmaster@lcogt.net>
 RUN yum -y install epel-release
 
 # Install packages and update base system
-RUN yum -y install nginx python-pip mysql-devel python-devel supervisor
+RUN yum -y install cronie nginx python-pip mysql-devel python-devel supervisor
 RUN yum -y groupinstall "Development Tools"
 RUN yum -y update
 
@@ -70,10 +70,12 @@ RUN python /var/www/apps/lcogt_mezzanine/manage.py collectstatic --noinput
 
 # Copy configuration files
 COPY config/uwsgi.ini /etc/uwsgi.ini
-COPY config/nginx.conf /etc/nginx/nginx.conf
+COPY config/nginx/* /etc/nginx/
 COPY config/lcogt_mezzanine.ini /etc/supervisord.d/lcogt_mezzanine.ini
+COPY config/crontab.root /var/spool/cron/root
 
-# nginx runs on port 8100, uwsgi runs on port 8101
+# nginx (http protocol) runs on port 8100
+# uwsgi (uwsgi protocol) runs on port 8101
 EXPOSE 8100 8101
 
 # Entry point is the supervisord daemon
