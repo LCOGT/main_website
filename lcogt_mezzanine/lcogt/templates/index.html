@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load mezzanine_tags keyword_tags %}
+{% load mezzanine_tags keyword_tags blog_tags block_tags %}
 
 {% block meta_title %}Las Cumbres Observatory Global Telescope Network{% endblock %}
 
@@ -22,44 +22,32 @@
 {% block title %}
 {% endblock %}
 
-{% block main-wrapper%}
-<div class="home_banner_region">
-	<ul class="lg_grey_horiz_buttons">
-		<li class="lg_public"><a href="">Public</a></li>
-		<li class="lg_scientists"><a href="">Scientists</a></li>
-	</ul>
-</div>
+{% block main-wrapper %}
+
+{% editable page.richtextpage.content %}
+<div class="home_banner_region">{{ page.richtextpage.content|richtext_filters|safe }}</div>
+{% endeditable %}
+
 {% endblock %}
 
 {% block alternate %}
 						<div class="row rowlast gray-7-grad">
 							<div class="twocol">
-								<h2><a href="http://lcogt.net/science">About</h2>
-									<ul>
-										<li><a href="/observe/">Observatory Login</a></li>
-										<li><a href="/observatory/status">Observatory Status</a></li>
-										<li><a href="/observatory">Observatory Info</a>
-										<li><a href="/people">Staff listing</a></li>
-									</ul>
-								<h2><a href="/alpha/job">Vacancies</a></h2>
-								<ul>
-									<li><a href="http://lcogt.net/job/post-doc-microlensing">Post-doc in microlensing</a></li>
-								</ul>
+								{% richflatblock "common.block" %}
+
 							</div>
-							<div class="twocol">
-								<div class="twocol">
-									<h2 class="pane-title"><a href="/blog/archive">News &amp; Press Releases</a></h2>
-									<ul>	<li class="views-row views-row-1 views-row-odd views-row-first">  
-								  <span class="views-field views-field-created">        <span class="field-content">11 Dec</span>  </span>  
-								  <span class="views-field views-field-title">        <span class="field-content"><a href="/blog/egomez/santa-barbara-junior-high-meets-messier-bingo">Santa Barbara Junior High...</a></span>  </span></li><li class="views-row views-row-2 views-row-even">  
-								  <span class="views-field views-field-created">        <span class="field-content">08 Oct</span>  </span>  
-								  <span class="views-field views-field-title">        <span class="field-content"><a href="/blog/egomez/faulkes-south-celebrates-10-years-science">Faulkes South Celebrates 10...</a></span>  </span></li><li class="views-row views-row-3 views-row-odd">  
-								  <span class="views-field views-field-created">        <span class="field-content">01 Sep</span>  </span>  
-								  <span class="views-field views-field-title">        <span class="field-content"><a href="/blog/egomez/introducing-sky">Introducing On Sky</a></span>  </span></li><li class="views-row views-row-4 views-row-even views-row-last">  
-								  <span class="views-field views-field-created">        <span class="field-content">19 Aug</span>  </span>  
-								  <span class="views-field views-field-title">        <span class="field-content"><a href="/blog/admin/visibility-tool-update">Visibility Tool Update</a></span>  </span></li>  </ul>
-								</div>
-							<div class="twocol lastcol">
+							<div class="fourcol lastcol">
+								<h2><a href="{% url 'mezzanine.blog.views.blog_post_list' %}">News &amp; Press Releases</a></h2>
+								{% blog_recent_posts 5 as recent_posts %}
+								{% if recent_posts %}
+								<ul class="newslist">
+								{% for recent_post in recent_posts %}
+								<li>
+									<span class="blog-date">{{ recent_post.publish_date|date:"d M" }}</span><span class="blog-title"><a href="{{ recent_post.get_absolute_url }}"> {{ recent_post.title }}</a></span>
+								</li>
+								{% endfor %}
+								</ul>
+								{% endif %}	
 							</div>
 						</div>
 {% endblock %}

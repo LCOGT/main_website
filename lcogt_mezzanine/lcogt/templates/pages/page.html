@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load mezzanine_tags keyword_tags block_tags lcogt_extras %}
+{% load mezzanine_tags keyword_tags block_tags lcogt_extras pages_tags %}
 
 {% block meta_title %}{{ page.meta_title }}{% endblock %}
 
@@ -25,5 +25,11 @@
 {% endblock %}
 
 {% block right_panel %}
+{% keywords_for page as keywords %}
+{% if keywords|is_spacebook %}
+{% page_menu page "pages/menus/tree.html" %}
+<a href="{{page.parent.get_absolute_url}}">Back up to "{{page.parent.title}}"</a>
+{% else%}
 {% richflatblock "observatory.side.block" %}
+{% endif %}
 {% endblock %}

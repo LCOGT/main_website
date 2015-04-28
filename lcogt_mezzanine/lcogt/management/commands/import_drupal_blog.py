@@ -102,16 +102,17 @@ class Command(BaseImporterCommand):
 
             if entry['type'] == "blog":
                 if entry['path']:
-                    try:
-                        email = "%s@lcogt.net" % entry['name']
-                        mezzanine_user = User.objects.get(email=email)
-                    except User.DoesNotExist:
+                    email = "%s@lcogt.net" % entry['name']
+                    matching_user = User.objects.filter(email=email)
+                    if matching_user.count() > 0:
+                        mezzanine_user = matching_user[0]
+                    else:
                         mezzanine_user = User.objects.get(pk=1)
                     content = replace_media_tag(entry['body']['und'][0]['value'],media)
                     blog_post = {
-                        "title": force_text(entry['title']),
+                        "title": force_text(entry['title'],strings_only=True),
                         "publish_date": pub_date,
-                        "content": force_text(content),
+                        "content": force_text(content,strings_only=True),
                         "categories": [],
                         "tags": terms["tag"],
                         "comments": [],
@@ -128,16 +129,19 @@ class Command(BaseImporterCommand):
             old_url = post_data.pop("old_url")
             post_data = self.trunc(BlogPost, prompt, **post_data)
             initial = {
-                "title": post_data.pop("title"),
+                "title": "%s" % post_data.pop("title"),
                 "user": post_data.pop('user'),
             }
-            post, created = BlogPost.objects.get_or_create(**initial)
-            if entry.get('field_discipline',None):
-                set_keywords(post, entry['field_discipline']['und'])
-            for k, v in post_data.items():
-                setattr(post, k, v)
-            post.allow_comments = False
-            post.save()
-            if created and verbosity >= 1:
-                print("Imported post: %s" % post)
-            self.add_meta(post, tags, prompt, verbosity, old_url)
+            try:
+                post, created = BlogPost.objects.get_or_create(**initial)
+                if entry.get('field_discipline',None):
+                    set_keywords(post, entry['field_discipline']['und'])
+                for k, v in post_data.items():
+                    setattr(post, k, v)
+                post.allow_comments = False
+                post.save()
+                if created and verbosity >= 1:
+                    print("Imported post: %s" % post)
+                self.add_meta(post, tags, prompt, verbosity, old_url)
+            except Exception, e:
+                print initial['title'], e

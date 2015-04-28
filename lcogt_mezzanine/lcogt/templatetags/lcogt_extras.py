@@ -13,3 +13,10 @@ def body_class(keywords):
 		return 'observatory'
 	else:
 		return 'home'
+@register.filter
+def is_spacebook(keywords):
+	lower_keys = [x.title.lower() for x in keywords]
+	if 'spacebook' in lower_keys:
+		return True
+	else:
+		return False

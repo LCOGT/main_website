@@ -274,6 +274,7 @@ INSTALLED_APPS = (
     "mezzanine_blocks",
     'reversion',
     'biblio',
+    'south',
     #"mezzanine.accounts",
     #"mezzanine.mobile",
 )
