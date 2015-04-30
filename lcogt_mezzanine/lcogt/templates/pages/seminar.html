@@ -29,12 +29,14 @@
 <p>{{ page.seminar.abstract|richtext_filters|safe }}</p>
 {% endeditable %}
 
+<p>{% richflatblock 'seminar.block' %}</p>
+
 {% endblock %}
 
 {% block right_panel %}
 	<h3>Biography</h3>
-	{% if page.seminar.mugshot%}
-	<img src="{% thumbnail page.seminar.mugshot 120 0 %}" />
+	{% if page.seminar.speaker_picture%}
+	<img src="{{MEDIA_URL}}{% thumbnail page.seminar.speaker_picture 120 0 %}" alt="{{page.seminar.speaker_name}}" />
 	{% endif %}
 
 	{% editable page.seminar.speaker_biog %}
