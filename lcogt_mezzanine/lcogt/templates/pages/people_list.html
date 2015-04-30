@@ -15,7 +15,7 @@
       {% for person in people %}
 	      <li class="polaroid">  
 		        <div class="user-picture">
-					<a href="{% url 'userprofile' person.user.username %}" title="View {{person.user.first_name}}&#039;s profile."><img typeof="foaf:Image" src="{% thumbnail person.mugshot 180 180%}" alt="{{person.user.first_name}}&#039;s picture" title="{{person.user.first_name}}&#039;s picture" /></a>
+					<a href="{% url 'userprofile' person.user.username %}" title="View {{person.user.first_name}}&#039;s profile."><img typeof="foaf:Image" src="{{ MEDIA_URL }}{% thumbnail person.mugshot 180 180%}" alt="{{person.user.first_name}}&#039;s picture" title="{{person.user.first_name}}&#039;s picture" /></a>
 				</div>
 					<div class="jobtitle">{{person.job_title}}</div>  
 		      	<a href="{% url 'userprofile' person.user.username %}">{{person.user.first_name}} {{person.user.last_name}}</a>
@@ -26,5 +26,10 @@
 {% endblock %}
 
 {% block right_panel %}
+{%if not active%}
+<div><a href="{% url 'people' %}">Back to staff list &rarr;</a></div>
+{% else %}
+<div><a href="{% url 'oldpeople' %}">Alumni staff list &rarr;</a></div>
+{% endif %}
 {% richflatblock "observatory.side.block" %}
 {%endblock%}

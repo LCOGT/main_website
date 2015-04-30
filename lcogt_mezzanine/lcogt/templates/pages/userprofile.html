@@ -27,11 +27,11 @@
 {{ block.super }}
 
 	<div class="user-picture">
-	<img src="{% thumbnail profile.mugshot 304 0 %}" alt="{{profile.user.first_name}}&#039;s picture"/>
+	<img src="{{ MEDIA_URL }}{% thumbnail profile.mugshot 304 0 %}" alt="{{profile.user.first_name}}&#039;s picture"/>
 	</div>
 
 	<div class="extra-profile-info">
-	{% if not profile.active %}<div class="yellow-highlight">{{profile.user.first_name}} not longer works at LCOGT.</div>{%endif%}
+	{% if not profile.active %}<div class="yellow-highlight">{{profile.user.first_name}} no longer works at LCOGT.</div>{%endif%}
 	{% if profile.research_interests %}<div class="title">My research interests are: </div> {{profile.research_interests}}{% endif %}
 	{% if profile.active %}<div class="contact"><strong>Contact:</strong> {{profile.user.email}}</div>{%endif%}
 	</div>
