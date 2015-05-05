@@ -1,0 +1,42 @@
+{% extends "pages/page.html" %}
+
+{% load mezzanine_tags block_tags %}
+{% block left_wrapper %}
+{% endblock %}
+<div class="col-md-{% block main_width %}12 {% endblock %} middle">
+
+{% block main_span_size %}{% if page.lcopage.extra_info or not page.lcopage.no_side_block %}fourcol{%else%}sixcol lastcol{%endif%}{% endblock %}
+
+{% block main %}{{ block.super }}
+
+{% editable page.lcopage.content %}
+{{ page.lcopage.content|richtext_filters|safe }}
+{% endeditable %}
+
+{% endblock %}
+
+{% block right_panel %}
+{% if page.lcopage.extra_info %}
+{{ block.super }}
+
+	{% editable page.lcopage.extra_info %}
+	{{ page.lcopage.extra_info|richtext_filters|safe }}
+	{% endeditable %}
+
+	<div class="back-button">
+	<a href="/{{page.parent.slug}}">Back to {{page.parent}} &rarr;</a>
+	</div>
+{% endif%}
+
+{% if not page.lcopage.no_side_block %}
+	{% if 'observatory' in page.keywords_string %}
+	{% richflatblock 'observatory.side.block' %}
+	{% elif 'education' in page.keywords_string %}
+	{% richflatblock 'education.side.block' %}
+	{% elif 'science' in page.keywords_string %}
+	{% richflatblock 'science.side.block' %}
+	{% endif %}
+{% endif %}
+{%endblock%}
+
+

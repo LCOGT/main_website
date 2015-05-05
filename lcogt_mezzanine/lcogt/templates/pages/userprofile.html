@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load mezzanine_tags blog_tags %}
+
+{% block meta_title %}{{profile.user.first_name}} {{profile.user.last_name}}{% endblock %} 
+
+{% block body-class %}home {%endblock%}
+
+{% block title %}{{profile.user.first_name}} {{profile.user.last_name}}{% endblock %}
+
+{% block main_span_size %}fourcol{% endblock %}
+
+{% block main %}{{ block.super }}
+
+<h4 class="title">
+{% editable profile.job_title %}
+{{ profile.job_title|safe }}
+{% endeditable %}
+</h4>
+
+{% editable profile.bio %}
+{{ profile.bio|richtext_filters|safe }}
+{% endeditable %}
+
+{% endblock %}
+
+{% block right_panel %}
+{{ block.super }}
+
+	<div class="user-picture">
+	<img src="{{ MEDIA_URL }}{% thumbnail profile.mugshot 304 0 %}" alt="{{profile.user.first_name}}&#039;s picture"/>
+	</div>
+
+	<div class="extra-profile-info">
+	{% if not profile.active %}<div class="yellow-highlight">{{profile.user.first_name}} no longer works at LCOGT.</div>{%endif%}
+	{% if profile.research_interests %}<div class="title">My research interests are: </div> {{profile.research_interests}}{% endif %}
+	{% if profile.active %}<div class="contact"><strong>Contact:</strong> {{profile.user.email}}</div>{%endif%}
+	</div>
+	<a href="{% url 'blog_post_list_author' profile.user.username %}">Read {{ profile.user.first_name}}'s news items &rarr;</a>
+	<div class="back-button">
+	<a href="{% url 'people' %}">Back to staff list &rarr;</a>
+	</div>
+{%endblock%}
