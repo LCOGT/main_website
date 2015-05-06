@@ -3,7 +3,7 @@ from collections import defaultdict
 from datetime import datetime, timedelta
 from future.builtins import int
 from mezzanine.pages.models import Page, RichTextPage
-from lcogt.models import Seminar
+from lcogt.models import Seminar, LCOPage
 from optparse import make_option
 from time import mktime, timezone
 from django.contrib.auth.models import User
@@ -77,8 +77,8 @@ class Command(BaseCommand):
 
         print "Read %s Activities" % len(entries)
 
-        science_page,created = RichTextPage.objects.get_or_create(title='Science',slug='science',content='[Temp]')
-        seminar_page,created = RichTextPage.objects.get_or_create(title='Science Seminars',slug='seminar',content='[Temp]',parent=science_page)
+        science_page,created = RichTextPage.objects.get_or_create(title='Science',slug='science')
+        seminar_page,created = RichTextPage.objects.get_or_create(title='Science Seminars',slug='seminar',parent=science_page)
         # Create activities
         if created:
             print "Created Science page: %s" % seminar_page

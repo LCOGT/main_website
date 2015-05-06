@@ -75,6 +75,8 @@ class Profile(models.Model):
     job_title = models.CharField(_("job title"), max_length=60, blank=True, help_text=_("Example: Observatory Director"))
     research_interests = models.CharField(_("research interests"), max_length=255, blank=True, help_text=_("Comma separated list"))
     active = models.BooleanField(_("current staff"),default=True)
+    science_team = models.BooleanField(_("member of the science team"), default=False)
+
     admin_thumb_field = "mugshot"
     search_fields = ("first_name", "last_name", "bio", "job_title",)
 

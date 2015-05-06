@@ -4,6 +4,10 @@ from django.http import Http404
 from datetime import datetime
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
+def science_people(request):
+    people = Profile.objects.filter(science_team=True,active=True).order_by('user__last_name')
+    return render(request,'pages/people_list.html',{'people':people,'science':True,'active': True})
+
 def people(request,active=True):
     people = Profile.objects.filter(active=active).order_by('user__last_name')
     return render(request,'pages/people_list.html',{'people':people,'active':active})

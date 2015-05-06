@@ -1,11 +1,11 @@
 {% extends 'pages/page.html' %}
 {% load mezzanine_tags block_tags %}
 
-{% block meta_title %}{%if not active%}Past {%endif%}Staff List{% endblock %} 
+{% block meta_title %}{%if not active%}Past {%endif%}{%if science%}Science {%endif%}Staff List{% endblock %} 
 
 {% block body-class %}home {%endblock%}
 
-{% block title %}{%if not active%}Past {%endif%}Staff List{% endblock %}
+{% block title %}{%if not active%}Past {%endif%}{%if science%}Science {%endif%}Staff List{% endblock %}
 
 {% block main_span_size %}fourcol{% endblock %}
 
