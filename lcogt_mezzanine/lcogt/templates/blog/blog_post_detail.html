@@ -102,7 +102,7 @@
 <ul class="bios">
     <li>  
         <a href="{% url 'userprofile' author.username|default:'admin' %}">
-        <img title="{{ author.get_full_name }}'s picture" alt="{{ author.get_full_name }}'s picture" src="{% thumbnail author.profile.mugshot 64 64 %}" typeof="foaf:Image">
+        <img title="{{ author.get_full_name }}'s picture" alt="{{ author.get_full_name }}'s picture" src="{{MEDIA_URL}}{% thumbnail author.profile.mugshot 64 64 %}" typeof="foaf:Image">
         </a>
         <span class="views-label views-label-field-fullname">Author: </span>
         <div class="field-content author-polaroid"><a href="{% url 'userprofile' author.username|default:'admin' %}">{{ author.get_full_name }}</a></div>

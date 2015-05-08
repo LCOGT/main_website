@@ -107,7 +107,7 @@ MANAGERS = ADMINS
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = ['localhost', '127.0.0.1','lcogt.net','vip.website.lco.gtn']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1','lcogt.net','docknode06.lco.gtn','dockerhost']
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -173,28 +173,6 @@ STATICFILES_FINDERS = (
 # a mode you'd pass directly to os.chmod.
 FILE_UPLOAD_PERMISSIONS = 0o644
 
-######################
-# Filebrowser settings
-######################
-
-# Set where Filebrowser looks for these files
-FILEBROWSER_DIRECTORY = ''
-
-
-FILEBROWSER_VERSIONS = {
-  'admin_thumbnail': {'verbose_name': 'Admin Thumbnail', 'width': 60, 'height': 60, 'opts': 'crop'},
-  'thumbnail': {'verbose_name': 'Thumbnail (1 col)', 'width': 60, 'height': 60, 'opts': 'crop'},
-  'small': {'verbose_name': 'Small (2 col)', 'width': 140, 'height': '', 'opts': ''},
-  'medium': {'verbose_name': 'Medium (4col )', 'width': 300, 'height': '', 'opts': ''},
-  'big': {'verbose_name': 'Big (6 col)', 'width': 460, 'height': '', 'opts': ''},
-  'large': {'verbose_name': 'Large (8 col)', 'width': 680, 'height': '', 'opts': ''}
-}
-
-FILEBROWSER_ADMIN_VERSIONS = ['thumbnail', 'small', 'medium', 'big', 'large']
-
-FILEBROWSER_ADMIN_THUMBNAIL = 'admin_thumbnail'
-
-RICHTEXT_FILTER_LEVEL = 3
 
 #############
 # DATABASES #
@@ -222,8 +200,6 @@ DATABASES = {
 # PATHS #
 #########
 
-import os
-
 # Full filesystem path to the project.
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 
@@ -235,31 +211,39 @@ PROJECT_DIRNAME = PROJECT_ROOT.split(os.sep)[-1]
 # project specific.
 CACHE_MIDDLEWARE_KEY_PREFIX = PROJECT_DIRNAME
 
-# URL prefix for static files.
-# Example: "http://media.lawrence.com/static/"
+###################################
+# LCOGT Media and Static settings #
+###################################
+
 STATIC_URL = "/static/"
-
-# Absolute path to the directory static files should be collected to.
-# Don't put anything in this directory yourself; store your static files
-# in apps' "static/" subdirectories and in STATICFILES_DIRS.
-# Example: "/home/media/media.lawrence.com/static/"
-#os.path.join(PROJECT_ROOT, STATIC_URL.strip("/"))
-STATIC_ROOT = '/var/www/html/static/'
-
-# URL that handles the media served from MEDIA_ROOT. Make sure to use a
-# trailing slash.
-# Examples: "http://media.lawrence.com/media/", "http://example.com/media/"
-MEDIA_URL = "/files/"
-
-# Absolute filesystem path to the directory that will hold user-uploaded files.
-# Example: "/home/media/media.lawrence.com/media/"
-MEDIA_ROOT = os.path.join(PROJECT_ROOT, *MEDIA_URL.strip("/").split("/"))
-
-# Package/module name to import the root urlpatterns from for the project.
+STATIC_ROOT = '/var/www/html/static/' 
+MEDIA_URL = "/files/" 
+MEDIA_ROOT = '/var/www/apps/lcogt_mezzanine/static/media/files/'
 ROOT_URLCONF = "%s.urls" % PROJECT_DIRNAME
+
+######################
+# Filebrowser settings
+######################
 
 # Set where Filebrowser looks for these files
 FILEBROWSER_DIRECTORY = ''
+FILEBROWSER_MEDIA_URL = MEDIA_URL
+
+# FILEBROWSER_VERSIONS = {
+#   'admin_thumbnail': {'verbose_name': 'Admin Thumbnail', 'width': 60, 'height': 60, 'opts': 'crop'},
+#   'thumbnail': {'verbose_name': 'Thumbnail (1 col)', 'width': 60, 'height': 60, 'opts': 'crop'},
+#   'small': {'verbose_name': 'Small (2 col)', 'width': 140, 'height': '', 'opts': ''},
+#   'medium': {'verbose_name': 'Medium (4col )', 'width': 300, 'height': '', 'opts': ''},
+#   'big': {'verbose_name': 'Big (6 col)', 'width': 460, 'height': '', 'opts': ''},
+#   'large': {'verbose_name': 'Large (8 col)', 'width': 680, 'height': '', 'opts': ''}
+# }
+
+# FILEBROWSER_ADMIN_VERSIONS = ['thumbnail', 'small', 'medium', 'big', 'large']
+
+# FILEBROWSER_ADMIN_THUMBNAIL = 'admin_thumbnail'
+
+RICHTEXT_FILTER_LEVEL = 3
+
 
 # Put strings here, like "/home/html/django_templates"
 # or "C:/www/django/templates".
@@ -294,7 +278,7 @@ INSTALLED_APPS = (
     "mezzanine.forms",
     "mezzanine.pages",
     "mezzanine.galleries",
-    "mezzanine.twitter",
+    #"mezzanine.twitter",
     "mezzanine_blocks",
     'reversion',
     'biblio',
@@ -415,7 +399,7 @@ LOGGING = {
         'file': {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
-            'filename': 'neox.log',
+            'filename': 'website.log',
             'formatter': 'verbose',
             'filters': ['require_debug_false']
         },
@@ -478,3 +462,21 @@ except ImportError:
     pass
 else:
     set_dynamic_settings(globals())
+
+if 'test' in sys.argv:
+    # If you also want to speed up password hashing in test cases.
+    PASSWORD_HASHERS = (
+        'django.contrib.auth.hashers.MD5PasswordHasher',
+    )
+    # Use SQLite3 for the database engine during testing.
+    DATABASES = { 'default':
+        {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'test_db', # Add the name of your SQLite3 database file here.
+        },
+        'rbauth':
+                {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'test_rbauth', # Add the name of your SQLite3 database file here.
+        }
+    }

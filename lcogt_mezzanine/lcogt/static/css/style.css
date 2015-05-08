@@ -31,8 +31,9 @@ ol ol { list-style-type: lower-alpha; }
 ol ol ol { list-style-type: decimal; }
 ul.newslist {list-style: outside none none; margin: 0;padding-left: 0;}
 ul.newslist li {margin-bottom:4px;}
-li .blog-date, li .blog-title { display: table-cell;}
+li .blog-date, li .blog-title, li .seminar-date, li .seminar-title { display: table-cell;}
 li .blog-date {width:60px;}
+li .seminar-date {width:100px;}
 
 a { color: #3366DD; text-decoration: none; }
 a:visited { color: #3366DD; }
@@ -877,6 +878,18 @@ ul.bios li .views-label-field-fullname {
 	float:left;
 	margin-right:4px;
 }
+
+ul.pager {
+	list-style: none;
+}
+
+ul.pager li.previous {
+	float:left;
+}
+ul.pager li.next {
+	float:right;
+}
+
 .pager {
 	display:block;
 	height: 16px;

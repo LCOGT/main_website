@@ -27,7 +27,7 @@ MAINTAINER LCOGT <webmaster@lcogt.net>
 RUN yum -y install epel-release
 
 # Install packages and update base system
-RUN yum -y install cronie nginx python-pip mysql-devel python-devel supervisor
+RUN yum -y install cronie nginx python-pip mysql-devel python-devel supervisor 
 RUN yum -y groupinstall "Development Tools"
 RUN yum -y update
 
@@ -59,8 +59,8 @@ ENV BRANCH ${BRANCH}
 # -d /path/to/nfs/mount/on/docker/host:/var/www/apps/lcogt_mezzanine/files
 #
 # These commands are left here for reference:
-# RUN chmod 777 /var/www/apps/lcogt_mezzanine/files/.thumbnails/
-# RUN mount_nfs -o resvport mfs.lco.gtn:/data4/webfiles /var/www/apps/lcogt_mezzanine/files
+# RUN chmod 777 /var/www/apps/lcogt_mezzanine/static/media/files/
+# RUN mount_nfs -o resvport mfs.lco.gtn:/data4/webfiles /var/www/apps/lcogt_mezzanine/static/media/files
 
 # Setup the LCOGT Mezzanine webapp
 RUN python /var/www/apps/lcogt_mezzanine/manage.py collectstatic --noinput
