@@ -31,9 +31,9 @@
 	</div>
 
 	<div class="extra-profile-info">
-	{% if not profile.active %}<div class="yellow-highlight">{{profile.user.first_name}} no longer works at LCOGT.</div>{%endif%}
+	{% if not profile.current %}<div class="yellow-highlight">{{profile.user.first_name}} no longer works at LCOGT.</div>{%endif%}
 	{% if profile.research_interests %}<div class="title">My research interests are: </div> {{profile.research_interests}}{% endif %}
-	{% if profile.active %}<div class="contact"><strong>Contact:</strong> {{profile.user.email}}</div>{%endif%}
+	{% if profile.current %}<div class="contact"><strong>Contact:</strong> {{profile.user.email}}</div>{%endif%}
 	</div>
 	<a href="{% url 'blog_post_list_author' profile.user.username %}">Read {{ profile.user.first_name}}'s news items &rarr;</a>
 	<div class="back-button">

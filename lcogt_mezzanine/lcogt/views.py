@@ -5,12 +5,12 @@ from datetime import datetime
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 def science_people(request):
-    people = Profile.objects.filter(science_team=True,active=True).order_by('user__last_name')
-    return render(request,'pages/people_list.html',{'people':people,'science':True,'active': True})
+    people = Profile.objects.filter(science_team=True,current=True).order_by('user__last_name')
+    return render(request,'pages/people_list.html',{'people':people,'science':True,'current': True})
 
-def people(request,active=True):
-    people = Profile.objects.filter(active=active).order_by('user__last_name')
-    return render(request,'pages/people_list.html',{'people':people,'active':active})
+def people(request,current=True):
+    people = Profile.objects.filter(current=current).order_by('user__last_name')
+    return render(request,'pages/people_list.html',{'people':people,'current':current})
 
 def user_profile(request,username):
     try:
