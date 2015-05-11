@@ -31,6 +31,9 @@ RUN yum -y install cronie libjpeg-devel nginx python-pip mysql-devel python-deve
 RUN yum -y groupinstall "Development Tools"
 RUN yum -y update
 
+# Ensure crond will run on all host operating systems
+RUN sed -i -e 's/\(session\s*required\s*pam_loginuid.so\)/#\1/' /etc/pam.d/crond
+
 # Copy the LCOGT Mezzanine webapp files
 COPY lcogt_mezzanine /var/www/apps/lcogt_mezzanine
 
