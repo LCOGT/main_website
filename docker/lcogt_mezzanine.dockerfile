@@ -23,29 +23,40 @@
 FROM centos:centos7
 MAINTAINER LCOGT <webmaster@lcogt.net>
 
-# Install package repositories
-RUN yum -y install epel-release
-
 # Install packages and update base system
-RUN yum -y install cronie libjpeg-devel nginx python-pip mysql-devel python-devel supervisor
-RUN yum -y groupinstall "Development Tools"
-RUN yum -y update
+RUN yum -y install epel-release \
+        && yum -y install cronie libjpeg-devel nginx python-pip mysql-devel python-devel supervisor \
+        && yum -y groupinstall "Development Tools" \
+        && yum -y update
 
 # Ensure crond will run on all host operating systems
 RUN sed -i -e 's/\(session\s*required\s*pam_loginuid.so\)/#\1/' /etc/pam.d/crond
-
-# Copy the LCOGT Mezzanine webapp files
-COPY lcogt_mezzanine /var/www/apps/lcogt_mezzanine
-
-# Install the LCOGT Mezzanine webapp Python required packages
-RUN pip install pip==1.3 && pip install uwsgi==2.0.8
-RUN pip install -r /var/www/apps/lcogt_mezzanine/pip-requirements.txt
 
 # Setup the Python Django environment
 ENV PYTHONPATH /var/www/apps
 ENV DJANGO_SETTINGS_MODULE lcogt_mezzanine.settings
 ENV BRANCH ${BRANCH}
 #ENV BUILDDATE ${BUILDDATE}
+
+# Copy configuration files
+COPY config/uwsgi.ini /etc/uwsgi.ini
+COPY config/nginx/* /etc/nginx/
+COPY config/processes.ini /etc/supervisord.d/processes.ini
+COPY config/crontab.root /var/spool/cron/root
+
+# nginx (http protocol) runs on port 8100
+# uwsgi (uwsgi protocol) runs on port 8101
+EXPOSE 8100 8101
+
+# Entry point is the supervisord daemon
+ENTRYPOINT [ "/usr/bin/supervisord", "-n", "-c", "/etc/supervisord.conf" ]
+
+# Copy the LCOGT Mezzanine webapp files
+COPY lcogt_mezzanine /var/www/apps/lcogt_mezzanine
+
+# Install the LCOGT Mezzanine webapp Python required packages
+RUN pip install pip==1.3 \
+        && pip install -r /var/www/apps/lcogt_mezzanine/pip-requirements.txt
 
 # It is not possible to access NFS mount points during the docker build
 # process. If the chmod cannot be run externally, and must be run every
@@ -70,16 +81,3 @@ RUN python /var/www/apps/lcogt_mezzanine/manage.py collectstatic --noinput
 
 # Upload the latest version of the data for the django_lcogtbiblio (Bibliometrics) app
 # RUN python /var/www/apps/lcogt_mezzanine/manage.py loaddata /var/www/apps/lcogt_mezzanine/fixtures/biblio_snapshot.json
-
-# Copy configuration files
-COPY config/uwsgi.ini /etc/uwsgi.ini
-COPY config/nginx/* /etc/nginx/
-COPY config/lcogt_mezzanine.ini /etc/supervisord.d/lcogt_mezzanine.ini
-COPY config/crontab.root /var/spool/cron/root
-
-# nginx (http protocol) runs on port 8100
-# uwsgi (uwsgi protocol) runs on port 8101
-EXPOSE 8100 8101
-
-# Entry point is the supervisord daemon
-ENTRYPOINT [ "/usr/bin/supervisord", "-n" ]
