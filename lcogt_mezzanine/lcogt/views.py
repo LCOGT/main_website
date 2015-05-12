@@ -1,8 +1,12 @@
-from django.shortcuts import render
-from lcogt.models import *
-from django.http import Http404
 from datetime import datetime
+from django import forms
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.http import Http404, HttpResponseRedirect
+from django.shortcuts import render
+from django.forms import ModelForm
+from django.views.generic import UpdateView
+from django.core.urlresolvers import reverse
+from lcogt.models import *
 
 def science_people(request):
     people = Profile.objects.filter(science_team=True,current=True).order_by('user__last_name')
@@ -54,5 +58,38 @@ def activity_list(request):
         # If page is out of range (e.g. 9999), deliver last page of results.
         activitys = paginator.page(paginator.num_pages)
 
-    return render(request,'pages/activity_list.html', {"activities": activities})   
+    return render(request,'pages/activity_list.html', {"activities": activities})
+
+class ProfileForm(ModelForm):
+    class Meta:
+        model = Profile
+        fields=['mugshot','job_title','bio','science_team','research_interests']
+
+class UpdateProfile(UpdateView):
+    model = Profile
+    form_class = ProfileForm
+    template_name = 'pages/profile_update.html'
+    
+    def get(self, request, **kwargs):
+        self.object = Profile.objects.get(user=self.request.user)
+        form_class = self.get_form_class()
+        form = self.get_form(form_class)
+        context = self.get_context_data(object=self.object, form=form)
+        return self.render_to_response(context)
+
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        self.object.user = self.request.user
+        self.object.save()
+        return HttpResponseRedirect(self.get_success_url())
+
+    def get_object(self, queryset=None):
+        return self.request.user
+
+    def get_success_url(self):
+        return reverse('userprofile',kwargs={'username':self.request.user.username})
+
+
+
+
 

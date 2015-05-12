@@ -5,6 +5,7 @@ from django.conf.urls.i18n import i18n_patterns
 from django.contrib import admin
 
 from mezzanine.core.views import direct_to_template
+from lcogt.views import UpdateProfile
 
 
 admin.autodiscover()
@@ -50,6 +51,7 @@ urlpatterns += patterns('',
     url("^public$", "mezzanine.pages.views.page", {"slug": "/public/"}, name="public"),
     url("^astronomers$", "mezzanine.pages.views.page", {"slug": "/astronomers/"}, name="astronomers"),
     url("^science$", "mezzanine.pages.views.page", {"slug": "/science/"}, name="science"),
+    url("^editprofile/$",UpdateProfile.as_view(),name="profileupdate"),
     url("^people/alumni/$", "lcogt.views.people", {'current':False}, name="oldpeople"),
     url("^people/science/$", "lcogt.views.science_people", name="scientists"),
     url("^people/$", "lcogt.views.people", {'current':True}, name="people"),

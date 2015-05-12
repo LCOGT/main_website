@@ -11,6 +11,10 @@
 
 {% block main %}{{ block.super }}
 
+{% if request.user == profile.user %}
+<h3><a href="{% url 'profileupdate' %}">Edit your profile</a></h3>
+{% endif %}
+
 <h4 class="title">
 {% editable profile.job_title %}
 {{ profile.job_title|safe }}

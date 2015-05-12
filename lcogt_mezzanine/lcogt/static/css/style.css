@@ -1111,6 +1111,89 @@ ul.list-papers li{
     display: inline-block;
 }
 
+
+/* Styles for the HotWired conference */
+
+.displayed {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	width: 600px;
+	height: 176px;
+}
+
+a.disabled {
+   pointer-events: none;
+   cursor: default;
+}
+
+.ourfont {
+	font-family: Helvetica, "Bitstream Vera Sans", Arial, sans-serif;
+}
+
+.rightnav {
+	width: 100%;
+	border-style: solid solid none solid;
+	border-color: gray;
+	border-size: 1px;
+	border-width: 1px;
+}
+
+.rightnav ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+
+.rightnav ul li {
+	border-bottom: 2px solid gray;
+}
+
+.rightnav li a {
+	font-size: 14px;
+	font-weight: bold;
+	display: block;
+	background: transparent url(http://lcogt.net/files/arrowgray.gif) 100% 0;
+	color: black;
+	height: 24px; /*Set to height of bg image- padding within link (ie: 32px - 4px - 4px)*/
+	padding: 4px 0 4px 10px;
+	line-height: 24px; /*Set line-height of bg image- padding within link (ie: 32px - 4px - 4px)*/
+	text-decoration: none;
+}
+
+.rightnav li a:link, .arrowgreen li a:visited {
+}
+
+.rightnav li a:hover {
+	text-shadow: 0.1em 0.1em #fff;
+	background-position: 100% -64px;
+}
+
+.rightnav li a.selected {
+	/*color: white;*/
+	text-shadow: 0.1em 0.1em #fff;
+	background-position: 100% 0px;
+	background-image: none;
+	background-color: darkgray;
+}
+
+.smallwords {
+	font-size: 14px;
+	margin-right: 10px;
+}
+
+#conference table, #conference table th, #conference table td {
+	border: none !important;
+}
+
+#conference table td {
+	margin-bottom: 10px;
+}
+
+#conference .field-item {
+    width: 100%;
+}
+
 /* responsive design parts */
 
 @media (max-width: 1024px), (max-device-width: 1024px) { 

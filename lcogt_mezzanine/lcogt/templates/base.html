@@ -22,14 +22,15 @@
 
 {% compress css %}
 {% if settings.PRODUCTION %}
-<link rel="stylesheet" href="http://lcogt.net/sites/default/themes/lcogt/css/style.css" type="text/css">
+<link rel="stylesheet" href="http://lcogt.net/sites/default/themes/lcogt/css/style.css" type="text/css" />
 {% else %}
 <link rel="stylesheet" href="{% static "css/style.css" %}">
 {% endif %}
-<link rel="stylesheet" href="{% static "css/mezzanine.css" %}">
-<link rel="stylesheet" href="{% static "css/bootstrap-theme.css" %}">
+<link rel="stylesheet" href="{% static "mezzanine/css/magnific-popup.css" %}" type="text/css" />
+<link rel="stylesheet" href="{% static "css/mezzanine.css" %}"  type="text/css" />
+<link rel="stylesheet" href="{% static "css/bootstrap-theme.css" %}"  type="text/css" />
 {% if LANGUAGE_BIDI %}
-<link rel="stylesheet" href="{% static "css/rtl.css" %}">
+<link rel="stylesheet" href="{% static "css/rtl.css" %}"  type="text/css" />
 {% endif %}
 {% block extra_css %}{% endblock %}
 {% endcompress %}
@@ -38,7 +39,20 @@
 <script src="{% static "mezzanine/js/"|add:settings.JQUERY_FILENAME %}"></script>
 <script src="{% static "js/bootstrap.js" %}"></script>
 <script src="{% static "js/bootstrap-extras.js" %}"></script>
+<script type="text/javascript" src="{% static "mezzanine/js/magnific-popup.js" %}"></script>
+
+
 	<script type="text/javascript">
+		$(document).ready(function() {
+		    $('.gallery').magnificPopup({
+		        delegate: 'a',
+		        type: 'image',
+		        gallery: {
+		            enabled: true,
+		        }
+		    });
+		});
+
 	<!--
 		var _gaq = _gaq || [];
 		_gaq.push(['_setAccount', 'UA-2087713-1']);

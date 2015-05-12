@@ -7,7 +7,10 @@ local_settings.py
 /static
 /data
 /files
+lcogt_mezzanine/static/media/files/*
 Dockerfile
 /src
 /src/*
 
+
+*.log

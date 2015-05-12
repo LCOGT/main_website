@@ -2,10 +2,10 @@
 
 {% load mezzanine_tags staticfiles %}
 
-
-
 {% block left_wrapper%}
 {% endblock %}
+
+{% block main_span_size %}sixcol lastcol{% endblock %}
 
 {% block main %}
 {{ block.super }}
@@ -16,23 +16,19 @@
 
 <div id="portfoliowrap">
         <div class="portfolio-centered">
-            <div class="recentitems portfolio">
+            <div class="gallery row">
+            	<ul class="polaroids">
 			    {% with page.gallery.images.all as images %}
 				{% for image in images %}
-				<div class="portfolio-item graphic-design">
-					<div class="he-wrap tpl6">
-					<img src="{{ MEDIA_URL }}{% thumbnail image.file 600 450 %}" alt="">
-						<div class="he-view">
-							<div class="bg a0" data-animate="fadeIn">
-                                <h3 class="a1" data-animate="fadeInDown">{{image.description}}</h3>
-                                <a data-rel="prettyPhoto" href="{{ MEDIA_URL }}{% thumbnail image.file 600 450 %}" class="dmbutton a2" data-animate="fadeInUp"><i class="fa fa-search"></i></a>
-                                <a href="#" class="dmbutton a2" data-animate="fadeInUp"><i class="fa fa-link"></i></a>
-                        	</div><!-- he bg -->
-						</div><!-- he view -->		
-					</div><!-- he wrap -->
-				</div><!-- end col-12 -->
+				<li class="polaroid"> 
+				    <a class="thumbnail" rel="#image-1" title="{{image.description}}" href="{{ MEDIA_URL }}{% thumbnail image.file 600 450 %}">
+				        <img class="img-responsive" src="{{ MEDIA_URL }}{% thumbnail image.file 124 124 %}">
+				    <div class="image-desciption">{{image.description}}</div>
+				    </a>
+				</li>
                {% endfor %}
 			   {% endwith %}
+			   </ul>
 			</div>
 		</div>
 </div>	
@@ -40,6 +36,6 @@
 
 {% endblock %}
 
-{% block right_wrapper%}
+{% block right_panel %}
 {% endblock %}
 
