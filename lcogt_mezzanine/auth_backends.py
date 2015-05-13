@@ -4,17 +4,23 @@ from django.contrib.auth.models import User, check_password
 from django.contrib.auth.backends import ModelBackend
 import MySQLdb
 import hashlib
-from settings import DATABASES as dbc
+from django.conf import settings
 from lcogt.models import Profile
 from django.contrib.auth.models import Group
+import logging
+
+logger = logging.getLogger(__name__)
 
         
 def matchRBauthPass(email,password):
     # Retreive the database user information from the settings
     try:
-        db = MySQLdb.connect(user=dbc['rbauth']['USER'], passwd=dbc['rbauth']['PASSWORD'], db=dbc['rbauth']['NAME'], host=dbc['rbauth']['HOST'])
-    except:
-        print("DB01SBA not available")
+        logger.debug(settings.DATABASES)
+        rbauth = settings.DATABASES['rbauth']
+        logger.debug(rbauth)
+        db = MySQLdb.connect(user=rbauth['USER'], passwd=rbauth['PASSWORD'], db=rbauth['NAME'], host=rbauth['HOST'])
+    except Exception as e:
+        logger.debug("DB01SBA not available: %s" % e)
         return False
 
     # Match supplied user name to one in Drupal database
@@ -29,8 +35,10 @@ def matchRBauthPass(email,password):
             ###### If the user does not have an email address return false
             return user[0], user[1], user[2], user[3]
         else:
+            logger.debug("password failed for %s" % email)
             return False
     else:
+        logger.debug("User %s not found" % email)
         return False
         
 def checkUserObject(email,username,password,first_name,last_name):
@@ -68,6 +76,7 @@ def checkUserObject(email,username,password,first_name,last_name):
 class LCOAuthBackend(ModelBackend):         
     def authenticate(self, username=None, password=None):
         response =  matchRBauthPass(username, password)
+        logger.debug(response)
         if (response):
             return checkUserObject(username,response[0],password,response[2],response[3])
         return None

@@ -7,6 +7,9 @@ from django.forms import ModelForm
 from django.views.generic import UpdateView
 from django.core.urlresolvers import reverse
 from lcogt.models import *
+import logging
+
+logger = logging.getLogger(__name__)
 
 def science_people(request):
     people = Profile.objects.filter(science_team=True,current=True).order_by('user__last_name')

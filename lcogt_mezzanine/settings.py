@@ -15,6 +15,10 @@ import os, sys
 # Controls the ordering and grouping of the admin menu.
 #
 
+CURRENT_PATH = os.path.dirname(os.path.realpath(__file__))
+PRODUCTION = True if CURRENT_PATH.startswith('/var/www') else False
+
+
 ADMIN_MENU_ORDER = (
     ("Content", (
             "pages.Page",
@@ -180,19 +184,26 @@ FILE_UPLOAD_PERMISSIONS = 0o644
 
 DATABASES = {
     "default": {
-        # Add "postgresql_psycopg2", "mysql", "sqlite3" or "oracle".
-        "ENGINE": "django.db.backends.",
-        # DB name or path to database file if using sqlite3.
-        "NAME": "",
-        # Not used with sqlite3.
-        "USER": "",
-        # Not used with sqlite3.
-        "PASSWORD": "",
-        # Set to empty string for localhost. Not used with sqlite3.
-        "HOST": "",
-        # Set to empty string for default. Not used with sqlite3.
-        "PORT": "",
-    }
+        # Live DB
+        "ENGINE": "django.db.backends.mysql",
+        "NAME": "main_website",
+        "USER": "citsci" if PRODUCTION else "root",
+        "PASSWORD": "aster01d" if PRODUCTION else "",
+        "HOST": "db01sba.lco.gtn" if PRODUCTION else "localhost",
+        'OPTIONS'   : {'init_command': 'SET storage_engine=INNODB'}  ,
+
+    },
+
+    "rbauth" : {
+        'ENGINE'    : 'django.db.backends.mysql',
+        'NAME'      : 'rbauth',
+        'USER'      : 'rbauth_user',
+        'PASSWORD'  : '@uth3nt1c@t3M3!',
+        'HOST'      : 'db01sba.lco.gtn',
+        'OPTIONS'   : {'init_command': 'SET storage_engine=INNODB'}  ,
+        'TEST_DEPENDENCIES': [],
+    },
+
 }
 
 
@@ -388,7 +399,6 @@ LOGGING = {
             'class': 'logging.FileHandler',
             'filename': 'website.log',
             'formatter': 'verbose',
-            'filters': ['require_debug_false']
         },
         'console': {
             'level': 'DEBUG',
@@ -408,10 +418,10 @@ LOGGING = {
         },
         'lcogt' : {
             'handlers' : ['file','console'],
-            'level'    : 'INFO',
+            'level'    : 'DEBUG',
         },
-        'biblio' : {
-            'handlers' : ['console'],
+        'auth_backends' : {
+            'handlers' : ['file'],
             'level'    : 'DEBUG',
         }
     }
