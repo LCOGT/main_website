@@ -92,8 +92,8 @@ li.search .contextual-links-region input.search { width: 256px!important; margin
 li.search .contextual-links-region {   }
 /* End of Drupal style fix */
 
-#page-wrapper { background: url('http://lcogt.net/sites/default/themes/lcogt/images/new-bg.png') repeat-x transparent; }
-#page { background: url('http://lcogt.net/sites/default/themes/lcogt/images/new-header-bg.png') transparent no-repeat; background-position: center top; }
+#page-wrapper { background: url('http://lcogt.net/static/img/new-bg.png') repeat-x transparent; }
+#page { background: url('http://lcogt.net/static/img/new-header-bg.png') transparent no-repeat; background-position: center top; }
 
 p.skip-link { display: none; }
 p.last { margin-right: 0px; }
@@ -542,7 +542,7 @@ body.admin-menu #main ul.menu input.search {
 	-moz-border-radius-bottomright: 8px;
 	border-bottom-right-radius: 8px;
 	background-color: #e6e6e6;
-	background-image: url("http://lcogt.net/sites/default/themes/lcogt/images/zoom_icon&16.png");
+	background-image: url("http://lcogt.net/static/img/zoom_icon&16.png");
  	background-position:center center;
 	background-repeat: no-repeat;
 	cursor: pointer;
@@ -787,7 +787,7 @@ li.node-readmore {
 	padding-left: 1em!important;
 }
 ul.list-papers li.paper-item, .view-display-id-bk_papers .views-row, .publication-item {
-	background: url('http://lcogt.net/sites/default/themes/lcogt/images/doc_lines_icon&16.png') no-repeat;
+	background: url('http://lcogt.net/static/img/doc_lines_icon&16.png') no-repeat;
 	background-position:0px 0px;
 	padding-left: 24px!important;
 	margin-bottom: 8px!important;
