@@ -1194,6 +1194,76 @@ a.disabled {
     width: 100%;
 }
 
+ul.buttonlisthoriz {
+margin: 0;
+padding: 0;
+list-style-type: none;
+text-align: center;
+}
+ul.buttonlisthoriz li {
+display: inline;
+}
+
+.btn {
+  display: block;
+  padding: 10px 16px;
+  font-size: 18px;
+  line-height: 1.3333333;
+  border-radius: 6px;
+  display: inline-block;
+  padding: 6px 12px;
+  margin-bottom: 0;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.42857143;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  -ms-touch-action: manipulation;
+  touch-action: manipulation;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background-image: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  padding: 10px 16px;
+  font-size: 18px;
+  line-height: 1.3333333;
+  border-radius: 6px;
+  text-decoration: none;
+	color: #fff;
+}
+
+.btn-transparent,
+.btn-transparent:visited {
+  background-color: transparent;
+  border-color: #fff;
+  border-width: 2px;
+}
+
+.btn-blue,
+.btn-blue:visited {
+  background-color: #3366dd;
+  border-color: #fff;
+  border-width: 2px;
+}
+
+.btn-blue:hover {
+  background: rgba(0, 0, 0, .5);
+  text-decoration: none;
+  color:#fff;
+}
+
+.btn-jumbo {
+  padding: 13px 20px;
+  font-size: 22px;
+  line-height: 1.33;
+  border-radius: 6px;
+}
+
 /* responsive design parts */
 
 @media (max-width: 1024px), (max-device-width: 1024px) { 
@@ -1228,6 +1298,52 @@ a.disabled {
 	body.front .view-features-list { max-width: 100%; width: 98%; }
 	.lastcol { margin-right: 16px; }
 	ul.polaroids li { margin-right: 16px!important; }
+
+	/* Big, horizontal decision buttons */
+
+	ul.lg_grey_buttons li.lg_public {
+		padding-right: 0px
+	}
+
+	.home_banner_region,
+	.science_banner_region,
+	.public_banner_region{
+	height:100%;
+	text-align: center;
+	}
+
+	.home_banner_region>ul.lg_grey_buttons li a,
+	.science_banner_region>ul.lg_grey_buttons li a,
+	.public_banner_region>ul.lg_grey_buttons li a { width: auto; }
+
+
+	/* Big verticle decision buttons */
+	.home_banner_region ul.lg_grey_buttons,
+	.science_banner_region ul.lg_grey_buttons,
+	.public_banner_region ul.lg_grey_buttons {
+		display: inline-block;
+		list-style-type: none;
+		position: relative;
+		top:15%;
+		padding-left: 0;
+	}
+
+	.home_banner_region ul.lg_grey_buttons li,
+	.science_banner_region ul.lg_grey_buttons li,
+	.public_banner_region ul.lg_grey_buttons li {
+	    font-size: 2em;
+		line-height: 2.1em;
+		display: block;
+		margin-bottom: 16px;
+	    background-image: url('images/silhouette-2-meter_tny.png');
+	    background-repeat: no-repeat;
+	    background-position: 16px center;
+	    padding-left: 50px;
+	    text-align: left;
+	    margin-left:8px;
+	    width:100%;
+	    float:none;
+	}
 }
 @media (max-width: 630px), (max-device-width: 630px) {
 	#site-name { display: none; }
@@ -1266,7 +1382,48 @@ a.disabled {
 	#logo { width: 100%; text-align: center; float: none; display:block; }
 	#logo img { height: 60px; }
 	#header { height: 87px }
-}
+
+	/* Big, horizontal decision buttons */
+
+	.home_banner_region,
+	.science_banner_region,
+	.public_banner_region{
+	height:100%;
+	}
+
+	.home_banner_region>ul.lg_grey_buttons li a,
+	.science_banner_region>ul.lg_grey_buttons li a,
+	.public_banner_region>ul.lg_grey_buttons li a { width: auto; }
+
+
+	/* Big verticle decision buttons */
+	.home_banner_region ul.lg_grey_buttons,
+	.science_banner_region ul.lg_grey_buttons,
+	.public_banner_region ul.lg_grey_buttons {
+		display: inline-block;
+		list-style-type: none;
+		position: relative;
+		top:15%;
+		padding-left: 0;
+	}
+
+	.home_banner_region ul.lg_grey_buttons li,
+	.science_banner_region ul.lg_grey_buttons li,
+	.public_banner_region ul.lg_grey_buttons li {
+	    font-size: 1.4em;
+		line-height: 1.2em;
+		display: block;
+		margin-bottom: 16px;
+	    background-image: url('images/silhouette-2-meter_tny.png');
+	    background-repeat: no-repeat;
+	    background-position: 16px center;
+	    padding-left: 50px;
+	    text-align: left;
+	    margin-left:8px;
+	    width:100%;
+	    float:none;
+	}
+
 @media handheld {
 	#footer img { width: 24px; }	
 }

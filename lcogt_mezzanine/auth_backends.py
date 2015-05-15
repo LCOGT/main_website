@@ -42,8 +42,9 @@ def matchRBauthPass(email,password):
         return False
         
 def checkUserObject(email,username,password,first_name,last_name):
+    # Logging in can only be done using email address if using RBauth
     try:
-        user = User.objects.get(username=username)
+        user = User.objects.get(email=email)
         if not check_password(password,user.password):
             user.set_password(password)
         if user.first_name != first_name:
@@ -54,16 +55,19 @@ def checkUserObject(email,username,password,first_name,last_name):
             user.email == email
         user.save()
     except User.DoesNotExist:
-        name_count = User.objects.filter(username__startswith = username).count()
-        if name_count:
-            username = '%s%s' % (username, name_count + 1)
-        user = User.objects.create_user(username,email=email)
-        user.first_name = first_name
-        user.last_name = last_name
-        user.set_password(password)
-        user.save()
+        # Only create a user if their email address contains "@lcogt"
+        if email.find('@lcogt') != -1:
+            name_count = User.objects.filter(username__startswith = username).count()
+            if name_count:
+                username = '%s%s' % (username, name_count + 1)
+            user = User.objects.create_user(username,email=email)
+            user.first_name = first_name
+            user.last_name = last_name
+            user.set_password(password)
+            user.save()
+        else:
+            return None
 #### Check there is a profile for this user
-    if email.find('@lcogt') != -1:
         user.is_staff = True
         user.save()
         o,created = Profile.objects.get_or_create(user=user)
@@ -75,8 +79,9 @@ def checkUserObject(email,username,password,first_name,last_name):
          
 class LCOAuthBackend(ModelBackend):         
     def authenticate(self, username=None, password=None):
+        # This is only to authenticate with RBauth
+        # If user cannot log in this way, the normal Django Auth is used
         response =  matchRBauthPass(username, password)
-        logger.debug(response)
         if (response):
             return checkUserObject(username,response[0],password,response[2],response[3])
         return None
