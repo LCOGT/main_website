@@ -9,7 +9,7 @@
 # Once built, this image can be pushed up the docker hub repository via 'make install',
 # and can then be run via something like:
 #
-# docker run -d -p 8100:8100 -p 8101:8101 --name=lcogt_mezzanine lcogtwebmaster/lcogt:lcogt_mezzanine_$BRANCH
+# docker run -d -p 8100:8100 -p 8101:8101 -m 2048 --name=lcogt_mezzanine lcogtwebmaster/lcogt:lcogt_mezzanine_$BRANCH
 #
 # at which point nginx will be exposed on the host at port 8100
 # and uwsgi will be exposed on the host at port 8101 (optional, leave out the -p 8101:8101 argument if you don't need it)

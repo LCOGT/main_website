@@ -1,7 +1,7 @@
 /*
 	LCOGT Master CSS
 	Created 15 September 2011
-	Last updated 3 February 2012
+	Last updated 18 May 2015
  */
 .access { display: none; }
 body {
@@ -1247,7 +1247,7 @@ display: inline;
 .btn-blue,
 .btn-blue:visited {
   background-color: #3366dd;
-  border-color: #fff;
+  color: #fff;
   border-width: 2px;
 }
 
