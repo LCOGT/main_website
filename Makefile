@@ -4,12 +4,12 @@
 # 'make' will create the docker image needed to run the lcogt_mezzanine app:
 #    lcogtwebmaster/lcogt:lcogt_mezzanine_$BRANCH
 #
-# where $BRANCH is the git branch name presently in use.
+# where $BRANCH is the git branch name presently in use. this should always be 'release'
 #
 # Once built, this image can be pushed up the docker hub repository via 'make install',
 # and can then be run via something like:
 #
-# docker run -d -p 8100:8100 -p 8101:8101 -m 2048 --name=lcogt_mezzanine lcogtwebmaster/lcogt:lcogt_mezzanine_$BRANCH
+# docker run -d -p 8100:8100 -p 8101:8101 -m="2048m" --name=website lcogtwebmaster/lcogt:lcogt_mezzanine_release
 #
 # at which point nginx will be exposed on the host at port 8100
 # and uwsgi will be exposed on the host at port 8101 (optional, leave out the -p 8101:8101 argument if you don't need it)

@@ -68,7 +68,7 @@ class Profile(models.Model):
     A person.
     """
     user = models.OneToOneField(User)
-    mugshot = FileBrowseField(_("Mugshot"), max_length=200, directory="people/", extensions=[".jpg",".png",".gif"], blank=True, null=True)
+    mugshot = FileBrowseField(_("Mugshot"), max_length=200, directory="mugshots/", extensions=[".jpg",".png",".gif"], blank=True, null=True)
     bio = RichTextField(_("biography"),
                           help_text=_("This field can contain HTML and should contain a few paragraphs describing the background of the person."),
                           default="", blank=True)
