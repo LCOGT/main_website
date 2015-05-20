@@ -6,6 +6,7 @@ from django.shortcuts import render
 from django.forms import ModelForm
 from django.views.generic import UpdateView
 from django.core.urlresolvers import reverse
+from django.db.models import Q
 from lcogt.models import *
 import logging
 
@@ -16,7 +17,7 @@ def science_people(request):
     return render(request,'pages/people_list.html',{'people':people,'science':True,'current': True})
 
 def people(request,current=True):
-    people = Profile.objects.filter(current=current).order_by('user__last_name')
+    people = Profile.objects.filter(~Q(user__username='admin'),current=current).order_by('user__last_name')
     return render(request,'pages/people_list.html',{'people':people,'current':current})
 
 def user_profile(request,username):
@@ -51,8 +52,8 @@ def seminar_list(request):
     return render(request,'pages/seminar_list.html', {"seminars": seminars})
 
 def activity_list(request):
-    # Only show published i.e. status = 1 activities
-    activity_list = Activity.objects.filter(status=1).order_by('title')
+    # Only show published i.e. status = 0 activities
+    activity_list = Activity.objects.filter(status=2).order_by('title')
     paginator = Paginator(activity_list, 25) # Show 25 activities per page
 
     page = request.GET.get('page')

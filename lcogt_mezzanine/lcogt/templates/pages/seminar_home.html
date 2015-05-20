@@ -29,7 +29,7 @@
 {% endblock %}
 
 {% block right_panel %}
-      <h2>Future seminars speaker</h2>
+      <h2>Future speakers</h2>
 	<ul class="newslist">
 		{% for seminar in seminars %}
 		<li><span class="seminar-date">{{seminar.seminardate|date:"d M Y"}}</span><span class="seminar-title"><a href="{{seminar.get_absolute_url}}">{{seminar.speaker_name}}</a></span></li>

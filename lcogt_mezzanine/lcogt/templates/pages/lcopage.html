@@ -15,9 +15,8 @@
 
 {% endblock %}
 
-{% block right_panel %}
+{% block right_panel %}{{ block.super }}
 {% if page.lcopage.extra_info %}
-{{ block.super }}
 
 	{% editable page.lcopage.extra_info %}
 	{{ page.lcopage.extra_info|richtext_filters|safe }}
@@ -26,6 +25,7 @@
 	<div class="back-button">
 	<a href="/{{page.parent.slug}}">Back to {{page.parent}} &rarr;</a>
 	</div>
+	<hr />
 {% endif%}
 
 {% if not page.lcopage.no_side_block %}

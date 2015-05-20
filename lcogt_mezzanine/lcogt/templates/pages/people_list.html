@@ -1,16 +1,22 @@
 {% extends 'pages/page.html' %}
 {% load mezzanine_tags block_tags %}
 
-{% block meta_title %}{%if not current %}Past {%endif%}{%if science%}Science {%endif%}Staff List{% endblock %} 
+{% block meta_title %}{%if not current %}Past {%else%}Current {%endif%}{%if science%}Science {%endif%}Staff List{% endblock %} 
 
 {% block body-class %}home {%endblock%}
 
-{% block title %}{%if not current %}Past {%endif%}{%if science%}Science {%endif%}Staff List{% endblock %}
+{% block title %}{%if not current %}Past {%else%}Current {%endif%}{%if science%}Science {%endif%}Staff List{% endblock %}
 
 {% block main_span_size %}fourcol{% endblock %}
 
 {% block main %}
-
+<h2>
+{%if not current %}
+<a href="{% url 'people' %}" class="flatbluebtn">Back to staff list &rarr;</a>
+{% else %}
+<a href="{% url 'oldpeople' %}" class="flatbluebtn">View alumni staff list &rarr;</a>
+{% endif %}
+</h2>
       <ul class="polaroids staff-list">
       {% for person in people %}
 	      <li class="polaroid">  
@@ -26,10 +32,5 @@
 {% endblock %}
 
 {% block right_panel %}
-{%if not current %}
-<div><a href="{% url 'people' %}">Back to staff list &rarr;</a></div>
-{% else %}
-<div><a href="{% url 'oldpeople' %}">Alumni staff list &rarr;</a></div>
-{% endif %}
 {% richflatblock "observatory.side.block" %}
 {%endblock%}
