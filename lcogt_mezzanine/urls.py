@@ -25,15 +25,6 @@ urlpatterns += patterns('',
     # We don't want to presume how your homepage works, so here are a
     # few patterns you can use to set it up.
 
-    # HOMEPAGE AS STATIC TEMPLATE
-    # ---------------------------
-    # This pattern simply loads the index.html template. It isn't
-    # commented out like the others, so it's the default. You only need
-    # one homepage pattern, so if you use a different one, comment this
-    # one out.
-
-    # url("^$", direct_to_template, {"template": "index.html"}, name="home"),
-
     # HOMEPAGE AS AN EDITABLE PAGE IN THE PAGE TREE
     # ---------------------------------------------
     # This pattern gives us a normal ``Page`` object, so that your
@@ -51,6 +42,7 @@ urlpatterns += patterns('',
     url("^public$", "mezzanine.pages.views.page", {"slug": "/public/"}, name="public"),
     url("^astronomers$", "mezzanine.pages.views.page", {"slug": "/astronomers/"}, name="astronomers"),
     url("^science$", "mezzanine.pages.views.page", {"slug": "/science/"}, name="science"),
+    url("^search/$", "mezzanine.pages.views.page", {"slug": "/search/"}, name="search"),
     url("^editprofile/$",UpdateProfile.as_view(),name="profileupdate"),
     url("^people/alumni/$", "lcogt.views.people", {'current':False}, name="oldpeople"),
     url("^people/science/$", "lcogt.views.science_people", name="scientists"),
@@ -62,16 +54,6 @@ urlpatterns += patterns('',
     url(r'^publications/$', 'biblio.views.home', name='bibliohome'),
     url(r'publications/stats/(?P<year>\d{4})/$','biblio.views.summary',name='bibliostats_year'),
     url(r'publications/stats/$','biblio.views.summary',name='bibliostats'),
-
-    # HOMEPAGE FOR A BLOG-ONLY SITE
-    # -----------------------------
-    # This pattern points the homepage to the blog post listing page,
-    # and is useful for sites that are primarily blogs. If you use this
-    # pattern, you'll also need to set BLOG_SLUG = "" in your
-    # ``settings.py`` module, and delete the blog page object from the
-    # page tree in the admin if it was installed.
-
-    # url("^$", "mezzanine.blog.views.blog_post_list", name="home"),
 
     # MEZZANINE'S URLS
     # ----------------
@@ -86,21 +68,6 @@ urlpatterns += patterns('',
     # ``mezzanine.urls``.
     ("^", include("mezzanine.urls")),
 
-    # MOUNTING MEZZANINE UNDER A PREFIX
-    # ---------------------------------
-    # You can also mount all of Mezzanine's urlpatterns under a
-    # URL prefix if desired. When doing this, you need to define the
-    # ``SITE_PREFIX`` setting, which will contain the prefix. Eg:
-    # SITE_PREFIX = "my/site/prefix"
-    # For convenience, and to avoid repeating the prefix, use the
-    # commented out pattern below (commenting out the one above of course)
-    # which will make use of the ``SITE_PREFIX`` setting. Make sure to
-    # add the import ``from django.conf import settings`` to the top
-    # of this file as well.
-    # Note that for any of the various homepage patterns above, you'll
-    # need to use the ``SITE_PREFIX`` setting as well.
-
-    # ("^%s/" % settings.SITE_PREFIX, include("mezzanine.urls"))
 
 )
 

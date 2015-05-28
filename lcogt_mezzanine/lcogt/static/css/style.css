@@ -1264,6 +1264,14 @@ display: inline;
   border-radius: 6px;
 }
 
+/* Google search box styles */
+
+.gsc-control-wrapper-cse table,
+.gsc-control-wrapper-cse table th,
+.gsc-control-wrapper-cse table td {
+	border:none;
+}
+
 /* responsive design parts */
 
 @media (max-width: 1024px), (max-device-width: 1024px) { 

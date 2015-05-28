@@ -8,7 +8,6 @@ local_settings.py
 /data
 /files
 lcogt_mezzanine/static/media/files/*
-Dockerfile
 /src
 /src/*
 

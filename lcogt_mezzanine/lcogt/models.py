@@ -37,7 +37,7 @@ class Activity(Page, Ownable):
     next_steps = RichTextField(_("next steps"), 
         help_text=_("What can the audience do after this activity?"),
         default="", blank=True)
-    featured_image = FileBrowseField("Image", max_length=200, directory="files/", extensions=[".jpg",".png",".gif"], blank=True, null=True)
+    featured_image = FileBrowseField("Image", max_length=200, directory="files/", extensions=[".jpg",".png",".gif",'.jpeg'], blank=True, null=True)
     related_posts = models.ManyToManyField("self",
                                  verbose_name=_("Related activities"), blank=True)
 
@@ -50,7 +50,7 @@ class Seminar(Page):
     seminardate = models.DateTimeField(_('Seminar date/time'),default=datetime.now())
     speaker_name = models.CharField(max_length=255,blank=True,null=True)
     speaker_institute = models.CharField(max_length=255, blank=True,null=True)
-    speaker_picture = FileBrowseField(_("Speaker mugshot"), max_length=200, directory="speakers/", extensions=[".jpg",".png",".gif"], blank=True, null=True)
+    speaker_picture = FileBrowseField(_("Speaker mugshot"), max_length=200, directory="speakers/", extensions=[".jpg",".png",".gif",'.jpeg'], blank=True, null=True)
     speaker_biog =   RichTextField(_("biography"),
             help_text=_("This field can contain HTML and should contain a few paragraphs describing the background of the person."),
             default="", blank=True)
@@ -68,7 +68,7 @@ class Profile(models.Model):
     A person.
     """
     user = models.OneToOneField(User)
-    mugshot = FileBrowseField(_("Mugshot"), max_length=200, directory="mugshots/", extensions=[".jpg",".png",".gif"], blank=True, null=True)
+    mugshot = FileBrowseField(_("Mugshot"), max_length=200, directory="mugshots/", extensions=[".jpg",".png",".gif",'.jpeg'], blank=True, null=True)
     bio = RichTextField(_("biography"),
                           help_text=_("This field can contain HTML and should contain a few paragraphs describing the background of the person."),
                           default="", blank=True)

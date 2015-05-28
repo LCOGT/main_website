@@ -17,7 +17,7 @@
 # docker push registry.lcogt.net/mezzanine:release
 #
 # To run with nginx + uwsgi both exposed:
-# docker run -d -p 8100:80 -p 9090:8101 --name=website lcogtwebmaster/lcogt:lcogt_mezzanine_$BRANCH
+# docker run -d -p 8100:80 -m="2048m" -v /net/mfs/data4/webfiles:/var/www/apps/lcogt_mezzanine/static/media/files --name=website registry.lcogt.net/mezzanine:release
 #
 # See the notes in the code below about NFS mounts.
 #
@@ -48,8 +48,8 @@ COPY config/processes.ini /etc/supervisord.d/processes.ini
 COPY config/crontab.root /var/spool/cron/root
 
 # nginx (http protocol) runs on port 8100
-# uwsgi (uwsgi protocol) runs on port 8101
-EXPOSE 8100 8101
+# uwsgi (uwsgi protocol) runs on port 9090
+EXPOSE 8100 9090
 
 # Entry point is the supervisord daemon
 ENTRYPOINT [ "/usr/bin/supervisord", "-n", "-c", "/etc/supervisord.conf" ]
