@@ -1,5 +1,7 @@
 from __future__ import absolute_import, unicode_literals
 import os, sys
+from django.utils.crypto import get_random_string
+
 
 ######################
 # MEZZANINE SETTINGS #
@@ -183,27 +185,23 @@ FILE_UPLOAD_PERMISSIONS = 0o644
 #############
 
 DATABASES = {
-    "default": {
-        # Live DB
+    'default': {
+        'NAME': os.environ.get('MEZZ_DB_NAME', ''),
+        "USER": os.environ.get('MEZZ_DB_USER', ''),
+        "PASSWORD": os.environ.get('MEZZ_DB_PASSWD', ''),
+        "HOST": os.environ.get('MEZZ_DB_HOST', ''),
+        "OPTIONS": {'init_command': 'SET storage_engine=INNODB'} if PRODUCTION else {},
         "ENGINE": "django.db.backends.mysql",
-        "NAME": "main_website",
-        "USER": "citsci" if PRODUCTION else "root",
-        "PASSWORD": "aster01d" if PRODUCTION else "",
-        "HOST": "db01sba.lco.gtn" if PRODUCTION else "localhost",
-        'OPTIONS'   : {'init_command': 'SET storage_engine=INNODB'}  ,
-
     },
-
-    "rbauth" : {
-        'ENGINE'    : 'django.db.backends.mysql',
-        'NAME'      : 'rbauth',
-        'USER'      : 'rbauth_user',
-        'PASSWORD'  : '@uth3nt1c@t3M3!',
-        'HOST'      : 'db01sba.lco.gtn',
-        'OPTIONS'   : {'init_command': 'SET storage_engine=INNODB'}  ,
+    'rbauth': {
+        'NAME': os.environ.get('RBAUTH_DB_NAME', ''),
+        "USER": os.environ.get('RBAUTH_DB_USER', ''),
+        "PASSWORD": os.environ.get('RBAUTH_DB_PASSWD', ''),
+        "HOST": os.environ.get('RBAUTH_DB_HOST', ''),
+        "OPTIONS": {'init_command': 'SET storage_engine=INNODB'} if PRODUCTION else {},
+        "ENGINE": "django.db.backends.mysql",
         'TEST_DEPENDENCIES': [],
-    },
-
+    }
 }
 
 
@@ -252,13 +250,15 @@ TEMPLATE_DIRS = (os.path.join(PROJECT_ROOT, "templates"),)
 FIXTURE_DIRS = (os.path.join(PROJECT_ROOT,'lcogt_mezzanine','fixtures'),)
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'db@220ty0w8dv_ymhg+@)8$=va^vqbus75$55vghwlksb%q-xj'
+chars = 'abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)'
+SECRET_KEY = get_random_string(50, chars)
 
 ################
 # APPLICATIONS #
 ################
 
 INSTALLED_APPS = (
+    'opbeat.contrib.django',
     "lcogt",
     "django.contrib.admin",
     "django.contrib.auth",
@@ -304,6 +304,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 # these middleware classes will be applied in the order given, and in the
 # response phase the middleware will be applied in reverse order.
 MIDDLEWARE_CLASSES = (
+    'opbeat.contrib.django.middleware.OpbeatAPMMiddleware',
     "mezzanine.core.middleware.UpdateCacheMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.locale.LocaleMiddleware",
@@ -425,6 +426,13 @@ LOGGING = {
             'level'    : 'DEBUG',
         }
     }
+}
+
+OPBEAT = {
+    'ORGANIZATION_ID': os.environ.get('MEZZ_OPBEAT_ORGID',''),
+    'APP_ID': os.environ.get('MEZZ_OPBEAT_APPID',''),
+    'SECRET_TOKEN': os.environ.get('MEZZ_OPBEAT_TOKEN',''),
+    'DEBUG': DEBUG,
 }
 
 ##################
