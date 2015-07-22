@@ -144,9 +144,9 @@ jQuery(document).ready(function() {
 		// Check if the immediate parent is a link. If it isn't we will make it one.
 		linkify = false;
 		el = jQuery(this);
-		if(el.parent().attr("tagName").toLowerCase()!="a"){
+		if(el.parent().prop("tagName").toLowerCase()!="a"){
 			linkify = true;
-			if(el.parent().attr("tagName").toLowerCase()=="span" && el.parent().parent().attr("tagName").toLowerCase()=="a"){
+			if(el.parent().prop("tagName").toLowerCase()=="span" && el.parent().parent().prop("tagName").toLowerCase()=="a"){
 				linkify = false;
 				el = el.parent().parent();
 			}
@@ -199,7 +199,9 @@ jQuery(document).ready(function() {
 			i = new Image();
 			// Once the image is loaded we resize the lightbox
 			$(i).bind('load',function(e){
-				$(this).removeAttr("width")
+				//This next line doesn't do anything, but it looks like the following code depends
+                //on the width not being undefined, so I am not going to fix it now. (removeProp)
+                $(this).removeAttr("width")
 				iw = this.width;
 				ih = this.height;
 				// The box has padding of 32px
