@@ -11,13 +11,13 @@
 # requirement to map all exposed container ports onto host ports.
 #
 # Build with
-# docker build -t registry.lcogt.net/mezzanine:release .
+# docker build -t docker.lcogt.net/mezzanine:latest .
 #
 # Push to Registry with
-# docker push registry.lcogt.net/mezzanine:release
+# docker push docker.lcogt.net/mezzanine:latest
 #
 # To run with nginx + uwsgi both exposed:
-# docker run -d -p 8100:80 -p 9090:8101 --name=website lcogtwebmaster/lcogt:lcogt_mezzanine_$BRANCH
+# docker run -d -p 8100:80 -m="2048m" --restart=always -v /net/mfs/data4/webfiles:/var/www/apps/lcogt_mezzanine/static/media/files --name=website docker.lcogt.net/mezzanine:latest
 #
 # See the notes in the code below about NFS mounts.
 #
@@ -47,9 +47,9 @@ COPY config/nginx/* /etc/nginx/
 COPY config/processes.ini /etc/supervisord.d/processes.ini
 COPY config/crontab.root /var/spool/cron/root
 
-# nginx (http protocol) runs on port 8100
-# uwsgi (uwsgi protocol) runs on port 8101
-EXPOSE 8100 8101
+# nginx (http protocol) runs on port 80
+# uwsgi (uwsgi protocol) runs on port 9090
+EXPOSE 80 9090
 
 # Entry point is the supervisord daemon
 ENTRYPOINT [ "/usr/bin/supervisord", "-n", "-c", "/etc/supervisord.conf" ]
