@@ -1,6 +1,6 @@
 from __future__ import absolute_import, unicode_literals
 import os, sys
-from django.utils.crypto import get_random_string
+#from django.utils.crypto import get_random_string
 
 
 ######################
@@ -96,7 +96,7 @@ BLOG_USE_FEATURED_IMAGE = True
 
 # If True, the south application will be automatically added to the
 # INSTALLED_APPS setting.
-USE_SOUTH = True
+USE_SOUTH = False
 
 
 ########################
@@ -225,8 +225,8 @@ CACHE_MIDDLEWARE_KEY_PREFIX = PROJECT_DIRNAME
 ###################################
 
 STATIC_URL = "/static/"
-STATIC_ROOT = '/var/www/html/static/' 
-MEDIA_URL = "/files/" 
+STATIC_ROOT = '/var/www/html/static/'
+MEDIA_URL = "/files/"
 MEDIA_ROOT = '/var/www/apps/lcogt_mezzanine/static/media/files/'
 ROOT_URLCONF = "%s.urls" % PROJECT_DIRNAME
 
@@ -251,7 +251,10 @@ FIXTURE_DIRS = (os.path.join(PROJECT_ROOT,'lcogt_mezzanine','fixtures'),)
 
 # SECURITY WARNING: keep the secret key used in production secret!
 chars = 'abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)'
-SECRET_KEY = get_random_string(50, chars)
+#SECRET_KEY = get_random_string(50, chars)
+
+import random
+SECRET_KEY = ''.join(random.SystemRandom().choice(chars) for _ in range(50))
 
 ################
 # APPLICATIONS #
@@ -259,7 +262,7 @@ SECRET_KEY = get_random_string(50, chars)
 
 INSTALLED_APPS = (
     'opbeat.contrib.django',
-    "lcogt",
+    "lcogt_bootstrap",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -280,7 +283,7 @@ INSTALLED_APPS = (
     "mezzanine_blocks",
     'reversion',
     'biblio',
-    'south',
+    #'south',
     #"mezzanine.mobile",
 )
 
