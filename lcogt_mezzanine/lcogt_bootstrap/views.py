@@ -77,7 +77,7 @@ class UpdateProfile(UpdateView):
     model = Profile
     form_class = ProfileForm
     template_name = 'pages/profile_update.html'
-    
+
     def get(self, request, **kwargs):
         self.object = Profile.objects.get(user=self.request.user)
         form_class = self.get_form_class()
@@ -96,8 +96,3 @@ class UpdateProfile(UpdateView):
 
     def get_success_url(self):
         return reverse('userprofile',kwargs={'username':self.request.user.username})
-
-
-
-
-

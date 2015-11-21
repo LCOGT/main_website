@@ -2,6 +2,7 @@ from __future__ import unicode_literals
 
 from django.conf.urls import patterns, include, url
 from django.conf.urls.i18n import i18n_patterns
+from django.views.generic import TemplateView
 from django.contrib import admin
 
 from mezzanine.core.views import direct_to_template
@@ -38,7 +39,8 @@ urlpatterns += patterns('',
     # "/.html" - so for this case, the template "pages/index.html"
     # should be used if you want to customize the homepage's template.
 
-    url("^$", "mezzanine.pages.views.page", {"slug": "/"}, name="home"),
+    # url("^$", "mezzanine.pages.views.page", {"slug": "/"}, name="home"),
+    url("^$", TemplateView.as_view(template_name='index.html'), name="home"),
     url("^public$", "mezzanine.pages.views.page", {"slug": "/public/"}, name="public"),
     url("^astronomers$", "mezzanine.pages.views.page", {"slug": "/astronomers/"}, name="astronomers"),
     url("^science$", "mezzanine.pages.views.page", {"slug": "/science/"}, name="science"),
