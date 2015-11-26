@@ -6,7 +6,9 @@ from django.views.generic import TemplateView
 from django.contrib import admin
 
 from mezzanine.core.views import direct_to_template
-from lcogt.views import UpdateProfile
+from lcogt_bootstrap.views import UpdateProfile, SpecialPage, activity_list, people, \
+    science_people, user_profile, seminar_list, seminar_home, activity_list
+import biblio.views as bv
 
 
 admin.autodiscover()
@@ -22,40 +24,23 @@ urlpatterns = i18n_patterns("",
 )
 
 urlpatterns += patterns('',
-
-    # We don't want to presume how your homepage works, so here are a
-    # few patterns you can use to set it up.
-
-    # HOMEPAGE AS AN EDITABLE PAGE IN THE PAGE TREE
-    # ---------------------------------------------
-    # This pattern gives us a normal ``Page`` object, so that your
-    # homepage can be managed via the page tree in the admin. If you
-    # use this pattern, you'll need to create a page in the page tree,
-    # and specify its URL (in the Meta Data section) as "/", which
-    # is the value used below in the ``{"slug": "/"}`` part.
-    # Also note that the normal rule of adding a custom
-    # template per page with the template name using the page's slug
-    # doesn't apply here, since we can't have a template called
-    # "/.html" - so for this case, the template "pages/index.html"
-    # should be used if you want to customize the homepage's template.
-
     # url("^$", "mezzanine.pages.views.page", {"slug": "/"}, name="home"),
     url("^$", TemplateView.as_view(template_name='index.html'), name="home"),
-    url("^public$", "mezzanine.pages.views.page", {"slug": "/public/"}, name="public"),
-    url("^astronomers$", "mezzanine.pages.views.page", {"slug": "/astronomers/"}, name="astronomers"),
-    url("^science$", "mezzanine.pages.views.page", {"slug": "/science/"}, name="science"),
+    url(r'^public/$', SpecialPage.as_view(template_name='public.html'), {"slug": "/public/"}, name="public"),
+    url(r'^astronomers/$', SpecialPage.as_view(template_name='astronomers.html'), {"slug": "/astronomers/"}, name="astronomers"),
+    url("^science/$", "mezzanine.pages.views.page", {"slug": "/science/"}, name="science"),
     url("^search/$", "mezzanine.pages.views.page", {"slug": "/search/"}, name="search"),
     url("^editprofile/$",UpdateProfile.as_view(),name="profileupdate"),
-    url("^people/alumni/$", "lcogt.views.people", {'current':False}, name="oldpeople"),
-    url("^people/science/$", "lcogt.views.science_people", name="scientists"),
-    url("^people/$", "lcogt.views.people", {'current':True}, name="people"),
-    url(r'^user/(?P<username>\w+)/$',"lcogt.views.user_profile", name="userprofile"),
-    url(r'^seminar/$','lcogt.views.seminar_home',name='seminar_home'),
-    url(r'^seminar/archive/$','lcogt.views.seminar_list',name='seminars'),
-    url(r'^education/activity/$','lcogt.views.activity_list',name='activities'),
-    url(r'^publications/$', 'biblio.views.home', name='bibliohome'),
-    url(r'publications/stats/(?P<year>\d{4})/$','biblio.views.summary',name='bibliostats_year'),
-    url(r'publications/stats/$','biblio.views.summary',name='bibliostats'),
+    url("^people/alumni/$", people, {'current':False}, name="oldpeople"),
+    url("^people/science/$", science_people, name="scientists"),
+    url("^people/$", people, {'current':True}, name="people"),
+    url(r'^user/(?P<username>\w+)/$',user_profile, name="userprofile"),
+    url(r'^seminar/$',seminar_home,name='seminar_home'),
+    url(r'^seminar/archive/$',seminar_list,name='seminars'),
+    url(r'^education/activity/$',activity_list,name='activities'),
+    url(r'^publications/$', bv.home, name='bibliohome'),
+    url(r'^publications/stats/(?P<year>\d{4})/$',bv.summary,name='bibliostats_year'),
+    url(r'^publications/stats/$',bv.summary,name='bibliostats'),
 
     # MEZZANINE'S URLS
     # ----------------

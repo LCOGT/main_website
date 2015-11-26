@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load mezzanine_tags keyword_tags blog_tags block_tags %}
 
-{% block meta_title %}For Astronomers{% endblock %}
+{% block meta_title %}For the Public{% endblock %}
 
 {% block meta_keywords %}{% metablock %}
 {% keywords_for page as keywords %}
@@ -24,33 +24,46 @@
 
 {% block main-wrapper %}
 
-{% editable page.richtextpage.content %}
-<div class="science_banner_region">{{ page.richtextpage.content|richtext_filters|safe }}</div>
-{% endeditable %}
+<div class="jumbotron astronomer-header">
+  <div class="container">
+    <h1>
+      {% editable page.lcopage.title %}
+      {{ page.lcopage.title|richtext_filters|safe }}
+      {% endeditable %}
+    </h1>
+    <p>
+      {% editable page.lcopage.extra_info %}
+      {{ page.lcopage.extra_info|richtext_filters|safe }}
+      {% endeditable %}
+    </p>
+  </div>
+</div>
+
+<div class="container">
+  <!-- Example row of columns -->
+  <div class="row">
+    {% editable page.lcopage.content %}
+    {{ page.lcopage.content|richtext_filters|safe }}
+    {% endeditable %}
+  </div>
 
 {% endblock %}
 
-{% block alternate %}
-						<div class="row rowlast gray-7-grad">
-							<div class="twocol">
-								{% richflatblock "common.block" %}
-
-							</div>
-							<div class="twocol">
-							{% richflatblock "astronomers.quicklinks" %}
-							</div>
-							<div class="twocol lastcol">
-								<h2><a href="{% url 'mezzanine.blog.views.blog_post_list' %}">News &amp; Press Releases</a></h2>
-								{% blog_recent_posts 5 as recent_posts %}
-								{% if recent_posts %}
-								<ul class="newslist">
-								{% for recent_post in recent_posts %}
-								<li>
-									<span class="blog-date">{{ recent_post.publish_date|date:"d M" }}</span><span class="blog-title"><a href="{{ recent_post.get_absolute_url }}"> {{ recent_post.title }}</a></span>
-								</li>
-								{% endfor %}
-								</ul>
-								{% endif %}	
-							</div>
-						</div>
+{% block specialfooter %}
+<div class="col-md-4 news-links">
+  {% richflatblock "astronomers.quicklinks" %}
+</div>
+<div class="col-md-4  news-links">
+  <h2><a href="{% url 'mezzanine.blog.views.blog_post_list' %}">News &amp; Press Releases</a></h2>
+  {% blog_recent_posts 5 as recent_posts %}
+  {% if recent_posts %}
+  <ul class="newslist">
+  {% for recent_post in recent_posts %}
+  <li>
+    <span class="blog-date">{{ recent_post.publish_date|date:"d M" }}</span><span class="blog-title-sm"><a href="{{ recent_post.get_absolute_url }}"> {{ recent_post.title }}</a></span>
+  </li>
+  {% endfor %}
+  </ul>
+  {% endif %}
+</div>
 {% endblock %}

@@ -24,9 +24,9 @@ PRODUCTION = True if CURRENT_PATH.startswith('/var/www') else False
 ADMIN_MENU_ORDER = (
     ("Content", (
             "pages.Page",
-            "lcogt.Activity",
-            "lcogt.Seminar",
-            "lcogt.LCOPage",
+            "lcogt_bootstrap.Activity",
+            "lcogt_bootstrap.Seminar",
+            "lcogt_bootstrap.LCOPage",
             "blog.BlogPost",
             "blog.BlogCategory",
             "mezzanine_blocks.Block",
@@ -279,12 +279,10 @@ INSTALLED_APPS = (
     "mezzanine.forms",
     "mezzanine.pages",
     "mezzanine.galleries",
-    #"mezzanine.twitter",
     "mezzanine_blocks",
     'reversion',
     'biblio',
-    #'south',
-    #"mezzanine.mobile",
+
 )
 
 # List of processors used by RequestContext to populate the context.
@@ -336,7 +334,7 @@ PACKAGE_NAME_GRAPPELLI = "grappelli_safe"
 
 OWNABLE_MODELS_ALL_EDITABLE = (
     "blog.BlogPost",
-    "lcogt.Activity",
+    "lcogt_bootstrap.Activity",
 )
 
 #########################
@@ -452,7 +450,7 @@ except ImportError as e:
         raise e
 
 
-AUTH_PROFILE_MODULE = 'lcogt.Profile'
+AUTH_PROFILE_MODULE = 'lcogt_bootstrap.Profile'
 
 ####################
 # DYNAMIC SETTINGS #

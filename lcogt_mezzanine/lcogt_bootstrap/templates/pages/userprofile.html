@@ -1,13 +1,13 @@
 {% extends 'base.html' %}
 {% load mezzanine_tags blog_tags %}
 
-{% block meta_title %}{{profile.user.first_name}} {{profile.user.last_name}}{% endblock %} 
+{% block meta_title %}{{profile.user.first_name}} {{profile.user.last_name}}{% endblock %}
 
 {% block body-class %}home {%endblock%}
 
 {% block title %}{{profile.user.first_name}} {{profile.user.last_name}}{% endblock %}
 
-{% block main_span_size %}fourcol{% endblock %}
+{% block main_span_size %}col-md-8{% endblock %}
 
 {% block main %}{{ block.super }}
 

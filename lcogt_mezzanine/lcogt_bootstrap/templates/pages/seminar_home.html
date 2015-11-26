@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load mezzanine_tags block_tags %}
 
-{% block meta_title %}Seminar List{% endblock %} 
+{% block meta_title %}Seminar List{% endblock %}
 
 {% block body-class %}science {%endblock%}
 
@@ -14,7 +14,7 @@
 </div>
 {% endblock %}
 
-{% block main_span_size %}fourcol{% endblock %}
+{% block main_span_size %}col-md-8{% endblock %}
 
 {% block main %}
 <div id="seminar-home">
@@ -24,7 +24,7 @@
       <li><h3><span content="2015-02-19T15:30:00+00:00" datatype="xsd:dateTime" property="dc:date" class="date-display-single">{{nearest_seminar.seminardate|date:"d M Y"}}</span></h3></li>
 </ul>
 </div>
- 
+
 {% richflatblock "seminar.details.block" %}
 {% endblock %}
 

@@ -6,7 +6,7 @@
 
 {% block body-class %}education {%endblock%}
 
-{% block main_span_size %}fourcol{% endblock %}
+{% block main_span_size %}col-md-8{% endblock %}
 
 {% block title %}
 {% editable page.title %}{{ page.title }}{% endeditable %}
@@ -43,7 +43,7 @@
 {% block right_panel %}
 {% with page.activity.user as author %}
 <ul class="bios">
-	<li>  
+	<li>
 	    <a href="{% url 'userprofile' author.username %}">
 	    <img title="{{ author.get_full_name }}'s picture" alt="{{ author.get_full_name }}'s picture" src="{{ MEDIA_URL }}{% thumbnail author.profile.mugshot 64 64 %}" typeof="foaf:Image">
 	    </a>
@@ -52,9 +52,7 @@
   	<div class="views-field views-field-field-job-title">({{author.profile.job_title}})</div>
 	<a href="{% url "blog_post_list_author" author %}">News items</a>
     {% endwith %}
-  </li> 
+  </li>
   </ul>
 {% richflatblock "education.side.block" %}
 {%endblock%}
-
-

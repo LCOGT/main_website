@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load mezzanine_tags blog_tags %}
 
-{% block meta_title %}{{profile.user.first_name}} {{profile.user.last_name}}{% endblock %} 
+{% block meta_title %}{{profile.user.first_name}} {{profile.user.last_name}}{% endblock %}
 
 {% block extra_js %}
 <script type="text/javascript" src="/static/filebrowser/js/AddFileBrowser.js"></script>
@@ -16,7 +16,7 @@
 
 {% block title %}Editing {{profile.user.first_name}} {{profile.user.last_name}} profile{% endblock %}
 
-{% block main_span_size %}fourcol{% endblock %}
+{% block main_span_size %}col-md-8{% endblock %}
 
 {% block main %}
 
