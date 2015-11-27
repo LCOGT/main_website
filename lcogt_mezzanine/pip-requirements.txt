@@ -1,5 +1,6 @@
 --extra-index-url=http://buildsba.lco.gtn/python/
 MySQL-python==1.2.5
+Django==1.7.11
 Mezzanine==4.0.1
 django-reversion==1.8.5
 Pillow==2.3.0
