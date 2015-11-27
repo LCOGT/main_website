@@ -5,6 +5,8 @@ TOPDIR="/var/www/apps/lcogt_mezzanine"
 # Django static files
 python $TOPDIR/manage.py collectstatic --noinput
 
+python $TOPDIR/manage.py migrate
+
 # Upload the latest version of the data for the django_lcogtbiblio (Bibliometrics) app
 #python $TOPDIR/manage.py loaddata $TOPDIR/fixtures/biblio_snapshot.json
 
