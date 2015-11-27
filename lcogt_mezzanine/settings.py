@@ -24,9 +24,9 @@ PRODUCTION = True if CURRENT_PATH.startswith('/var/www') else False
 ADMIN_MENU_ORDER = (
     ("Content", (
             "pages.Page",
-            "lcogt_bootstrap.Activity",
-            "lcogt_bootstrap.Seminar",
-            "lcogt_bootstrap.LCOPage",
+            "lcogt.Activity",
+            "lcogt.Seminar",
+            "lcogt.LCOPage",
             "blog.BlogPost",
             "blog.BlogCategory",
             "mezzanine_blocks.Block",
@@ -262,7 +262,7 @@ SECRET_KEY = ''.join(random.SystemRandom().choice(chars) for _ in range(50))
 
 INSTALLED_APPS = (
     'opbeat.contrib.django',
-    "lcogt_bootstrap",
+    "lcogt",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -334,7 +334,7 @@ PACKAGE_NAME_GRAPPELLI = "grappelli_safe"
 
 OWNABLE_MODELS_ALL_EDITABLE = (
     "blog.BlogPost",
-    "lcogt_bootstrap.Activity",
+    "lcogt.Activity",
 )
 
 #########################
@@ -450,7 +450,7 @@ except ImportError as e:
         raise e
 
 
-AUTH_PROFILE_MODULE = 'lcogt_bootstrap.Profile'
+AUTH_PROFILE_MODULE = 'lcogt.Profile'
 
 ####################
 # DYNAMIC SETTINGS #

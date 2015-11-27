@@ -43,7 +43,7 @@
 
 {% block left_wrapper %}
 {% endblock %}
-<div class="col-md-{% block main_width %}8 {% endblock %}">
+
 {% block main %}
 
 {% if tag or category or year or month or author %}
@@ -88,7 +88,7 @@
 {% block blog_post_list_post_title %}
 {% editable blog_post.title %}
 
-    <h3 class="ctitle"><a href="{{ blog_post.get_absolute_url }}">{{ blog_post.title }}</a></h3>
+        <h2 class="blog-post-title"><a href="{{ blog_post.get_absolute_url }}">{{ blog_post.title }}</a></h2>
 
 {% endeditable %}
 {% endblock %}
@@ -112,12 +112,7 @@
 
 {% pagination_for blog_posts %}
 
-{% if settings.COMMENTS_DISQUS_SHORTNAME %}
-{% include "generic/includes/disqus_counts.html" %}
-{% endif %}
-
 {% endblock %}
-</div>
 
 {% block blog_post_list_post_metainfo %}{% endblock %}
 

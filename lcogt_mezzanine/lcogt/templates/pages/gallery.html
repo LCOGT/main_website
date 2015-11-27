@@ -5,7 +5,7 @@
 {% block left_wrapper%}
 {% endblock %}
 
-{% block main_span_size %}sixcol lastcol{% endblock %}
+{% block main_span_size %}col-md-12{% endblock %}
 
 {% block main %}
 {{ block.super }}
@@ -20,7 +20,7 @@
             	<ul class="polaroids">
 			    {% with page.gallery.images.all as images %}
 				{% for image in images %}
-				<li class="polaroid"> 
+				<li class="polaroid">
 				    <a class="thumbnail" rel="#image-1" title="{{image.description}}" href="{{ MEDIA_URL }}{% thumbnail image.file 600 450 %}">
 				        <img class="img-responsive" src="{{ MEDIA_URL }}{% thumbnail image.file 124 124 %}">
 				    <div class="image-desciption">{{image.description}}</div>
@@ -31,11 +31,10 @@
 			   </ul>
 			</div>
 		</div>
-</div>	
+</div>
 
 
 {% endblock %}
 
 {% block right_panel %}
 {% endblock %}
-

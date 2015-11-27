@@ -15,26 +15,27 @@ class LCOPage(Page):
     class Meta:
         verbose_name = _("Page+")
         verbose_name_plural = _("Pages+")
+        db_table = 'lcogt_lcopage'
 
 class Activity(Page, Ownable):
     full_text = RichTextField(_("full text"),
             help_text=_("The full activity text"),
             default="", blank=True)
-    goals = RichTextField(_("goals"), 
+    goals = RichTextField(_("goals"),
         help_text=_("What are the overall aims of the activity."),
         default="", blank=True)
-    summary = RichTextField(_("summary"), 
+    summary = RichTextField(_("summary"),
         help_text=_("A catchy introductory paragraph."),
         default="", blank=True)
     observing_time = models.IntegerField(_('Observing time'),blank=True,null=True)
     archive_data = models.BooleanField(_('Archive data'),default=False)
-    planning = RichTextField(_("planning"), 
+    planning = RichTextField(_("planning"),
         help_text=_("What do you need to do in preparation."),
         default="", blank=True)
-    background = RichTextField(_("background"), 
+    background = RichTextField(_("background"),
         help_text=_("What background information would useful to a non-specialist."),
         default="", blank=True)
-    next_steps = RichTextField(_("next steps"), 
+    next_steps = RichTextField(_("next steps"),
         help_text=_("What can the audience do after this activity?"),
         default="", blank=True)
     featured_image = FileBrowseField("Image", max_length=200, directory="files/", extensions=[".jpg",".png",".gif",'.jpeg'], blank=True, null=True)
@@ -42,6 +43,9 @@ class Activity(Page, Ownable):
                                  verbose_name=_("Related activities"), blank=True)
 
     admin_thumb_field = "featured_image"
+
+    class Meta:
+        db_table = 'lcogt_activity'
 
 class Seminar(Page):
     abstract = RichTextField(_("abstract"),
@@ -55,6 +59,9 @@ class Seminar(Page):
             help_text=_("This field can contain HTML and should contain a few paragraphs describing the background of the person."),
             default="", blank=True)
     speaker_link = models.URLField(help_text=_("Link to speaker's institutional page."))
+
+    class Meta:
+        db_table = 'lcogt_seminar'
 
     def last_name(self):
         if self.speaker_name:
@@ -83,6 +90,7 @@ class Profile(models.Model):
     class Meta:
         verbose_name = _("LCOGT Person")
         verbose_name_plural = _("LCOGT People")
+        db_table = 'lcogt_profile'
 
     @property
     def full_name(self):
@@ -94,4 +102,3 @@ class Profile(models.Model):
 
     def __unicode__(self):
         return "Profile for %s, %s" % (self.user.last_name, self.user.first_name)
-

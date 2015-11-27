@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load mezzanine_tags keyword_tags blog_tags block_tags %}
+
+{% block fullcontent %}
+
+<div class="container">
+  <div class="row">
+    <h1>
+      {% editable page.lcopage.title %}
+      {{ page.lcopage.title|richtext_filters|safe }}
+      {% endeditable %}
+    </h1>
+  </div>
+  <div class="row">
+    {% editable page.lcopage.content %}
+    {{ page.lcopage.content|richtext_filters|safe }}
+    {% endeditable %}
+  </div>
+{% endblock %}

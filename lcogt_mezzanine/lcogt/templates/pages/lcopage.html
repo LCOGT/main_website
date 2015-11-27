@@ -5,7 +5,7 @@
 {% endblock %}
 <div class="col-md-{% block main_width %}12 {% endblock %} middle">
 
-{% block main_span_size %}{% if page.lcopage.extra_info or not page.lcopage.no_side_block %}fourcol{%else%}sixcol lastcol{%endif%}{% endblock %}
+{% block main_span_size %}{% if page.lcopage.extra_info or not page.lcopage.no_side_block %}col-md-8{%else%}col-md-12{%endif%}{% endblock %}
 
 {% block main %}{{ block.super }}
 
@@ -38,5 +38,3 @@
 	{% endif %}
 {% endif %}
 {%endblock%}
-
-

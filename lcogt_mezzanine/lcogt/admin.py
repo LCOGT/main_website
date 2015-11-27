@@ -4,7 +4,7 @@ from mezzanine.pages.models import RichTextPage
 from mezzanine.galleries.models import Gallery
 from mezzanine.forms.models import  Form
 from mezzanine.blog.models import BlogPost
-from .models import Activity, Seminar, Profile, LCOPage
+from lcogt.models import Activity, Seminar, Profile, LCOPage
 
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
@@ -70,4 +70,3 @@ reversion.register(BlogPost)
 reversion.register(RichTextPage)
 reversion.register(Form)
 reversion.register(Gallery)
-

@@ -6,7 +6,7 @@ from django.views.generic import TemplateView
 from django.contrib import admin
 
 from mezzanine.core.views import direct_to_template
-from lcogt_bootstrap.views import UpdateProfile, SpecialPage, activity_list, people, \
+from lcogt.views import UpdateProfile, SpecialPage, activity_list, people, \
     science_people, user_profile, seminar_list, seminar_home, activity_list
 import biblio.views as bv
 
@@ -26,6 +26,7 @@ urlpatterns = i18n_patterns("",
 urlpatterns += patterns('',
     # url("^$", "mezzanine.pages.views.page", {"slug": "/"}, name="home"),
     url("^$", TemplateView.as_view(template_name='index.html'), name="home"),
+    url(r'^about/$', SpecialPage.as_view(template_name='about.html'), {"slug": "/about/"}, name="about"),
     url(r'^public/$', SpecialPage.as_view(template_name='public.html'), {"slug": "/public/"}, name="public"),
     url(r'^astronomers/$', SpecialPage.as_view(template_name='astronomers.html'), {"slug": "/astronomers/"}, name="astronomers"),
     url("^science/$", "mezzanine.pages.views.page", {"slug": "/science/"}, name="science"),
