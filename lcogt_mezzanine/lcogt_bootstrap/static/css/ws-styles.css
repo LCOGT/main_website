@@ -614,14 +614,46 @@ footer span.copyright {
 
 footer ul.quicklinks {
     margin-bottom: 0;
-    text-transform: uppercase;
-    text-transform: none;
-    font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
-    line-height: 40px;
 }
 
 ul.social-buttons {
     margin-bottom: 0;
+}
+ul.features {
+	margin: 16px 0px 16px 0px;
+}
+
+ul.features {
+	margin: 0px;
+	padding: 0px;
+	list-style: none;
+	font-size: 0.9em;
+}
+
+ul.features li {
+	margin: 0px;
+	padding: 0px;
+	width: 304px;
+	margin-right: 16px;
+	float: left;
+	min-height: 1px;
+	height: 81px;
+	overflow: hidden;
+}
+
+ul.features li {
+ margin-right: 0px;
+ margin-bottom: 16px;
+}
+
+ul.features li h3 {
+	margin-top: 0px;
+}
+ul.features li img {
+	float: left;
+	margin-right: 8px;
+	width: 144px;
+	height: 81px;
 }
 
 ul.social-buttons li a {
