@@ -7,7 +7,7 @@
 
 {% block title %}{%if not current %}Past {%else%}Current {%endif%}{%if science%}Science {%endif%}Staff List{% endblock %}
 
-{% block main_span_size %}col-md-8{% endblock %}
+{% block main_span_size %}col-md-12{% endblock %}
 
 {% block main %}
 <h2>
@@ -17,20 +17,20 @@
 <a href="{% url 'oldpeople' %}" class="flatbluebtn">View alumni staff list &rarr;</a>
 {% endif %}
 </h2>
-      <ul class="polaroids staff-list">
-      {% for person in people %}
-	      <li class="polaroid">
-		        <div class="user-picture">
-					<a href="{% url 'userprofile' person.user.username %}" title="View {{person.user.first_name}}&#039;s profile."><img typeof="foaf:Image" src="{{ MEDIA_URL }}{% thumbnail person.mugshot 180 180%}" alt="{{person.user.first_name}}&#039;s picture" title="{{person.user.first_name}}&#039;s picture" /></a>
-				</div>
-					<div class="jobtitle">{{person.job_title}}</div>
-		      	<a href="{% url 'userprofile' person.user.username %}">{{person.user.first_name}} {{person.user.last_name}}</a>
-	      	</li>
-	     {% endfor %}
-  	</ul>
+
+{% for person in people %}
+<div class="col-lg-4 col-sm-6 text-center">
+  <a href="{% url 'userprofile' person.user.username %}" title="View {{person.user.first_name}}&#039;s profile.">
+    <img typeof="foaf:Image" src="{{ MEDIA_URL }}{% thumbnail person.mugshot 180 180%}" alt="{{person.user.first_name}}&#039;s picture" title="{{person.user.first_name}}&#039;s picture" class="img-circle img-responsive img-center" />
+  </a>
+  <h3>
+    <a href="{% url 'userprofile' person.user.username %}">{{person.user.first_name}} {{person.user.last_name}}</a>
+  </h3>
+  <small>{{person.job_title}}</small>
+</div>
+{% endfor %}
 
 {% endblock %}
 
 {% block right_panel %}
-{% richflatblock "observatory.side.block" %}
 {%endblock%}
