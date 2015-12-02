@@ -1,38 +1,10 @@
 {% load blog_tags keyword_tags i18n future mezzanine_tags%}
 
-{% block blog_recent_posts %}
-{% blog_recent_posts 5 as recent_posts %}
-{% if recent_posts %}
-<h4>{% trans "Recent Posts" %}</h4>
-<div class="hline"></div>
-<ul class="popular-posts">
-{% for recent_post in recent_posts %}
-<li>
-	
-	{% if settings.BLOG_USE_FEATURED_IMAGE and recent_post.featured_image %}
-{% block blog_post_list_post_featured_image %}
-
-<a href="{{ recent_post.get_absolute_url }}">
-    <img  src="{{ MEDIA_URL }}{% thumbnail recent_post.featured_image 70 70 %}">
-</a>
-
-{% endblock %}
-{% endif %}
-
-	<a href="{{ recent_post.get_absolute_url }}"
-    >{{ recent_post.title }}</a> - {{ recent_post.publish_date|date:"d M Y" }}
-
-    </li>
-{% endfor %}
-</ul>
-{% endif %}
-{% endblock %}
-
 {% block blog_months %}
 {% blog_months as months %}
 {% if months %}
 <div class="spacing"></div>
-<h4>{% trans "Archive" %}</h4>
+<h4>{% trans "News Archive" %}</h4>
 <div class="hline"></div>
 {% for month in months %}
     {% ifchanged month.date.year %}

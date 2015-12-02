@@ -2,7 +2,7 @@
 
 {% spaceless %}
 {% if page_branch_in_menu %}
-<ul class="nav nav-list navlist-menu-level-{{ branch_level }}">
+<ul class="nav-list navlist-menu-level-{{ branch_level }}">
   {% for page in page_branch %}
   {% if not has_home and page.is_primary and forloop.first %}
   <li{% if on_home %} class="active"{% endif %} id="tree-menu-home">

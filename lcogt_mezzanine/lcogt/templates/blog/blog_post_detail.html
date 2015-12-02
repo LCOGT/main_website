@@ -1,5 +1,5 @@
 {% extends "blog/blog_post_list.html" %}
-{% load mezzanine_tags comment_tags keyword_tags rating_tags i18n future disqus_tags lcogt_extras %}
+{% load mezzanine_tags comment_tags keyword_tags rating_tags i18n future disqus_tags lcogt_extras blog_tags %}
 
 {% block meta_title %}{{ blog_post.meta_title }}{% endblock %}
 
@@ -15,7 +15,9 @@
 {% block body-class %}{% keywords_for blog_post as keywords %}{{keywords|body_class}} {%endblock%}
 
 {% block title %}
+<div class="col-md-12">
 {% editable blog_post.title %}{{ blog_post.title }}{% endeditable %}
+</div>
 {% endblock %}
 
 {% block breadcrumb_menu %}
@@ -23,7 +25,7 @@
 <li class="active">{{ blog_post.title }}</li>
 {% endblock %}
 
-{% block main_span_size %}col-md-8 main{% endblock %}
+{% block main_span_size %}col-md-8 main-blog{% endblock %}
 
 {% block main %}
 {% if settings.BLOG_USE_FEATURED_IMAGE and blog_post.featured_image %}
@@ -38,10 +40,6 @@
 
 {{ block.super }}
 {% endblock %}
-
-{% if settings.COMMENTS_DISQUS_SHORTNAME %}
-{% include "generic/includes/disqus_counts.html" %}
-{% endif %}
 
 {% block blog_post_detail_content %}
 {% editable blog_post.content %}
@@ -99,24 +97,37 @@
 {% with blog_post.user as author %}
 <div class="sidebar-module sidebar-module-inset">
 <div class="sidebar-module">
-<ul class="bios">
-    <li>
-        <a href="{% url 'userprofile' author.username|default:'admin' %}">
-        <img title="{{ author.get_full_name }}'s picture" alt="{{ author.get_full_name }}'s picture" src="{{MEDIA_URL}}{% thumbnail author.profile.mugshot 64 64 %}" typeof="foaf:Image">
-        </a>
-        <span class="views-label views-label-field-fullname">Author: </span>
-        <div class="field-content author-polaroid"><a href="{% url 'userprofile' author.username|default:'admin' %}">{{ author.get_full_name }}</a></div>
-    <div class="views-field views-field-field-job-title">({{author.profile.job_title}})</div>
-    <a href="{% url "blog_post_list_author" author %}">News items</a>
-    {% endwith %}
-  </li>
-  </ul>
+  <a href="{% url 'userprofile' author.username|default:'admin' %}">
+  <img title="{{ author.get_full_name }}'s picture" alt="{{ author.get_full_name }}'s picture" src="{{MEDIA_URL}}{% thumbnail author.profile.mugshot 140 140 %}" typeof="foaf:Image" class="img-circle" />
+  </a>
+  <div class="views-label views-label-field-fullname">
+    Author: <a href="{% url 'userprofile' author.username|default:'admin' %}">{{ author.get_full_name }}</a>
+  </div>
+  <div class="views-field views-field-field-job-title">({{author.profile.job_title}})</div>
 
 {% editable blog_post.publish_date %}
-     <csmall>
+  <div>
     Published: {% blocktrans with sometime=blog_post.publish_date|timesince %}{{ sometime }} ago{% endblocktrans %}
-     </csmall>
+  </div>
 {% endeditable %}
+<a href="{% url "blog_post_list_author" author %}">More news items</a>
+{% endwith %}
 </div>
+</div>
+
+<div class="sidebar-module sidebar-module-inset">
+  <div class="sidebar-module">
+    <h3>Recent News</h3>
+    {% blog_recent_posts 5 as recent_posts %}
+    {% if recent_posts %}
+    <ul class="newslist">
+    {% for recent_post in recent_posts %}
+    <li>
+      <span class="blog-date">{{ recent_post.publish_date|date:"d M" }}</span><span class="blog-title-sm"><a href="{{ recent_post.get_absolute_url }}"> {{ recent_post.title }}</a></span>
+    </li>
+    {% endfor %}
+    </ul>
+    {% endif %}
+  </div>
 </div>
 {% endblock %}

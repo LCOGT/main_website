@@ -1,50 +1,48 @@
-{% extends "pages/page.html" %}
+{% extends "pages/seminar_home.html" %}
+{% load mezzanine_tags blog_tags block_tags %}
 
-{% load mezzanine_tags block_tags %}
-{% block left_wrapper %}
-{% endblock %}
 
-{% block body-class %}science {%endblock%}
+{% block fullcontent %}
 
-{% block main_span_size %}col-md-8{% endblock %}
-
-{% block title_banner %}
-<div class="row seminar-banner">
-<div class="sixcol">
-<h1 class="title">Seminar series</h1>
-<div class="tabs"></div>
+<div class="jumbotron public-header">
+  <div class="container">
+    <h1>
+      Seminar Series
+    </h1>
+  </div>
 </div>
-</div>
-{% endblock %}
 
-{% block main %}{{ block.super }}
+<div class="container">
+    <div class="row">
+      <div class="col-md-8">
+				<h2>{% editable page.seminar.title %}{{page.seminar.title}}{% endeditable %}</h2>
 
-<h2>{{page.seminar.title}}</h2>
+				<h3><a href="{{page.seminar.speaker_link}}">{{ page.seminar.speaker_name|safe }}, {{page.seminar.speaker_institute}}</a></h3>
 
-<h3><a href="{{page.seminar.speaker_link}}">{{ page.seminar.speaker_name|safe }}, {{page.seminar.speaker_institute}}</a></h3>
+				<h3>{{ page.seminar.seminardate|date:"d M Y - H:i" }}</h3>
 
-<h3>{{ page.seminar.seminardate|date:"d M Y - H:i" }}</h3>
+				{% editable page.seminar.abstract %}
+				<p>{{ page.seminar.abstract|richtext_filters|safe }}</p>
+				{% endeditable %}
 
-{% editable page.seminar.abstract %}
-<p>{{ page.seminar.abstract|richtext_filters|safe }}</p>
-{% endeditable %}
+				<p>{% richflatblock 'seminar.block' %}</p>
+			</div>
 
-<p>{% richflatblock 'seminar.block' %}</p>
+			<div class="col-md-4">
+				<h3>Biography</h3>
+				{% if page.seminar.speaker_picture%}
+				<img src="{{MEDIA_URL}}{% thumbnail page.seminar.speaker_picture 120 0 %}" alt="{{page.seminar.speaker_name}}" />
+				{% endif %}
 
-{% endblock %}
+				{% editable page.seminar.speaker_biog %}
+				{{ page.seminar.speaker_biog|richtext_filters|safe }}
+				{% endeditable %}
 
-{% block right_panel %}
-	<h3>Biography</h3>
-	{% if page.seminar.speaker_picture%}
-	<img src="{{MEDIA_URL}}{% thumbnail page.seminar.speaker_picture 120 0 %}" alt="{{page.seminar.speaker_name}}" />
-	{% endif %}
-
-	{% editable page.seminar.speaker_biog %}
-	{{ page.seminar.speaker_biog|richtext_filters|safe }}
-	{% endeditable %}
-
-	<div class="back-button">
-	<a href="{{page.parent.get_absolute_url}}">Back to {{page.parent}} &rarr;</a>
+				<div class="back-button">
+				<a href="{{page.parent.get_absolute_url}}">Back to {{page.parent}} &rarr;</a>
+				</div>
+			</div>
 	</div>
+</div>
 
 {%endblock%}

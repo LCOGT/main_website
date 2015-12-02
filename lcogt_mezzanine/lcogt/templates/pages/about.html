@@ -11,9 +11,8 @@
       {% endeditable %}
     </h1>
   </div>
-  <div class="row">
-    {% editable page.lcopage.content %}
-    {{ page.lcopage.content|richtext_filters|safe }}
-    {% endeditable %}
-  </div>
+</div>
+{% editable page.lcopage.content %}
+{{ page.lcopage.content|richtext_filters|safe }}
+{% endeditable %}
 {% endblock %}

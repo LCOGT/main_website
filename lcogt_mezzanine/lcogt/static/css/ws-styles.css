@@ -190,7 +190,7 @@ sub { top: .5ex; }
     background-color: #222;
 }
 
-.btn-primary {
+.btn-primary, .btn-primary:visited {
     border-color: #3366dd;
     text-transform: uppercase;
     font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
@@ -572,6 +572,11 @@ section h3.section-subheading {
     }
 }
 
+#seminar-home{
+  text-align: center;
+  font-size: 120%;
+}
+
 .team-member {
     margin-bottom: 50px;
     text-align: center;
@@ -603,6 +608,7 @@ footer .news-links {
 footer {
     padding: 25px 0;
     text-align: center;
+    border-top: 1px #ddd solid;
 }
 
 footer span.copyright {
@@ -711,9 +717,9 @@ body {
  * Globals
  */
 
-.main {
-  font-family: Georgia, "Times New Roman", Times, serif;
-  color: #555;
+.main-blog {
+  color: #333;
+  font-size: 1.2em;
 }
 
 h1, .h1,
