@@ -3,7 +3,18 @@
 {% load mezzanine_tags block_tags %}
 {% block left_wrapper %}
 {% endblock %}
-<div class="col-md-{% block main_width %}12 {% endblock %} middle">
+
+{% block header-class %}
+{% if 'education' in page.keywords_string %}
+public-header
+{% elif 'science' in page.keywords_string %}
+astronomer-header
+{% elif 'space-book' in page.keywords_string %}
+spacebook-header
+{% else %}
+general-header
+{% endif %}
+{% endblock%}
 
 {% block main_span_size %}{% if page.lcopage.extra_info or not page.lcopage.no_side_block %}col-md-8{%else%}col-md-12{%endif%}{% endblock %}
 

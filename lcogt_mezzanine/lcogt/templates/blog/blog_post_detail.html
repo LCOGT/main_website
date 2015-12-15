@@ -15,9 +15,7 @@
 {% block body-class %}{% keywords_for blog_post as keywords %}{{keywords|body_class}} {%endblock%}
 
 {% block title %}
-<div class="col-md-12">
 {% editable blog_post.title %}{{ blog_post.title }}{% endeditable %}
-</div>
 {% endblock %}
 
 {% block breadcrumb_menu %}

@@ -474,18 +474,30 @@ section h3.section-subheading {
 }
 
 .public-header {
-  background-image: url('../img/M42_mosaic.jpg');
+  background-image: url('../img/banner_ngc7331.jpg');
   display:block;
   width:100%;
 }
 
 .astronomer-header {
-  background-image: url('../img/ngc7331.jpg');
+  background-image: url('../img/banner_M13.jpg');
   display:block;
   width:100%;
 }
 
-.public-header, .astronomer-header, .about-header {
+.general-header {
+  background-image: url('../img/banner_M81.jpg');
+  display:block;
+  width:100%;
+}
+
+.spacebook-header {
+  background-image: url('../img/banner_M20.jpg');
+  display:block;
+  width:100%;
+}
+
+.public-header, .astronomer-header, .about-header, .general-header, .spacebook-header {
   color:#fff;
   margin-top:-20px;
 }
