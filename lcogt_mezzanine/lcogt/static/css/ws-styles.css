@@ -58,7 +58,8 @@ table th { background: #ccc; }
 abbr { border-bottom: 1px dotted #606060; cursor: help; white-space: nowrap; }
 abbr.created { border: none; cursor: auto; white-space: normal; }
 img { border: 0; }
-hr { border: 1px solid #606060; height: 1px; }
+hr { border: 0; height: 1px; }
+hr.fancy { border: 0; height: 1px; background: #333; background-image: linear-gradient(to right, #ccc, #333, #ccc); }
 form { margin: 0; padding: 0; }
 fieldset { margin: 1em 0; }
 
@@ -176,10 +177,26 @@ sub { top: .5ex; }
 .gray-8-bg, .gray-8-bg a { background-color: #ffffff; color: black; }
 .gray-8, .gray-8 a { color: #ffffff; }
 
+.bg-blue {
+    background-color: #337ab7;
+    color: #fff;
+}
+
+.bg-yellow {
+    background-color: #F5ECCE;
+    color: #555;
+}
+
+.bg-green {
+    background-color: #A9F5A9;
+    color: #555;
+}
+
 /* end colours */
 
-.img-centered {
-    margin: 0 auto;
+.img-centered img {
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .bg-light-gray {
@@ -289,6 +306,28 @@ fieldset[disabled] .btn-xl.active {
 .btn-xl .badge {
     color: #3366dd;
     background-color: #fff;
+}
+
+.btn-dark {
+    background-color: rgba(0, 0, 0, 0.4);
+    border-radius: 0;
+    color: #fff;
+}
+.btn-dark:hover, .btn-dark:focus, .btn-dark:active {
+    background-color: rgba(0, 0, 0, 0.7);
+    color: #fff;
+}
+.btn-light {
+    background-color: rgb(255, 255, 255);
+    border-radius: 0;
+    color: #333;
+}
+.btn-light:hover, .btn-light:focus, .btn-light:active {
+    background-color: rgba(255, 255, 255, 0.8);
+    color: #333;
+}
+hr.small {
+    max-width: 100px;
 }
 
 .navbar-default {
@@ -495,6 +534,30 @@ section h3.section-subheading {
   background-image: url('../img/banner_M20.jpg');
   display:block;
   width:100%;
+}
+
+.bg-telescope {
+  color: #fff;
+  background-attachment: scroll;
+  background-image: url('../img/sedgwick.jpg');
+  background-position: center center;
+  background-repeat: none;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+  -o-background-size: cover;
+}
+
+.bg-space {
+  color: #fff;
+  background-attachment: scroll;
+  background-image: url('../img/public_bg_ngc7331.jpg');
+  background-position: center center;
+  background-repeat: none;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+  -o-background-size: cover;
 }
 
 .public-header, .astronomer-header, .about-header, .general-header, .spacebook-header {

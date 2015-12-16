@@ -282,7 +282,7 @@ INSTALLED_APPS = (
     "mezzanine_blocks",
     'reversion',
     'biblio',
-
+    'social.apps.django_app.default',
 )
 
 # List of processors used by RequestContext to populate the context.

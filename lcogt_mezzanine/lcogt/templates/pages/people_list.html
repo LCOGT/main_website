@@ -19,7 +19,7 @@
 </h2>
 
 {% for person in people %}
-<div class="col-lg-4 col-sm-6 text-center">
+<div class="col-lg-4 col-sm-6 text-center img-centered">
   <a href="{% url 'userprofile' person.user.username %}" title="View {{person.user.first_name}}&#039;s profile.">
     <img typeof="foaf:Image" src="{{ MEDIA_URL }}{% thumbnail person.mugshot 180 180%}" alt="{{person.user.first_name}}&#039;s picture" title="{{person.user.first_name}}&#039;s picture" class="img-circle img-responsive img-center" />
   </a>
