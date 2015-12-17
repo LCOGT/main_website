@@ -240,6 +240,8 @@ FILEBROWSER_MEDIA_URL = MEDIA_URL
 
 RICHTEXT_FILTER_LEVEL = 3
 
+TINYMCE_SETUP_JS = STATIC_URL + 'js/tinymce.config.js'
+
 
 # Put strings here, like "/home/html/django_templates"
 # or "C:/www/django/templates".
