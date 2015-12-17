@@ -398,6 +398,7 @@ hr.small {
 .navbar-header img{
   height:45px;
   opacity: 0.4;
+  padding-top:5px;
 }
 
 @media(min-width:768px) {

@@ -28,6 +28,8 @@
           <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
           <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
       <![endif]-->
+      <!-- jQuery - Rest of JS is at the end. This is here so we can use Jquery in pages-->
+      <script src="{% static 'js/jquery.js' %}"></script>
 
   </head>
 
@@ -71,7 +73,6 @@
 {% block fullcontent %}
     <div class="container">
       <div class="row">
-      {% block main-wrapper%}
         {% nevercache %}
         {% if messages %}
         <div class="messages">
@@ -88,12 +89,12 @@
     </div>
     {% block title_banner %}
     <div class="jumbotron {% block header-class %}general-header{% endblock %}">
-  <div class="container">
-    <h1>
-      {% block title %}{% endblock %}
-    </h1>
-  </div>
-</div>
+      <div class="container">
+        <h1>
+          {% block title %}{% endblock %}
+        </h1>
+      </div>
+    </div>
     {% endblock %}
 
     <div class="container">
@@ -107,7 +108,7 @@
           </div>
         </div>
     </div>
-      {%endblock%}
+{%endblock%}
 
 {% block alternate %}
         <div class="row">
@@ -116,8 +117,6 @@
         </div>
 {% endblock %}
 
-
-{% endblock %}
 
 <footer>
     <div class="container">
@@ -172,8 +171,6 @@
     <!-- Bootstrap core JavaScript
     ================================================== -->
     {% compress js %}
-        <!-- jQuery -->
-        <script src="{% static 'js/jquery.js' %}"></script>
 
         <!-- Bootstrap Core JavaScript -->
         <script src="{% static 'js/bootstrap.min.js' %}"></script>
