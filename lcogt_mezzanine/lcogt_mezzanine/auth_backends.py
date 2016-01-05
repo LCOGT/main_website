@@ -7,40 +7,23 @@ import hashlib
 from django.conf import settings
 from lcogt.models import Profile
 from django.contrib.auth.models import Group
+from oauthlib.oauth2 import BackendApplicationClient
+from django_tools.middlewares import ThreadLocal
 import logging
 
 logger = logging.getLogger(__name__)
 
-        
-def matchRBauthPass(email,password):
-    # Retreive the database user information from the settings
-    try:
-        logger.debug(settings.DATABASES)
-        rbauth = settings.DATABASES['rbauth']
-        logger.debug(rbauth)
-        db = MySQLdb.connect(user=rbauth['USER'], passwd=rbauth['PASSWORD'], db=rbauth['NAME'], host=rbauth['HOST'])
-    except Exception as e:
-        logger.debug("DB01SBA not available: %s" % e)
-        return False
 
-    # Match supplied user name to one in Drupal database
-    sql_users = "SELECT username, password, first_name, last_name FROM auth_user WHERE email = '%s'" % email
-    rbauth = db.cursor()
-    rbauth.execute(sql_users)
-    user = rbauth.fetchone()
-    rbauth.close()
-    db.close()
-    if user:
-        if check_password(password,user[1]):
-            ###### If the user does not have an email address return false
-            return user[0], user[1], user[2], user[3]
-        else:
-            logger.debug("password failed for %s" % email)
-            return False
-    else:
-        logger.debug("User %s not found" % email)
-        return False
-        
+def rbauth_login(email, password):
+    client = BackendApplicationClient(client_id=settings.CLIENT_ID)
+    oauth = OAuth2Session(client=client)
+    token = oauth.fetch_token(token_url=settings.RBAUTH_TOKEN_URL,
+                            username=email,
+                            password=password,
+                            client_id=settings.CLIENT_ID,
+                            client_secret=settings.CLIENT_SECRET)
+    return token
+
 def checkUserObject(email,username,password,first_name,last_name):
     # Logging in can only be done using email address if using RBauth
     try:
@@ -73,15 +56,38 @@ def checkUserObject(email,username,password,first_name,last_name):
         o,created = Profile.objects.get_or_create(user=user)
         if created:
             o.save()
-        g = Group.objects.get(name='Editor') 
+        g = Group.objects.get(name='Editor')
         g.user_set.add(user)
-    return user   
-         
-class LCOAuthBackend(ModelBackend):         
+    return user
+
+def get_odin_cookie_proposals(email, password):
+    '''
+    Use login credentials to login to ODIN as well and add sessionid to Messier Bingo session
+    while the session is open get the user's proposal list
+    '''
+    client = requests.session()
+    url = 'https://lcogt.net/observe/auth/accounts/login/'
+    r = requests.get(url)
+    token = r.cookies['csrftoken']
+    r = client.post(url, data={'username':email,'password':password, 'csrfmiddlewaretoken' : token}, cookies={'csrftoken':token})
+    try:
+        page = client.get('http://lcogt.net/observe/proposal/', timeout=20.0)
+        proposals = get_epo_proposals(page)
+    except requests.exceptions.ReadTimeout:
+        logger.error('Could not obtain proposals. Timed out.')
+    try:
+        request = ThreadLocal.get_current_request()
+        request.session['odin.sessionid'] = client.cookies['odin.sessionid']
+        return proposals
+    except Exception, e:
+        logger.error(client.cookies)
+        return False
+
+class LCOAuthBackend(ModelBackend):
     def authenticate(self, username=None, password=None):
         # This is only to authenticate with RBauth
         # If user cannot log in this way, the normal Django Auth is used
-        response =  matchRBauthPass(username, password)
+        response = rbauth_login(username, password)
         if (response):
             return checkUserObject(username,response[0],password,response[2],response[3])
         return None
@@ -90,6 +96,4 @@ class LCOAuthBackend(ModelBackend):
         try:
             return User.objects.get(pk=user_id)
         except User.DoesNotExist:
-            return None  
-
-            
+            return None

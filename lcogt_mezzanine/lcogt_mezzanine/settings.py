@@ -313,6 +313,7 @@ MIDDLEWARE_CLASSES = (
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
+    'django_tools.middlewares.ThreadLocal.ThreadLocalMiddleware',
     "django.contrib.messages.middleware.MessageMiddleware",
     "mezzanine.core.request.CurrentRequestMiddleware",
     "mezzanine.core.middleware.RedirectFallbackMiddleware",
@@ -452,6 +453,12 @@ except ImportError as e:
 
 
 AUTH_PROFILE_MODULE = 'lcogt.Profile'
+
+AUTH_BASE_URL = ''
+AUTH_TOKEN_URL = ''
+CLIENT_ID = os.environ.get('MEZZ_RBAUTH_ID','')
+CLIENT_SECRET = os.environ.get('MEZZ_RBAUTH_SECRET','')
+RBAUTH_TOKEN_URL = 'https://lcogt.net/observe/o/token'
 
 ####################
 # DYNAMIC SETTINGS #
