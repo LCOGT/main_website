@@ -2,6 +2,21 @@
 
 TOPDIR="/var/www/apps/lcogt_mezzanine"
 
+# Generate cron wrapper to set correct environment variables
+cat > $TOPDIR/cronwrapper << EOF
+export PYTHONPATH="${PYTHONPATH}"
+export DJANGO_SETTINGS_MODULE="${DJANGO_SETTINGS_MODULE}"
+
+export MEZZ_DB_NAME="${MEZZ_DB_NAME}"
+export MEZZ_DB_HOST="${MEZZ_DB_HOST}"
+export MEZZ_DB_USER="${MEZZ_DB_USER}"
+export MEZZ_DB_PASSWD="${MEZZ_DB_PASSWD}"
+
+EOF
+
+# Make cron wrapper executable
+chmod +x $TOPDIR/cronwrapper
+
 # Django static files
 python $TOPDIR/manage.py collectstatic --noinput
 

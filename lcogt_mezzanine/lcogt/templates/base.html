@@ -11,7 +11,7 @@
     <meta name="description" content="{% block meta_description %}{% endblock %}">
     <link rel="shortcut icon" href="http://lcogt.net/files/favicon.ico" type="image/x-icon" />
 
-      <title>Las Cumbres Observatory Global Telescope Network</title>
+      <title>{% block title_head %}Las Cumbres Observatory Global Telescope Network{% endblock %}</title>
 
       <!-- Bootstrap Core CSS -->
       <link href='{% static "css/bootstrap.min.css" %}' rel="stylesheet">
@@ -152,7 +152,7 @@
             </li>
             <li><a href="http://facebook.com/lcogt"><i class="fa fa-facebook"></i></a>
             </li>
-            <li><a href="/blog/feed"><i class="fa fa-rss"></i></a>
+            <li><a href="/blog/feeds/rss/"><i class="fa fa-rss"></i></a>
             </li>
         </ul>
     </div>
