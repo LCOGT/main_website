@@ -8,6 +8,7 @@ from django.views.generic import UpdateView, View, DetailView
 from django.core.urlresolvers import reverse
 from django.db.models import Q
 from lcogt.models import *
+from biblio.models import Article, Author
 import logging
 
 logger = logging.getLogger(__name__)
@@ -30,7 +31,12 @@ def user_profile(request,username):
         profile = Profile.objects.get(user__username=username)
     except Profile.DoesNotExist:
         raise Http404("This user does not exist")
-    return render(request, 'pages/userprofile.html', {'profile': profile})
+    try:
+        author = Author.objects.get(username=username)
+        papers = Article.objects.filter(lcogt_authors=author)
+    except:
+        papers = None
+    return render(request, 'pages/userprofile.html', {'profile': profile,'papers':papers})
 
 def seminar_home(request):
     seminars = Seminar.objects.filter(seminardate__gt=datetime.now()).order_by('-seminardate')

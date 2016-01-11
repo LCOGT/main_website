@@ -3,7 +3,8 @@
 
 {% block meta_title %}{{ page.meta_title }}{% endblock %}
 
-{% block body-class %}{% keywords_for page as keywords %}{{keywords|body_class}} {%endblock%}
+{% block title_head %}{{ page.title }}{% endblock %}
+
 
 {% block header-class %}
 {% if 'education' in page.keywords_string %}

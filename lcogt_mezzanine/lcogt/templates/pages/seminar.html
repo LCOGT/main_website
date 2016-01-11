@@ -1,20 +1,11 @@
 {% extends "pages/seminar_home.html" %}
 {% load mezzanine_tags blog_tags block_tags %}
 
+{% block title %}
+Seminar series
+{% endblock %}
 
-{% block fullcontent %}
-
-<div class="jumbotron astronomers-header">
-  <div class="container">
-    <h1>
-      Seminar Series
-    </h1>
-  </div>
-</div>
-
-<div class="container">
-    <div class="row">
-      <div class="col-md-8">
+{% block main %}
 				<h2>{% editable page.seminar.title %}{{page.seminar.title}}{% endeditable %}</h2>
 
 				<h3><a href="{{page.seminar.speaker_link}}">{{ page.seminar.speaker_name|safe }}, {{page.seminar.speaker_institute}}</a></h3>
@@ -27,8 +18,9 @@
 
 				<p>{% richflatblock 'seminar.block' %}</p>
 			</div>
+{% endblock %}
 
-			<div class="col-md-4">
+{% block right_panel %}
 				<h3>Biography</h3>
 				{% if page.seminar.speaker_picture%}
 				<img src="{{MEDIA_URL}}{% thumbnail page.seminar.speaker_picture 120 0 %}" alt="{{page.seminar.speaker_name}}" />
@@ -41,8 +33,4 @@
 				<div class="back-button">
 				<a href="{{page.parent.get_absolute_url}}">Back to {{page.parent}} &rarr;</a>
 				</div>
-			</div>
-	</div>
-</div>
-
 {%endblock%}

@@ -1,29 +1,13 @@
 {% extends "base.html" %}
 {% load mezzanine_tags blog_tags block_tags %}
 
-{% block meta_title %}Seminar Series{% endblock %}
-
-{% block body-class %}banner science {%endblock%}
-
-{% block navigation %}{% endblock %}
+{% block title_head %}Seminar Series{% endblock %}
 
 {% block title %}
-Seminar Series
+Seminar series
 {% endblock %}
 
-{% block fullcontent %}
-
-<div class="jumbotron astronomers-header">
-  <div class="container">
-    <h1>
-      Seminar Series
-    </h1>
-  </div>
-</div>
-
-<div class="container">
-    <div class="row">
-      <div class="col-md-8">
+{% block main %}
         <div id="seminar-home">
         <ul class="newslist">
               <li><h3 class="field-content">{{nearest_seminar.speaker_name}}</h3></li>
@@ -32,9 +16,9 @@ Seminar Series
         </ul>
         </div>
         {% richflatblock "seminar.details.block" %}
-      </div>
+{% endblock %}
 
-      <div class="col-md-4">
+{% block right_panel %}
         <h2>Future speakers</h2>
       	<ul class="newslist">
       		{% for seminar in seminars %}
@@ -46,8 +30,4 @@ Seminar Series
             <div class="back-button">
             <a href="{% url 'seminars' %}">Full list of seminars &rarr;</a>
             </div>
-      </div>
-    </div>
-</div>
-
 {%endblock%}

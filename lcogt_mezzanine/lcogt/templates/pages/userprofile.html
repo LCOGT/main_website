@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load mezzanine_tags blog_tags %}
 
-{% block meta_title %}{{profile.user.first_name}} {{profile.user.last_name}}{% endblock %}
+{% block head_title %}{{profile.user.first_name}} {{profile.user.last_name}}{% endblock %}
 
 {% block body-class %}home {%endblock%}
 
@@ -25,13 +25,29 @@
 {{ profile.bio|richtext_filters|safe }}
 {% endeditable %}
 
+{% if papers %}
+<h1>Publications</h1>
+<ul class="list-papers">
+{% for paper in papers %}
+	<li>
+		<div class="paper-title">{{paper.title}}</div>
+		{% if paper.citation %}<div class="paper-citation">{{paper.citation}}</div>{% endif %}
+		<div class="paperlinks">
+			{% if paper.arxiv_code %}<span class=""><a href="http://arxiv.org/abs/{{paper.arxiv_code}}">ArXiv PDF</a></span>,{% endif %}
+			{% if paper.link %}<span class=""><a href="{{paper.link}}">Published version</a></span>{% endif %}
+		</div>
+	</li>
+{% endfor %}
+</ul>
+{% endif %}
+
 {% endblock %}
 
 {% block right_panel %}
 {{ block.super }}
 
 	<div class="user-picture">
-	<img src="{{ MEDIA_URL }}{% thumbnail profile.mugshot 304 0 %}" alt="{{profile.user.first_name}}&#039;s picture"/>
+	<img src="{{ MEDIA_URL }}{% thumbnail profile.mugshot 400 0 %}" alt="{{profile.user.first_name}}&#039;s picture" class="img-responsive img-rounded"/>
 	</div>
 
 	<div class="extra-profile-info">
@@ -39,8 +55,8 @@
 	{% if profile.research_interests %}<div class="title">My research interests are: </div> {{profile.research_interests}}{% endif %}
 	{% if profile.current %}<div class="contact"><strong>Contact:</strong> {{profile.user.email}}</div>{%endif%}
 	</div>
-	<a href="{% url 'blog_post_list_author' profile.user.username %}">Read {{ profile.user.first_name}}'s news items &rarr;</a>
+	<i class="fa fa-newspaper-o"></i> <a href="{% url 'blog_post_list_author' profile.user.username %}">Read {{ profile.user.first_name}}'s news items</a>
 	<div class="back-button">
-	<a href="{% url 'people' %}">Back to staff list &rarr;</a>
+		<h3><i class="fa fa-users"></i> <a href="{% url 'people' %}">Back to staff list</a></h3>
 	</div>
 {%endblock%}
