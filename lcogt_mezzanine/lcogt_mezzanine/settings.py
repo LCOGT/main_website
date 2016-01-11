@@ -164,7 +164,7 @@ TEMPLATE_LOADERS = (
 
 AUTHENTICATION_BACKENDS = (
     'lcogt_mezzanine.auth_backends.LCOAuthBackend',
-    "mezzanine.core.auth_backends.MezzanineBackend",
+    #"mezzanine.core.auth_backends.MezzanineBackend",
     )
 
 # List of finder classes that know how to find static files in
@@ -438,6 +438,18 @@ OPBEAT = {
     'DEBUG': DEBUG,
 }
 
+###################
+# OAuth provider  #
+###################
+
+AUTH_BASE_URL = ''
+AUTH_TOKEN_URL = ''
+CLIENT_ID = os.environ.get('MEZZ_RBAUTH_ID','')
+CLIENT_SECRET = os.environ.get('MEZZ_RBAUTH_SECRET','')
+RBAUTH_TOKEN_URL = 'https://lcogt.net/observe/o/token/'
+RBAUTH_PROFILE_API = 'https://lcogt.net/observe/api/profile/'
+
+
 ##################
 # LOCAL SETTINGS #
 ##################
@@ -453,12 +465,6 @@ except ImportError as e:
 
 
 AUTH_PROFILE_MODULE = 'lcogt.Profile'
-
-AUTH_BASE_URL = ''
-AUTH_TOKEN_URL = ''
-CLIENT_ID = os.environ.get('MEZZ_RBAUTH_ID','')
-CLIENT_SECRET = os.environ.get('MEZZ_RBAUTH_SECRET','')
-RBAUTH_TOKEN_URL = 'https://lcogt.net/observe/o/token'
 
 ####################
 # DYNAMIC SETTINGS #
