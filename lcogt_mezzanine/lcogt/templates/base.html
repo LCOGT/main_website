@@ -53,16 +53,16 @@
                   <a href="#page-top"></a>
               </li>
               <li>
-                  <a class="page-scroll" href="{% url 'about' %}">About</a>
+                  <a href="{% url 'about' %}">About</a>
               </li>
               <li>
-                  <a class="page-scroll" href="{% url 'public' %}">Public</a>
+                  <a href="{% url 'public' %}">Public</a>
               </li>
               <li>
-                  <a class="page-scroll" href="{% url 'astronomers' %}">Astronomers</a>
+                  <a href="{% url 'astronomers' %}">Astronomers</a>
               </li>
               <li>
-                  <a class="page-scroll" href="http://lcogt.net/observe/">Observing Portal</a>
+                  <a href="http://lcogt.net/observe/">Observing Portal</a>
               </li>
           </ul>
           {% endblock %}
@@ -177,11 +177,7 @@
 
         <!-- Plugin JavaScript -->
         <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
-        <script src="{% static 'js/classie.js' %}"></script>
-        <script src="{% static 'js/cbpAnimatedHeader.js' %}"></script>
 
-        <!-- Custom Theme JavaScript -->
-        <script src="{% static 'js/agency.js' %}"></script>
         <!-- CMS js -->
         <script src="{% static "mezzanine/js/"|add:settings.JQUERY_FILENAME %}"></script>
         <script type="text/javascript" src="{% static "mezzanine/js/magnific-popup.js" %}"></script>

@@ -485,7 +485,7 @@ header .intro-text .intro-heading {
     header .intro-text .intro-heading {
         text-transform: uppercase;
         font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
-        font-size: 4em;
+        font-size: 3.5em;
         font-weight: 700;
         line-height: 75px;
     }
@@ -956,3 +956,30 @@ h6, .h6 {
 .blog-footer p:last-child {
   margin-bottom: 0;
 }
+
+/*
+ * Font for LCOGT telescope silhouettes
+ */
+
+ @font-face {
+     font-family: 'Glyphter';
+     src: url('../fonts/Glyphter.eot');
+     src: url('../fonts/Glyphter.eot?#iefix') format('embedded-opentype'),
+          url('../fonts/Glyphter.woff') format('woff'),
+          url('../fonts/Glyphter.ttf') format('truetype'),
+          url('../fonts/Glyphter.svg#Glyphter') format('svg');
+     font-weight: normal;
+     font-style: normal;
+ }
+ .lco-icon{
+ 	display: inline-block;
+    font-family: 'Glyphter';
+    font-style: normal;
+    font-weight: normal;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale
+ }
+ .icon-0m4:before{content:'\0041'}
+ .icon-1m0:before{content:'\0042'}
+ .icon-2m0:before{content:'\0043'}

@@ -25,7 +25,7 @@ urlpatterns = i18n_patterns("",
 
 urlpatterns += patterns('',
     # url("^$", "mezzanine.pages.views.page", {"slug": "/"}, name="home"),
-    url("^$", TemplateView.as_view(template_name='index.html'), name="home"),
+    url("^$", TemplateView.as_view(template_name='pages/index.html'), name="home"),
     url(r'^about/$', SpecialPage.as_view(), {"slug": "/about/"}, name="about"),
     url(r'^public/$', SpecialPage.as_view(template_name='public.html'), {"slug": "/public/"}, name="public"),
     url(r'^astronomers/$', SpecialPage.as_view(template_name='astronomers.html'), {"slug": "/astronomers/"}, name="astronomers"),
