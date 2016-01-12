@@ -7,7 +7,6 @@ from lcogt.models import Profile
 from django.contrib.auth.models import Group
 from oauthlib.oauth2 import LegacyApplicationClient
 from requests_oauthlib import OAuth2Session
-from django_tools.middlewares import ThreadLocal
 import json
 import logging
 
@@ -18,7 +17,6 @@ def rbauth_login(email, password, request=None):
     client = LegacyApplicationClient(client_id=settings.CLIENT_ID)
     oauth = OAuth2Session(client=client)
     try:
-        print(settings.CLIENT_ID, settings.CLIENT_SECRET, email, password, settings.RBAUTH_TOKEN_URL)
         token = oauth.fetch_token(token_url=settings.RBAUTH_TOKEN_URL,
                             username=email,
                             password=password,
@@ -26,7 +24,6 @@ def rbauth_login(email, password, request=None):
                             client_secret=settings.CLIENT_SECRET)
         profile = oauth.get(settings.RBAUTH_PROFILE_API)
         profile = json.loads(profile.content)
-        set_odin_session_token(token['access_token'])
     except Exception, e:
         print("It broke %s" % e)
         return None
