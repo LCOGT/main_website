@@ -164,7 +164,7 @@ TEMPLATE_LOADERS = (
 
 AUTHENTICATION_BACKENDS = (
     'lcogt_mezzanine.auth_backends.LCOAuthBackend',
-    #"mezzanine.core.auth_backends.MezzanineBackend",
+    "mezzanine.core.auth_backends.MezzanineBackend",
     )
 
 # List of finder classes that know how to find static files in
