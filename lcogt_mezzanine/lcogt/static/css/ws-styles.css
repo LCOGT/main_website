@@ -333,6 +333,10 @@ hr.small {
     max-width: 100px;
 }
 
+.smaller {
+  font-size: 80%;
+}
+
 .navbar-default {
     border-color: transparent;
     background-color: #222;

@@ -26,7 +26,7 @@
   <h3>
     <a href="{% url 'userprofile' person.user.username %}">{{person.user.first_name}} {{person.user.last_name}}</a>
   </h3>
-  <small>{{person.job_title}}</small>
+  <p class="smaller">{{person.job_title}}</p>
 </div>
 {% endfor %}
 
