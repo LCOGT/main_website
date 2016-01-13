@@ -67,21 +67,21 @@ def checkUserObject(profile, password):
 
     return user
 
-def set_odin_session_token(token):
-    '''
-    Add token to session variable
-    while the session is open get the user's proposal list
-    '''
-    try:
-        request = ThreadLocal.get_current_request()
-        request.session['odin_token'] = token
-
-        return True
-    except Exception, e:
-        logger.error(e)
-        print(e)
-
-        return False
+# def set_odin_session_token(token):
+#     '''
+#     Add token to session variable
+#     while the session is open get the user's proposal list
+#     '''
+#     try:
+#         request = ThreadLocal.get_current_request()
+#         request.session['odin_token'] = token
+#
+#         return True
+#     except Exception, e:
+#         logger.error(e)
+#         print(e)
+#
+#         return False
 
 class LCOAuthBackend(ModelBackend):
     def authenticate(self, username=None, password=None, request=None):
