@@ -492,7 +492,7 @@ header .intro-text .intro-heading {
 }
 
 section {
-    padding: 100px 0;
+    padding: 50px 0;
 }
 
 section h2.section-heading {
@@ -512,8 +512,12 @@ section h3.section-subheading {
 
 @media(min-width:768px) {
     section {
-        padding: 150px 0;
+        padding: 50px 0;
     }
+}
+
+.header-bg{
+  background-color: rgba(0,0,0,0.5);
 }
 
 .public-header {
@@ -983,3 +987,10 @@ h6, .h6 {
  .icon-0m4:before{content:'\0041'}
  .icon-1m0:before{content:'\0042'}
  .icon-2m0:before{content:'\0043'}
+
+ a.icon {
+    color: #3366dd;
+}
+ a.icon:hover {
+    color: #fec503;
+}
