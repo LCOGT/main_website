@@ -108,7 +108,6 @@
     Published: {% blocktrans with sometime=blog_post.publish_date|timesince %}{{ sometime }} ago{% endblocktrans %}
   </div>
 {% endeditable %}
-<a href="{% url "blog_post_list_author" author %}">More news items</a>
 {% endwith %}
 </div>
 </div>

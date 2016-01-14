@@ -55,7 +55,6 @@
 	{% if profile.research_interests %}<div class="title">My research interests are: </div> {{profile.research_interests}}{% endif %}
 	{% if profile.current %}<div class="contact"><strong>Contact:</strong> {{profile.user.email}}</div>{%endif%}
 	</div>
-	<i class="fa fa-newspaper-o"></i> <a href="{% url 'blog_post_list_author' profile.user.username %}">Read {{ profile.user.first_name}}'s news items</a>
 	<div class="back-button">
 		<h3><i class="fa fa-users"></i> <a href="{% url 'people' %}">Back to staff list</a></h3>
 	</div>

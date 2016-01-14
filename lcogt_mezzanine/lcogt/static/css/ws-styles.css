@@ -531,19 +531,19 @@ section h3.section-subheading {
 }
 
 .astronomer-header {
-  background-image: url('../img/banner_Centaurus-A.jpg');
+  background-image: url('../img/banner_M83-a.jpg');
   display:block;
   width:100%;
 }
 
 .general-header {
-  background-image: url('../img/banner_M81.jpg');
+  background-image: url('../img/banner_ngc1672.jpg');
   display:block;
   width:100%;
 }
 
 .spacebook-header {
-  background-image: url('../img/banner_ngc1672.jpg');
+  background-image: url('../img/banner_M83.jpg');
   display:block;
   width:100%;
 }
@@ -569,7 +569,7 @@ section h3.section-subheading {
 .bg-space {
   color: #fff;
   background-attachment: scroll;
-  background-image: url('../img/public_bg_ngc7331.jpg');
+  background-image: url('../img/M101_lg.jpg');
   background-position: center center;
   background-repeat: none;
   -webkit-background-size: cover;
@@ -808,28 +808,6 @@ img::-moz-selection {
 
 body {
     webkit-tap-highlight-color: #3366dd;
-}
-
-/* Blog */
-/*
- * Globals
- */
-
-.main-blog {
-  color: #333;
-  font-size: 1.2em;
-}
-
-h1, .h1,
-h2, .h2,
-h3, .h3,
-h4, .h4,
-h5, .h5,
-h6, .h6 {
-  margin-top: 0;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-weight: normal;
-  color: #333;
 }
 
 
