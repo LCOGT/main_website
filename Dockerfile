@@ -46,6 +46,7 @@ COPY config/uwsgi.ini /etc/uwsgi.ini
 COPY config/nginx/* /etc/nginx/
 COPY config/processes.ini /etc/supervisord.d/processes.ini
 COPY config/crontab.root /var/spool/cron/root
+COPY config/robots.txt /var/www/robots.txt
 
 # Copy the LCOGT Mezzanine webapp files
 COPY lcogt_mezzanine /var/www/apps/lcogt_mezzanine
