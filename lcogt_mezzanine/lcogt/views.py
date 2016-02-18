@@ -98,26 +98,15 @@ class UpdateProfile(UpdateView):
 
         return self.render_to_response(context)
 
-    # def post(self, request, **kwargs):
-    #     # form.instance.user = self.request.user
-    #     form = ProfileForm(request.POST)
-    #     if form.is_valid():
-    #         profile = Profile.objects.get(id=self.get_object().pk)
-    #         profile(**form.cleaned_data)
-    #         profile.user = self.request.user
-    #         profile.save()
-    #     print(profile)
-    #     return HttpResponseRedirect(self.get_success_url())
-
     def post(self, request, **kwargs):
-        profile = Profile.objects.filter(id=self.get_object().pk)
+        profile = Profile.objects.filter(user=self.get_object())
         form = ProfileForm(request.POST)
         if form.is_valid():
             profile.update(**form.cleaned_data)
         else:
             messages.error(request, 'The Form has errors')
 
-            return HttpResponseRedirect(self.get_success_url())
+        return HttpResponseRedirect(self.get_success_url())
 
     def get_object(self, queryset=None):
 
