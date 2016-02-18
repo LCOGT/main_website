@@ -41,7 +41,7 @@ ul.newslist, ul.list-papers {list-style: outside none none; margin: 0;padding-le
 ul.newslist li {margin-bottom:4px;}
 ul.list-papers li {margin-bottom:10px;}
 .paper-title {font-size: 110%}
-.paper-citation {color:#aaa;}
+.paper-citation, .stats-desc {color:#aaa;}
 li .blog-date, li .blog-title-sm, li .seminar-date, li .seminar-title { display: table-cell;}
 li .blog-date {width:60px;}
 li .seminar-date {width:100px;}
@@ -70,6 +70,8 @@ fieldset { margin: 1em 0; }
 sup, sub { font-size:0.7em; height: 0; line-height: 1; vertical-align: baseline; _vertical-align: bottom; position: relative; }
 sup { bottom: 1ex; }
 sub { top: .5ex; }
+
+.bigger {font-size: 200%;}
 
 /* Colours */
 .red, .red a { color: rgb(223, 0, 0); }

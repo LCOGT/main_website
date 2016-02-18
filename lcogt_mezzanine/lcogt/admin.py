@@ -9,9 +9,9 @@ from lcogt.models import Activity, Seminar, Profile, LCOPage
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
 
-import reversion
+from reversion.admin import VersionAdmin
 
-class PageReversion(PageAdmin, reversion.VersionAdmin):
+class PageReversion(PageAdmin, VersionAdmin):
     pass
 
 # Define an inline admin descriptor for Employee model
@@ -66,7 +66,3 @@ admin.site.register(User, UserAdmin)
 admin.site.register(Activity, PageReversion)
 admin.site.register(Seminar, PageReversion)
 admin.site.register(LCOPage, PageReversion)
-reversion.register(BlogPost)
-reversion.register(RichTextPage)
-reversion.register(Form)
-reversion.register(Gallery)

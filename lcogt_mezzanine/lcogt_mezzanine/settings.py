@@ -242,12 +242,29 @@ RICHTEXT_FILTER_LEVEL = 3
 
 #TINYMCE_SETUP_JS = STATIC_URL + 'js/tinymce.config.js'
 
-
-# Put strings here, like "/home/html/django_templates"
-# or "C:/www/django/templates".
-# Always use forward slashes, even on Windows.
-# Don't forget to use absolute paths, not relative paths.
-TEMPLATE_DIRS = (os.path.join(PROJECT_ROOT, "templates"),)
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': '',
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                    "django.contrib.auth.context_processors.auth",
+                    "django.contrib.messages.context_processors.messages",
+                    "django.core.context_processors.debug",
+                    "django.core.context_processors.i18n",
+                    "django.core.context_processors.static",
+                    "django.core.context_processors.media",
+                    "django.core.context_processors.request",
+                    "django.core.context_processors.tz",
+                    "mezzanine.conf.context_processors.settings",
+                    "mezzanine.pages.context_processors.page",
+            ],
+        },
+    },
+]
 
 FIXTURE_DIRS = (os.path.join(PROJECT_ROOT,'lcogt_mezzanine','fixtures'),)
 
@@ -286,21 +303,6 @@ INSTALLED_APPS = (
     'biblio',
 )
 
-# List of processors used by RequestContext to populate the context.
-# Each one should be a callable that takes the request object as its
-# only parameter and returns a dictionary to add to the context.
-TEMPLATE_CONTEXT_PROCESSORS = (
-    "django.contrib.auth.context_processors.auth",
-    "django.contrib.messages.context_processors.messages",
-    "django.core.context_processors.debug",
-    "django.core.context_processors.i18n",
-    "django.core.context_processors.static",
-    "django.core.context_processors.media",
-    "django.core.context_processors.request",
-    "django.core.context_processors.tz",
-    "mezzanine.conf.context_processors.settings",
-    "mezzanine.pages.context_processors.page",
-)
 
 # List of middleware classes to use. Order is important; in the request phase,
 # these middleware classes will be applied in the order given, and in the
