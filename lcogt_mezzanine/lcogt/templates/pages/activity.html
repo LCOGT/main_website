@@ -42,17 +42,17 @@
 
 {% block right_panel %}
 {% with page.activity.user as author %}
-<ul class="bios">
-	<li>
+<div class="sidebar-module sidebar-module-inset">
+	<div class="sidebar-module">
 	    <a href="{% url 'userprofile' author.username %}">
-	    <img title="{{ author.get_full_name }}'s picture" alt="{{ author.get_full_name }}'s picture" src="{{ MEDIA_URL }}{% thumbnail author.profile.mugshot 64 64 %}" typeof="foaf:Image">
+				<img title="{{ author.get_full_name }}'s picture" alt="{{ author.get_full_name }}'s picture" src="{{MEDIA_URL}}{% thumbnail author.profile.mugshot 140 140 %}" typeof="foaf:Image" class="img-circle" />
 	    </a>
 	    <span class="views-label views-label-field-fullname">Author: </span>
 	    <div class="field-content author-polaroid"><a href="{% url 'userprofile' author.username %}">{{ author.get_full_name }}</a></div>
   	<div class="views-field views-field-field-job-title">({{author.profile.job_title}})</div>
-	<a href="{% url "blog_post_list_author" author %}">News items</a>
+		<a href="{% url "blog_post_list_author" author %}">More of news items by {{ author.get_full_name }}</a>
+	</div>
+</div>
     {% endwith %}
-  </li>
-  </ul>
 {% richflatblock "education.side.block" %}
 {%endblock%}
