@@ -49,6 +49,13 @@
 </div>
 {% endblock %}
 
+{% if page.lcopage.no_links %}
+	{% block footer-class%}fat-footer{% endblock %}
+
+	{% block footer-option %}
+	{% endblock %}
+{% endif %}
+
 {% block specialfooter %}
 <div class="col-md-4 news-links">
   {% richflatblock "public.quicklinks" %}

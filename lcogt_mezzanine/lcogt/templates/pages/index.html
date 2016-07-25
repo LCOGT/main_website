@@ -24,31 +24,43 @@
           </div>
       </div>
         <div class="row  text-center">
-          <div class="col-md-4 col-sm-6">
-              <a href="/public/" class="icon">
+          <div class="col-md-3 col-sm-6">
+              <a href="{% url 'public' %}" class="icon">
                 <span class="fa-stack fa-4x">
                 <i class="fa fa-circle fa-stack-2x"></i>
-                <i class="lco-icon fa-stack-1x icon-0m4 fa-inverse"></i>
+                <i class="fa fa-stack-1x fa-child fa-inverse"></i>
                 </span>
               </a>
-                <h2><a href="/public/">Public</a></h2>
-                <p class="text-muted">Member of the public, educator, or student?</p>
+                <h2><a href="{% url 'public' %}">Public</a></h2>
+                <p class="text-muted">Member of the public?</p>
               </a>
           </div>
 
-          <div class="col-md-4 col-sm-6">
-              <a href="/astronomers/" class="icon">
+          <div class="col-md-3 col-sm-6">
+              <a href="{% url 'education' %}" class="icon">
+                <span class="fa-stack fa-4x">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-stack-1x fa-graduation-cap fa-inverse"></i>
+                </span>
+              </a>
+                <h2><a href="{% url 'education' %}">Education</a></h2>
+                <p class="text-muted">Educator or student?</p>
+              </a>
+          </div>
+
+          <div class="col-md-3 col-sm-6">
+              <a href="{% url 'astronomers' %}" class="icon">
                 <span class="fa-stack fa-4x">
                 <i class="fa fa-circle fa-stack-2x"></i>
                 <i class="lco-icon fa-stack-1x icon-1m0 fa-inverse"></i>
                 </span>
               </a>
-                <h2><a href="/astronomers/" >Astronomers</a></h2>
+                <h2><a href="{% url 'astronomers' %}" >Astronomers</a></h2>
                 <p class="text-muted">Professional astronomer?</p>
               </a>
           </div>
 
-          <div class="col-md-4 col-sm-6">
+          <div class="col-md-3 col-sm-6">
               <a href="https://lcogt.net/observe/" class="icon">
                 <span class="fa-stack fa-4x">
                 <i class="fa fa-circle fa-stack-2x"></i>
