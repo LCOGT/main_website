@@ -5,7 +5,6 @@ django-reversion
 Pillow
 bleach
 future
-html5lib
 oauthlib
 pytz==2014.1
 requests
