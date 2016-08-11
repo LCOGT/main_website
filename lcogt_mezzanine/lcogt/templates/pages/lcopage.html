@@ -18,7 +18,7 @@ general-header
 {% endif %}
 {% endblock%}
 
-{% block main_span_size %}{% if page.lcopage.extra_info or not page.lcopage.no_side_block %}col-md-8{%else%}col-md-12{%endif%}{% endblock %}
+{% block main_span_size %}{% if page.lcopage.extra_info %}col-md-8{%else%}col-md-12{%endif%}{% endblock %}
 
 {% block main %}{{ block.super }}
 
@@ -40,6 +40,13 @@ general-header
 	</div>
 	<hr />
 {% endif%}
+
+{% if page.lcopage.no_links %}
+	{% block footer-class%}fat-footer{% endblock %}
+
+	{% block footer-option %}
+	{% endblock %}
+{% endif %}
 
 {% if not page.lcopage.no_side_block %}
 	{% if 'observatory' in page.keywords_string %}

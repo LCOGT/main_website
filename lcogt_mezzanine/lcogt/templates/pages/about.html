@@ -33,3 +33,8 @@
 {{ page.lcopage.content|richtext_filters|safe }}
 {% endeditable %}
 {% endblock %}
+
+{% if page.lcopage.no_links %}
+{% block footer-option %}
+{% endblock %}
+{% endif %}

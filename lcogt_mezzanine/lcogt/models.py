@@ -12,6 +12,7 @@ class LCOPage(Page):
     content = RichTextField(_("Content"), default="", help_text=_('Main content'), blank=True)
     extra_info = RichTextField(_("extra information"), default="", help_text=_('This information will appear in the side bar'), blank=True)
     no_side_block = models.BooleanField(_("No side block"),default=False, help_text=_("Check this if you don't want a side block"))
+    no_links = models.BooleanField(_("No links in footer"),default=False, help_text=_("Check this if you don't want a links section in the footer"))
     class Meta:
         verbose_name = _("Page+")
         verbose_name_plural = _("Pages+")

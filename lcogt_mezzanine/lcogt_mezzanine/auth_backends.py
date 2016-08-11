@@ -1,6 +1,6 @@
 from django.core.exceptions import ImproperlyConfigured
 from django.conf import settings
-from django.contrib.auth.models import User, check_password
+from django.contrib.auth.models import User
 from django.contrib.auth.backends import ModelBackend
 from django.conf import settings
 from lcogt.models import Profile

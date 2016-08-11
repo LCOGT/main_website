@@ -60,6 +60,9 @@
                   <a href="{% url 'public' %}">Public</a>
               </li>
               <li>
+                  <a href="{% url 'education' %}">Education</a>
+              </li>
+              <li>
                   <a href="{% url 'astronomers' %}">Astronomers</a>
               </li>
               <li>
@@ -119,7 +122,7 @@
 {% endblock %}
 
 
-<footer>
+<footer class="{% block footer-class %}{% endblock %}">
     <div class="container">
     <div class="row">
       {% block footer-option %}
@@ -130,7 +133,7 @@
       <div class="col-md-4 news-links">
         {% richflatblock "public.quicklinks" %}
       </div>
-      <div class="col-md-4  news-links">
+      <div class="col-md-4 news-links">
         <h2><a href="{% url 'mezzanine.blog.views.blog_post_list' %}">News &amp; Press Releases</a></h2>
         {% blog_recent_posts 5 as recent_posts %}
         {% if recent_posts %}

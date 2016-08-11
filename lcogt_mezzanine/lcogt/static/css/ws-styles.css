@@ -24,6 +24,8 @@ h2 { font-size: 1.4em; margin-bottom: 0.4em; }
 h3 { font-size: 1.2em; margin-top: 0.5em; margin-bottom: 0.3em; }
 h4 { font-size: 1.1em; margin-top: 0.45em; margin-bottom: 0.45em; }
 
+h1 .editable-form { color:#000;}
+
 p, ul, ol, dl, pre, table, fieldset { margin: 4px 0 12px 0; }
 ul, ol { margin: 0px 0 8px 0; padding-left: 1.2em; }
 .block ul, .item-list ul { margin: 1em 0; padding: 0 0 0 2em; }
@@ -704,6 +706,12 @@ footer {
     padding: 25px 0;
     text-align: center;
     border-top: 1px #ddd solid;
+}
+
+footer.fat-footer {
+    margin-top: 100px;
+    background-color: #eee;
+    border: none;
 }
 
 footer span.copyright {
