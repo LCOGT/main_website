@@ -48,6 +48,8 @@ li .blog-date, li .blog-title-sm, li .seminar-date, li .seminar-title { display:
 li .blog-date {width:60px;}
 li .seminar-date {width:100px;}
 
+li.next a, li.previous a {max-width:200px;}
+
 a { color: #3366DD; text-decoration: none; }
 a:visited { color: #3366DD; }
 a:hover, a:focus { color: #f46262; text-decoration: underline; }

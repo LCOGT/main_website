@@ -143,7 +143,7 @@ LANGUAGES = (
 DEBUG = False
 
 # Whether a user's session cookie expires when the Web browser is closed.
-SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+SESSION_EXPIRE_AT_BROWSER_CLOSE = False
 
 SITE_ID = 1
 
@@ -239,6 +239,7 @@ RICHTEXT_ALLOWED_TAGS = ('a', 'abbr', 'acronym', 'address', 'area', 'article', '
 #TINYMCE_SETUP_JS = STATIC_URL + 'js/tinymce.config.js'
 
 FIXTURE_DIRS = (os.path.join(PROJECT_ROOT,'lcogt_mezzanine','fixtures'),)
+MAX_PAGING_LINKS = 5
 
 # SECURITY WARNING: keep the secret key used in production secret!
 chars = 'abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)'

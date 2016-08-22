@@ -14,8 +14,8 @@ class LCOPage(Page):
     no_side_block = models.BooleanField(_("No side block"),default=False, help_text=_("Check this if you don't want a side block"))
     no_links = models.BooleanField(_("No links in footer"),default=False, help_text=_("Check this if you don't want a links section in the footer"))
     class Meta:
-        verbose_name = _("Page+")
-        verbose_name_plural = _("Pages+")
+        verbose_name = _("LCO Page+")
+        verbose_name_plural = _("LCO Pages+")
         db_table = 'lcogt_lcopage'
 
 class Activity(Page, Ownable):
@@ -52,7 +52,7 @@ class Seminar(Page):
     abstract = RichTextField(_("abstract"),
             help_text=_("What the talk will be about."),
             default="", blank=True)
-    seminardate = models.DateTimeField(_('Seminar date/time'),default=datetime.now())
+    seminardate = models.DateTimeField(_('Seminar date/time'), blank=True,null=True)
     speaker_name = models.CharField(max_length=255,blank=True,null=True)
     speaker_institute = models.CharField(max_length=255, blank=True,null=True)
     speaker_picture = FileBrowseField(_("Speaker mugshot"), max_length=200, directory="speakers/", extensions=[".jpg",".png",".gif",'.jpeg'], blank=True, null=True)

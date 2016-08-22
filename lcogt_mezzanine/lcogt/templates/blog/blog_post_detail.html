@@ -1,5 +1,5 @@
 {% extends "blog/blog_post_list.html" %}
-{% load mezzanine_tags comment_tags keyword_tags rating_tags i18n future disqus_tags lcogt_extras blog_tags %}
+{% load mezzanine_tags comment_tags keyword_tags rating_tags i18n disqus_tags lcogt_extras blog_tags %}
 
 {% block meta_title %}{{ blog_post.meta_title }}{% endblock %}
 
@@ -15,6 +15,10 @@
 {% block body-class %}{% keywords_for blog_post as keywords %}{{keywords|body_class}} {%endblock%}
 
 {% block title %}
+News
+{% endblock %}
+
+{% block subtitle %}
 {% editable blog_post.title %}{{ blog_post.title }}{% endeditable %}
 {% endblock %}
 
@@ -35,7 +39,6 @@
 
 
 {% block blog_post_list_post_metainfo %}
-
 {{ block.super }}
 {% endblock %}
 

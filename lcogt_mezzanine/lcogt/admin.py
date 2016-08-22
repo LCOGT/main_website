@@ -1,6 +1,6 @@
 from django.contrib import admin
 from mezzanine.pages.admin import PageAdmin
-from mezzanine.pages.models import RichTextPage
+from mezzanine.pages.models import RichTextPage, Page
 from mezzanine.galleries.models import Gallery
 from mezzanine.forms.models import  Form
 from mezzanine.blog.models import BlogPost
@@ -10,6 +10,7 @@ from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
 
 from reversion.admin import VersionAdmin
+
 
 class PageReversion(PageAdmin, VersionAdmin):
     pass
@@ -57,7 +58,6 @@ class UserAdmin(UserAdmin):
             return False
     _current_staff.boolean = True
     _current_staff.short_description = 'Current Staff?'
-
 
 # Re-register UserAdmin
 admin.site.unregister(User)

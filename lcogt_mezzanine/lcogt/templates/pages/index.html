@@ -1,119 +1,226 @@
-{% extends "base.html" %}
-{% load pages_tags mezzanine_tags i18n future staticfiles keyword_tags blog_tags block_tags %}
+<!DOCTYPE html>
+<html lang="en">
+{% load pages_tags mezzanine_tags i18n staticfiles keyword_tags blog_tags block_tags %}
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Las Cumbres Observatory | {% block title_head %} A Global Telescope Network{% endblock %}</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="keywords" content="{% block meta_keywords %}{% endblock %}">
+  <meta name="description" content="{% block meta_description %}{% endblock %}">
+  <link rel="shortcut icon" href="http://lcogt.net/files/favicon.ico" type="image/x-icon" />
 
-{% block navbarstyle %}navbar-fixed-top{% endblock%}
 
-{% block fullcontent %}
-<!-- Header -->
-<header>
-    <div class="container">
-        <div class="intro-text">
-          <div class="intro-heading">Las Cumbres Observatory</div>
-            <div class="intro-lead-in">Global Telescope Network</div>
-            <a href="/about/" class="page-scroll btn btn-xl">Tell Me More</a>
-        </div>
-    </div>
-</header>
+    <!-- Bootstrap Core CSS -->
+    <link href='{% static "css/bootstrap.min.css" %}' rel="stylesheet">
 
-<!-- Portfolio Grid Section -->
-<section >
-    <div class="container">
-      <div class="row">
-          <div class="col-lg-12 text-center">
-              <h2 class="section-heading">What are you looking for?</h2>
-          </div>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static "mezzanine/css/magnific-popup.css" %}" type="text/css" />
+    <link href='{% static "css/ws-styles.css" %}' rel="stylesheet">
+    <link href="css/affogato.css" rel="stylesheet">
+    <link href="css/lco.css" rel="stylesheet">
+    <link href="{% static 'font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- jQuery - Rest of JS is at the end. This is here so we can use Jquery in pages-->
+    <script src="{% static 'js/jquery.js' %}"></script>
+    {% block header_script %}{% endblock%}
+</head>
+<body>
+	<!-- Navigation -->
+    <nav class="navbar navbar-inverse head home">
+      <div class="container-fluid">
+      	<div class="innerHead">
+	        <div class="navbar-header imLink">
+	          <a class="navbar-brand" href="/"><img src="images/header.png" class="headImg" /></a>
+	        </div>
+	        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+	            <span class="sr-only">Toggle navigation</span>
+	            <span class="icon-bar"></span>
+	            <span class="icon-bar"></span>
+	            <span class="icon-bar"></span>
+	        </button>
+	        <div id="navbar" class="collapse navbar-collapse headNav">
+
+	          <ul class="nav nav-stacked">
+	              <li class="hidden">
+	                  <a href="#page-top"></a>
+	              </li>
+	              <li>
+	                  <a href="/about/">ABOUT</a>
+	              </li>
+	              <li>
+	                  <a href="/public/">FOR EVERYONE</a>
+	              </li>
+	              <li>
+	                  <a href="/astronomers/">FOR ASTRONOMERS</a>
+	              </li>
+	              <li>
+	                  <a href="/observe/">OBSERVING PORTAL</a>
+	              </li>
+	          </ul>
+
+				<div class="clearfix"></div>
+	        </div><!--/.nav-collapse -->
+				<div class="clearfix"></div>
+	    </div>
       </div>
-        <div class="row  text-center">
-          <div class="col-md-3 col-sm-6">
-              <a href="{% url 'public' %}" class="icon">
-                <span class="fa-stack fa-4x">
-                <i class="fa fa-circle fa-stack-2x"></i>
-                <i class="fa fa-stack-1x fa-child fa-inverse"></i>
-                </span>
-              </a>
-                <h2><a href="{% url 'public' %}">Public</a></h2>
-                <p class="text-muted">Member of the public?</p>
-              </a>
-          </div>
+    </nav>
+	<!--<header class="head">
+		<div class="innerHead">
+			<img src="images/header.png" class="headImg" />
 
-          <div class="col-md-3 col-sm-6">
-              <a href="{% url 'education' %}" class="icon">
-                <span class="fa-stack fa-4x">
-                <i class="fa fa-circle fa-stack-2x"></i>
-                <i class="fa fa-stack-1x fa-graduation-cap fa-inverse"></i>
-                </span>
-              </a>
-                <h2><a href="{% url 'education' %}">Education</a></h2>
-                <p class="text-muted">Educator or student?</p>
-              </a>
-          </div>
+			<nav class="headNav navbar" id="navbar">
+				<ul class="nav nav-stacked">
+					<li><a href="#">ABOUT</a></li>
+					<li><a href="#">FOR EVERYONE</a></li>
+					<li><a href="#">FOR ASTRONOMERS</a></li>
+					<li><a href="#">OBSERVING PORTAL</a></li>
+				</ul>
+				<div class="clearfix"></div>
+			</nav>
+			<div class="clearfix"></div>
+		</div>
+	</header>-->
+	<section>
+		<div class="worldMap container-fluid">
+			<img src="images/map.png" class="bgMap" />
+			<div class="location israel" data-location="israel">
+				<div class="infoBox">
+					<img src="images/israel.jpg" />
+					<p><strong>Wise Observatory</strong><br />
+					Tel Aviv, Israel</p>
+					<p>One 1-meter telescope<br />
+					<span class="light">coming online in 2016</span></p>
+				</div>
+			</div>
+			<div class="arrow israel" data-location="israel" data-direction="up"></div>
+			<div class="location chile" data-location="chile">
+				<div class="infoBox">
+					<img src="images/chile.jpg" />
+					<p><strong>Cero Tololo Observatory</strong><br />
+					Cerro Tololo, Chile</p>
+					<p>One .4-meter telescope<br />
+					Three 1-meter telescopes</p>
+				</div>
+			</div>
+			<div class="arrow chile" data-location="chile" data-direction="left"></div>
+			<div class="location staBarbara" data-location="staBarbara">
+				<div class="infoBox">
+					<p><strong>Santa Barbara</strong><br />
+					California</p>
+					<p>International Headquarters<br />
+					and Data Center</p>
+				</div>
+			</div>
+			<div class="arrow staBarbara" data-location="staBarbara" data-direction="up"></div>
+			<div class="location liverpool" data-location="liverpool">
+				<div class="infoBox">
+					<p><strong>Liverpool</strong><br />
+					United Kingdom</p>
+					<p>European Headquarters</p>
+				</div>
+			</div>
+			<div class="arrow liverpool" data-location="liverpool" data-direction="left"></div>
+			<div class="location china" data-location="china">
+				<div class="infoBox">
+					<img src="images/china.jpg" />
+					<p><strong>Urumqui</strong><br />
+					Northwest China</p>
+					<p>Two 1-meter telescopes<br />
+					<span class="light">coming online in 2017</span></p>
+				</div>
+			</div>
+			<div class="arrow china" data-location="china" data-direction="right"></div>
+			<div class="location hawaii" data-location="hawaii">
+				<div class="infoBox">
+					<img src="images/hawaii.jpg" />
+					<p><strong>Halakala Observatory</strong><br />
+					Halakala, Hawaii</p>
+					<p>Two .4-meter telescopes<br />
+					One 2-meter telescope</p>
+				</div>
+			</div>
+			<div class="arrow hawaii" data-location="hawaii" data-direction="down"></div>
+			<div class="location texas" data-location="texas">
+				<div class="infoBox">
+					<img src="images/texas.jpg" />
+					<p><strong>McDonald Observatory</strong><br />
+					Fort Davis, Texas</p>
+					<p>One 1-meter telescope</p>
+				</div>
+			</div>
+			<div class="arrow texas" data-location="texas" data-direction="down"></div>
+			<div class="location tenerife" data-location="tenerife">
+				<div class="infoBox">
+					<img src="images/tenerife.jpg" />
+					<p><strong>Teide Observatory</strong><br />
+					Tenerife, Canary Islands</p>
+					<p>Two .4-meter telescopes</p>
+				</div>
+			</div>
+			<div class="arrow tenerife" data-location="tenerife" data-direction="left"></div>
+			<div class="location southAfrica" data-location="southAfrica">
+				<div class="infoBox">
+					<img src="images/southAfrica.jpg" />
+					<p><strong>South African<br />
+						Astronomical Observatory</strong><br />
+					Sutherland, South Africa</p>
+					<p>Three 1-meter telescopes</p>
+				</div>
+			</div>
+			<div class="arrow southAfrica" data-location="southAfrica" data-direction="up"></div>
+			<div class="location australia" data-location="australia">
+				<div class="infoBox">
+					<img src="images/australia.jpg" />
+					<p><strong>Siding Spring Observatory</strong><br />
+						New South Wales, Australia</p>
+						<p>Two .4-meter telescopes<br />
+						Two 1-meter telescopes<br />
+						One 2-meter telescope
+					</p>
+				</div>
+			</div>
+			<div class="arrow australia" data-location="australia" data-direction="left"></div>
+			<a href="javascript:;" class="displayBox">Show Entire Network</a>
+			<div class="mapText">
+				eighteen telescopes<br />
+				at eight sites around the world
+				working together as a single insturment
+			</div>
+		</div>
+	</section>
+	<section>
+		<div class="portals container-fluid">
+			<div class="row">
+				<div class="option col-md-4">
+					<a href="{% url 'everyone' %}" class="portalLink">for everyone</a>
+					<p>Information about the network, our education programs, outreach tools, and open access archive
+					</p>
+				</div>
+				<div class="option col-md-4">
+					<a href="{% url 'astronomers' %}" class="portalLink">for astronomers</a>
+					<p>Details about using the network for observations, creating observation proposals, and accessing data
+					</p>
+				</div>
+				<div class="option col-md-4">
+					<a href="https://lcogt.net/observe/" class="portalLink">observing portal</a>
+					<p>Log in to your account for access to our observing portal, or create a new account
+					</p>
+				</div>
+			</div>
+		</div>
+	</section>
+  <div class="row">
+    <span class="copyright">Copyright &copy; {% now "Y" %} Las Cumbres Observatory Global Telescope Network. All rights reserved.
+          </span>
+  </div>
 
-          <div class="col-md-3 col-sm-6">
-              <a href="{% url 'astronomers' %}" class="icon">
-                <span class="fa-stack fa-4x">
-                <i class="fa fa-circle fa-stack-2x"></i>
-                <i class="lco-icon fa-stack-1x icon-1m0 fa-inverse"></i>
-                </span>
-              </a>
-                <h2><a href="{% url 'astronomers' %}" >Astronomers</a></h2>
-                <p class="text-muted">Professional astronomer?</p>
-              </a>
-          </div>
-
-          <div class="col-md-3 col-sm-6">
-              <a href="https://lcogt.net/observe/" class="icon">
-                <span class="fa-stack fa-4x">
-                <i class="fa fa-circle fa-stack-2x"></i>
-                <i class="lco-icon icon-2m0 fa-stack-1x fa-inverse"></i>
-                </span>
-              </a>
-                <h2><a href="https://lcogt.net/observe/">Observing Portal</a></h2>
-                <p class="text-muted">Make observations and submit proposals</p>
-              </a>
-          </div>
-        </div>
-    </div>
-</section>
-
-<section id="about"  class="bg-light-gray">
-<div class="container">
-<div class="row">
-    <div class="col-lg-12 text-center">
-        <h2 class="section-heading">Who are we?</h2>
-        <hr class="fancy" />
-    </div>
-</div>
-<div class="row">
-    <div class="col-md-6">
-        <p class="text-muted">
-          Las Cumbres Observatory Global Telescope network (LCOGT) is a group of scientists and engineers  who have created and operate a unique global network of telescopes that functions as a single globe-spanning scientific instrument.</p>
-    </div>
-    <div class="col-md-6">
-      <p class="text-muted">
-      With internet access, anyone in the world, at anytime, is able to make discoveries using the LCOGT global telescope network.</p>
-    </div>
-</div>
-<div class="col-md-6 text-center">
-  <a href="/people/" class="btn btn-xl">Meet The Team</a>
-</div>
-<div class="col-md-6 text-center">
-    <a href="/about/" class="btn btn-xl">Find Out More</a>
-</div>
-</div>
-</section>
-{% endblock%}
-
-{% block specialfooter %}
-            <div class="col-md-8  news-links">
-              <h2><a href="{% url 'mezzanine.blog.views.blog_post_list' %}">News &amp; Press Releases</a></h2>
-              {% blog_recent_posts 5 as recent_posts %}
-              {% if recent_posts %}
-              <ul class="newslist">
-              {% for recent_post in recent_posts %}
-              <li>
-                <span class="blog-date">{{ recent_post.publish_date|date:"d M" }}</span><span class="blog-title-sm"><a href="{{ recent_post.get_absolute_url }}"> {{ recent_post.title }}</a></span>
-              </li>
-              {% endfor %}
-              </ul>
-              {% endif %}
-{% endblock%}
+<script src="js/lco.js"></script>
+<script src="js/bootstrap.min.js"></script>
+</body>
+</html>

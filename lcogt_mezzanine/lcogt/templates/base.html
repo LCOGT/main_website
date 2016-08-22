@@ -1,6 +1,6 @@
 <!DOCTYPE html>
   <html lang="en">
-  {% load pages_tags mezzanine_tags i18n future staticfiles keyword_tags blog_tags block_tags %}
+  {% load pages_tags mezzanine_tags i18n staticfiles keyword_tags blog_tags block_tags %}
 
   <head>
     <meta charset="utf-8">
@@ -47,7 +47,7 @@
           </button>
           <a class="navbar-brand" href="/"><img src="{% static 'img/logogray_lg.png'%}" /></a>
         </div>
-        <div id="navbar" class="collapse navbar-collapse">
+        <div id="navbar" class="collapse navbar-collapse headNav">
           {% block navbar %}
           <ul class="nav navbar-nav navbar-right">
               <li class="hidden">
@@ -57,16 +57,13 @@
                   <a href="{% url 'about' %}">About</a>
               </li>
               <li>
-                  <a href="{% url 'public' %}">Public</a>
+                  <a href="{% url 'everyone' %}">For Everyone</a>
               </li>
               <li>
-                  <a href="{% url 'education' %}">Education</a>
+                  <a href="{% url 'astronomers' %}">For Astronomers</a>
               </li>
               <li>
-                  <a href="{% url 'astronomers' %}">Astronomers</a>
-              </li>
-              <li>
-                  <a href="http://lcogt.net/observe/">Observing Portal</a>
+                  <a href="https://lcogt.net/observe/">Observing Portal</a>
               </li>
           </ul>
           {% endblock %}
@@ -100,6 +97,14 @@
       </div>
     </div>
     {% endblock %}
+
+    <div class="container">
+        <div class="row">
+          <h1>
+            {% block subtitle %}{% endblock %}
+          </h1>
+        </div>
+    </div>
 
     <div class="container">
         <div class="row">
