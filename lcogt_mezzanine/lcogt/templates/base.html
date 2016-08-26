@@ -1,77 +1,96 @@
 <!DOCTYPE html>
-  <html lang="en">
-  {% load pages_tags mezzanine_tags i18n staticfiles keyword_tags blog_tags block_tags %}
+<html lang="en">
+{% load pages_tags mezzanine_tags i18n staticfiles keyword_tags blog_tags block_tags lcogt_extras %}
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Las Cumbres Observatory | {% block title_head %}Many Eyes - One Vision{% endblock %}</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="keywords" content="{% block meta_keywords %}{% endblock %}">
+  <meta name="description" content="{% block meta_description %}{% endblock %}">
+  <link rel="shortcut icon" href="http://lcogt.net/files/favicon.ico" type="image/x-icon" />
 
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="keywords" content="{% block meta_keywords %}{% endblock %}">
-    <meta name="description" content="{% block meta_description %}{% endblock %}">
-    <link rel="shortcut icon" href="http://lcogt.net/files/favicon.ico" type="image/x-icon" />
 
-      <title>{% block title_head %}Las Cumbres Observatory Global Telescope Network{% endblock %}</title>
+    <!-- Bootstrap Core CSS -->
+    <link href='{% static "css/bootstrap.min.css" %}' rel="stylesheet">
 
-      <!-- Bootstrap Core CSS -->
-      <link href='{% static "css/bootstrap.min.css" %}' rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href='{% static "css/affogato.css" %}' rel="stylesheet">
+    <link href='{% static "css/lco.css" %}' rel="stylesheet">
+    <link href="{% static 'font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
 
-      <!-- Custom CSS -->
-      <link rel="stylesheet" href="{% static "mezzanine/css/magnific-popup.css" %}" type="text/css" />
-      <link href='{% static "css/ws-styles.css" %}' rel="stylesheet">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- jQuery - Rest of JS is at the end. This is here so we can use Jquery in pages-->
+    <script src="{% static 'js/jquery-3.1.0.min.js' %}"></script>
+    {% block header_script %}{% endblock%}
+</head>
+<body>
+	<!-- Navigation -->
+  {% block nav-bar %}
+    <nav class="navbar navbar-inverse head downPage">
+      <div class="container-fluid">
+      	<div class="innerHead">
+	        <div class="navbar-header imLink">
+	          <a class="navbar-brand" href="/"><img src="{% static 'img/downHeader.png' %}" class="headImg" /></a>
+	        </div>
+	        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+	            <span class="sr-only">Toggle navigation</span>
+	            <span class="icon-bar"></span>
+	            <span class="icon-bar"></span>
+	            <span class="icon-bar"></span>
+	        </button>
+	        <div id="navbar" class="collapse navbar-collapse headNav">
 
-      <!-- Custom Fonts -->
-      <link href="{% static 'font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
-      <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-      <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-      <!--[if lt IE 9]>
-          <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-          <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-      <![endif]-->
-      <!-- jQuery - Rest of JS is at the end. This is here so we can use Jquery in pages-->
-      <script src="{% static 'js/jquery.js' %}"></script>
-      {% block header_script %}{% endblock%}
+	          <ul class="nav nav-right navbar-nav">
+	              <li class="hidden">
+	                  <a href="#page-top"></a>
+	              </li>
+	              <li>
+	                  <a href="/about/">ABOUT</a>
+	              </li>
+	              <li>
+	                  <a href="{% url 'everyone' %}">FOR EVERYONE</a>
+	              </li>
+	              <li>
+	                  <a href="{% url 'astronomers' %}">FOR ASTRONOMERS</a>
+	              </li>
+	              <li>
+	                  <a href="https://lcogt.net/observe/">OBSERVING PORTAL</a>
+	              </li>
+	          </ul>
 
-  </head>
-
-  <body>
-    <!-- Navigation -->
-    <nav class="navbar navbar-inverse {% block navbarstyle %}navbar-static-top{% endblock%}">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="/"><img src="{% static 'img/logogray_lg.png'%}" /></a>
-        </div>
-        <div id="navbar" class="collapse navbar-collapse headNav">
-          {% block navbar %}
-          <ul class="nav navbar-nav navbar-right">
-              <li class="hidden">
-                  <a href="#page-top"></a>
-              </li>
-              <li>
-                  <a href="{% url 'about' %}">About</a>
-              </li>
-              <li>
-                  <a href="{% url 'everyone' %}">For Everyone</a>
-              </li>
-              <li>
-                  <a href="{% url 'astronomers' %}">For Astronomers</a>
-              </li>
-              <li>
-                  <a href="https://lcogt.net/observe/">Observing Portal</a>
-              </li>
-          </ul>
-          {% endblock %}
-        </div><!--/.nav-collapse -->
+				<div class="clearfix"></div>
+	        </div><!--/.nav-collapse -->
+				<div class="clearfix"></div>
+	    </div>
       </div>
     </nav>
+    {% endblock %}
 
-{% block fullcontent %}
+    {% block fullcontent %}
+
+    <section>
+  		<div class="intro downPage {% block header-class %}{% endblock%}">
+  			<div class="container wide">
+  				<div class="row no-gutter">
+  					<div class="col-md-8 title">
+  						<h1>{% block title %}{% endblock %}</h1>
+  					</div>
+  					<div class="col-md-4 col-sm-12 imgRotate">
+  						<!-- RANDOM PAIR OF IMAGES GO HERE -->
+              <img class="img-responsive" src="{{ MEDIA_URL }}{% thumbnail page.keywords_string|headerbar_image 500 250 %}">
+
+  					</div>
+  				</div>
+  			</div>
+  		</div>
+  	</section>
+
+	<section>
     <div class="container">
       <div class="row">
         {% nevercache %}
@@ -88,93 +107,120 @@
         {% endnevercache %}
       </div>
     </div>
-    {% block title_banner %}
-    <div class="jumbotron {% block header-class %}general-header{% endblock %}">
-      <div class="container">
-        <h1>
-          {% block title %}{% endblock %}
-        </h1>
-      </div>
+		<div class="container wide downPage">
+			<div class="row">
+				<div class="{% block main_span_size %}col-md-12{% endblock %}">
+					{% block main %}{% endblock %}
+				</div>
+				{% block right_panel %}{% endblock %}
+			</div>
+		</div>
+	</section>
+  {% endblock%}
+
+{% block content-footer %}
+	<section>
+		<div class="container wide downPage footer">
+			<hr class="divider" />
+			<div class="row links">
+        {% richflatblock "footer" %}
+				<!-- div class="col-md-3 col-sm-6">
+					<ul>
+						<li><a href="#">For Everyone</a></li>
+						   <li><a href="#">About LCO</a></li>
+						   <li><a href="#">Events</a></li>
+						   <li><a href="#">Public Archives</a></li>
+						   <li><a href="#">Observatory Status</a></li>
+						   <li><a href="#">Staff</a></li>
+						   <li><a href="#">Jobs</a></li>
+						   <li><a href="#">Sales</a></li>
+						   <li><a href="#">News</a></li>
+						   <li><a href="#">Contact</a></li>
+						</ul>
+
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<ul>
+						<li><a href="#">Education<span class="edLink"> and Outreach</span></a></li>
+						   <li><a href="#">Activities</a></li>
+						   <li><a href="#">Observing Information</a></li>
+						   <li><a href="#">Latest Observations</a></li>
+						   <li><a href="#">Agent Exoplanet</a></li>
+						   <li><a href="#">SpaceBook</a></li>
+						   <li><a href="#">Star in a Box</a></li>
+						   <li><a href="#">Image Gallery</a></li>
+						   <li><a href="#">Open Source</a></li>
+						</ul>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<ul>
+						<li><a href="#">For Astronomers</a></li>
+						   <li><a href="#">Operational Status</a></li>
+						   <li><a href="#">Proposal Portal</a></li>
+						   <li><a href="#">Purchase Time</a></li>
+						   <li><a href="#">SSA and Satellite Archives</a></li>
+						   <li><a href="#">Data Archive</a></li>
+						   <li><a href="#">Seminar Series</a></li>
+						   <li><a href="#">Science Staff</a></li>
+						</ul>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<ul>
+						<li><a href="#">Observing Portal</a></li>
+						   <li><a href="#">Secure Login</a></li>
+						   <li><a href="#">About the Portal</a></li>
+						   <li><a href="#">Request an Account</a></li>
+						</ul>
+				</div-->
+			</div>
     </div>
-    {% endblock %}
+  </section>
+  {% endblock %}
 
-    <div class="container">
-        <div class="row">
-          <h1>
-            {% block subtitle %}{% endblock %}
-          </h1>
-        </div>
-    </div>
-
-    <div class="container">
-        <div class="row">
-          <div class="{% block main_span_size %}col-md-8{% endblock %}">
-          {% block main %}{% endblock %}
-          </div>
-
-          <div class="col-md-4">
-          {% block right_panel %}{% endblock %}
-          </div>
-        </div>
-    </div>
-{%endblock%}
-
-{% block alternate %}
-        <div class="row">
-          <div class="col-md-12">
-          </div>
-        </div>
-{% endblock %}
-
-
-<footer class="{% block footer-class %}{% endblock %}">
-    <div class="container">
-    <div class="row">
-      {% block footer-option %}
-      <div class="col-md-4 news-links">
-        {% richflatblock "common.block" %}
-      </div>
-      {% block specialfooter %}
-      <div class="col-md-4 news-links">
-        {% richflatblock "public.quicklinks" %}
-      </div>
-      <div class="col-md-4 news-links">
-        <h2><a href="{% url 'mezzanine.blog.views.blog_post_list' %}">News &amp; Press Releases</a></h2>
-        {% blog_recent_posts 5 as recent_posts %}
-        {% if recent_posts %}
-        <ul class="newslist">
-        {% for recent_post in recent_posts %}
-        <li>
-          <span class="blog-date">{{ recent_post.publish_date|date:"d M" }}</span><span class="blog-title-sm"><a href="{{ recent_post.get_absolute_url }}"> {{ recent_post.title }}</a></span>
-        </li>
-        {% endfor %}
-        </ul>
-        {% endif %}
-      </div>
-      {% endblock %}
-    </div>
-    {% endblock %}
-    <div class="row">
-        <ul class="list-inline social-buttons">
-            <li></li>
-            <li><a href="http://twitter.com/lcogt"><i class="fa fa-twitter"></i></a>
-            </li>
-            <li><a href="http://facebook.com/lcogt"><i class="fa fa-facebook"></i></a>
-            </li>
-            <li><a href="/blog/feeds/rss/"><i class="fa fa-rss"></i></a>
-            </li>
-        </ul>
-    </div>
-      <div class="row">
-        <span class="copyright">Copyright &copy; {% now "Y" %} Las Cumbres Observatory Global Telescope Network. All rights reserved.
+  <footer>
+    <div class="container wide downPage footer">
+      <div class="row social">
+          <ul class="list-inline social-buttons">
+            <li>
+            <a href="http://twitter.com/lcogt" alt="Las Cumbres Observatory on Twitter">
+            <span class="fa-stack fa-2x">
+              <i class="fa fa-circle fa-stack-2x"></i>
+              <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
               </span>
-      </div>
-      <div class="row">
-        <img src="{% static 'img/logo.png' %}" />
-      </div>
-    </div>
-</footer>
+            </a>
+            </li>
+            <li>
+            <a href="http://facebook.com/lcogt" alt="Las Cumbres Observatory on Facebook">
+            <span class="fa-stack fa-2x">
+              <i class="fa fa-circle fa-stack-2x"></i>
+              <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+            </li>
+            <li>
+            <a href="/blog/feeds/rss/" alt="Latest news from Las Cumbres Observatory via RSS">
+            <span class="fa-stack fa-2x">
+              <i class="fa fa-circle fa-stack-2x"></i>
+              <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+            </li>
+            <li>
+            <a href="/news/" alt="Latest news from Las Cumbres Observatory">
+            <span class="fa-stack fa-2x">
+              <i class="fa fa-circle fa-stack-2x"></i>
+              <i class="fa fa-newspaper-o fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+            </li>
 
+          </ul>
+        </div>
+        <div class="row">
+          <div class="copyright">Copyright &copy; {% now "Y" %} Las Cumbres Observatory Global Telescope Network. All rights reserved.</div>
+        </div>
+      </div>
+    </footer>
 
 
     <!-- Bootstrap core JavaScript

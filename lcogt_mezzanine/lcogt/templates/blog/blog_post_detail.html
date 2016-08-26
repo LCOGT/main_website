@@ -95,6 +95,7 @@ News
 {% endblock %}
 
 {% block right_panel %}
+<div class="col-md-4 linkBar">
 {% with blog_post.user as author %}
 <div class="sidebar-module sidebar-module-inset">
 <div class="sidebar-module">
@@ -129,5 +130,6 @@ News
     </ul>
     {% endif %}
   </div>
+</div>
 </div>
 {% endblock %}

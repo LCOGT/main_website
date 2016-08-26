@@ -7,20 +7,20 @@
 {% block title_head %}{{ page.title }}{% endblock %}
 
 {% block header-class %}
-{% if 'education' in page.keywords_string %}
-public-header
-{% elif 'science' in page.keywords_string %}
-astronomer-header
-{% elif 'space-book' in page.keywords_string %}
-spacebook-header
+{% if 'science' in page.keywords_string or 'observatory' in page.keywords_string %}
+blue
 {% else %}
-general-header
+green
 {% endif %}
 {% endblock%}
 
-{% block main_span_size %}{% if page.lcopage.extra_info %}col-md-8{%else%}col-md-12{%endif%}{% endblock %}
+{% block main_span_size %}{% if page.lcopage.no_side_block %}col-md-12 {%else%}col-md-8 leftCol{%endif%}{% endblock %}
 
 {% block main %}{{ block.super }}
+
+{% if page.lcopage.no_side_block %}
+<h2 class="subtitle">{% editable page.lcopage.extra_info %}{{page.lcopage.extra_info|richtext_filters|safe}}{% endeditable %}</h2>
+{% endif %}
 
 {% editable page.lcopage.content %}
 {{ page.lcopage.content|richtext_filters|safe }}
@@ -29,25 +29,17 @@ general-header
 {% endblock %}
 
 {% block right_panel %}
-{% if page.lcopage.extra_info %}
 
+{%if not page.lcopage.extra_info and not page.lcopage.no_side_block%}
+<div class="col-md-4 linkBar">
+{% endif%}
+
+{% if page.lcopage.extra_info and not page.lcopage.no_side_block %}
 	{% editable page.lcopage.extra_info %}
 	{{ page.lcopage.extra_info|richtext_filters|safe }}
 	{% endeditable %}
 
-	<div class="back-button">
-	<a href="/{{page.parent.slug}}">Back to {{page.parent}} &rarr;</a>
-	</div>
-	<hr />
 {% endif%}
-
-{% if page.lcopage.no_links %}
-	{% block footer-class%}fat-footer{% endblock %}
-
-	{% block footer-option %}
-	{% endblock %}
-{% endif %}
-
 {% if not page.lcopage.no_side_block %}
 	{% if 'observatory' in page.keywords_string %}
 	{% richflatblock 'observatory.side.block' %}
@@ -57,4 +49,12 @@ general-header
 	{% richflatblock 'science.side.block' %}
 	{% endif %}
 {% endif %}
+</div>
 {%endblock%}
+
+{% if page.lcopage.no_links %}
+	{% block footer-class%}fat-footer{% endblock %}
+
+	{% block footer-content %}
+	{% endblock %}
+{% endif %}

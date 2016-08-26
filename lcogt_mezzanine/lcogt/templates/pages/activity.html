@@ -6,7 +6,7 @@
 
 {% block body-class %}education {%endblock%}
 
-{% block main_span_size %}col-md-8{% endblock %}
+{% block main_span_size %}col-md-8 leftCol{% endblock %}
 
 {% block title %}
 {% editable page.title %}{{ page.title }}{% endeditable %}
@@ -41,6 +41,7 @@
 {% endblock %}
 
 {% block right_panel %}
+<div class="col-md-4 linkBar">
 {% with page.activity.user as author %}
 <div class="sidebar-module sidebar-module-inset">
 	<div class="sidebar-module">
@@ -55,4 +56,5 @@
 </div>
     {% endwith %}
 {% richflatblock "education.side.block" %}
+</div>
 {%endblock%}

@@ -5,54 +5,23 @@
 {% block left_wrapper%}
 {% endblock %}
 
-{% block main_span_size %}col-md-12{% endblock %}
+{% block main %}
 
-{% block fullcontent %}
-    <div class="container">
-      <div class="row">
-        {% nevercache %}
-        {% if messages %}
-        <div class="messages">
-        {% for message in messages %}
-        <div class="alert alert-dismissable alert-{{ message.tags }}" data-alert="alert">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-            {{ message }}
-        </div>
-        {% endfor %}
-        </div>
-        {% endif %}
-        {% endnevercache %}
-      </div>
-    </div>
-    {% block title_banner %}
-    <div class="jumbotron {% block header-class %}general-header{% endblock %}">
-      <div class="container">
-        <h1>
-          {% block title %}{{page.title}}{% endblock %}
-        </h1>
-      </div>
-    </div>
-    {% endblock %}
+    {% editable page.gallery.content %}
+    {{ page.gallery.content|richtext_filters|safe }}
+    {% endeditable %}
 
-    <div class="container">
-        <div class="row">
-        {% editable page.gallery.content %}
-        {{ page.gallery.content|richtext_filters|safe }}
-        {% endeditable %}
+      <div class="row gallery">
+        {% with page.gallery.images.all as images %}
+  				{% for image in images %}
+          <div class="col-lg-3 col-md-4 col-xs-6 thumb">
+            <a class="thumbnail" rel="#image-1" title="{{image.description}}" href="{{ MEDIA_URL }}{% thumbnail image.file 600 450 %}">
+              <img class="img-responsive" src="{{ MEDIA_URL }}{% thumbnail image.file 400 300 %}">
+              </a>
+          </div>
+          {% endfor %}
+  			{% endwith %}
       </div>
-    </div>
-
-    <div class="container">
-        <div class="row">
-          {% with page.gallery.images.all as images %}
-    				{% for image in images %}
-            <div class="col-lg-3 col-md-4 col-xs-6 thumb">
-              <a class="thumbnail" rel="#image-1" title="{{image.description}}" href="{{ MEDIA_URL }}{% thumbnail image.file 600 450 %}">
-                <img class="img-responsive" src="{{ MEDIA_URL }}{% thumbnail image.file 400 300 %}">
-                </a>
-            </div>
-            {% endfor %}
-    			{% endwith %}
-        </div>
-    </div>
 {%endblock%}
+
+{% block right_panel %}{% endblock %}

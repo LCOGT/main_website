@@ -7,14 +7,10 @@
 
 
 {% block header-class %}
-{% if 'education' in page.keywords_string %}
-public-header
-{% elif 'science' in page.keywords_string %}
-astronomer-header
-{% elif 'spacebook' in page.keywords_string %}
-spacebook-header
+{% if 'spacebook' in page.keywords_string %}
+red
 {% else %}
-general-header
+blue
 {% endif %}
 {% endblock%}
 
@@ -30,14 +26,22 @@ general-header
 {{ page.description }}
 {% endmetablock %}{% endblock %}
 
+{% block main_span_size %}col-md-8 leftCol{% endblock %}
+
 {% block title %}
+{% if 'spacebook' in page.keywords_string%}
+Space Book
+{% else %}
 {% editable page.title %}{{ page.title }}{% endeditable %}
-{% endblock %}
+{% endif %}
+{%endblock%}
+
 
 {% block main %}
 {% endblock %}
 
 {% block right_panel %}
+<div class="col-md-4 linkBar">
 {% keywords_for page as keywords %}
 {% if keywords|is_spacebook %}
 {% page_menu page "pages/menus/tree.html" %}
@@ -45,4 +49,5 @@ general-header
 {% else%}
 {% richflatblock "observatory.side.block" %}
 {% endif %}
+</div>
 {% endblock %}

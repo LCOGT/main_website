@@ -19,7 +19,7 @@
 {% if page %}
 {% editable page.title %}{{ page.title }}{% endeditable %}
 {% else %}
-{% trans "News & Press Releases" %}
+{% trans "News" %}
 {% endif %}
 {% endblock %}
 
@@ -43,6 +43,8 @@
 
 {% block left_wrapper %}
 {% endblock %}
+
+{% block main_span_size %}col-md-8 leftCol{% endblock %}
 
 {% block main %}
 
@@ -117,6 +119,7 @@
 {% block blog_post_list_post_metainfo %}{% endblock %}
 
 {% block right_panel %}
+<div class="col-md-4 linkBar">
 {% include "blog/includes/filter_panel.html" %}
-{% endblock %}
 </div>
+{% endblock %}

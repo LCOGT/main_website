@@ -9,7 +9,7 @@
 Education Activities
 {% endblock %}
 
-{% block main_span_size %}col-md-8{% endblock %}
+{% block main_span_size %}col-md-8 leftCol{% endblock %}
 
 {% block main %}
 
@@ -40,5 +40,7 @@ Education Activities
 {% endblock %}
 
 {% block right_panel %}
+<div class="col-md-4 linkBar">
 {% richflatblock "education.side.block" %}
+</div>
 {%endblock%}

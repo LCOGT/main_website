@@ -1,42 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-{% load pages_tags mezzanine_tags i18n staticfiles keyword_tags blog_tags block_tags %}
-<head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Las Cumbres Observatory | {% block title_head %} A Global Telescope Network{% endblock %}</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="keywords" content="{% block meta_keywords %}{% endblock %}">
-  <meta name="description" content="{% block meta_description %}{% endblock %}">
-  <link rel="shortcut icon" href="http://lcogt.net/files/favicon.ico" type="image/x-icon" />
+{% extends 'base.html' %}
 
+{% load pages_tags mezzanine_tags i18n staticfiles keyword_tags blog_tags block_tags lcogt_extras %}
 
-    <!-- Bootstrap Core CSS -->
-    <link href='{% static "css/bootstrap.min.css" %}' rel="stylesheet">
-
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="{% static "mezzanine/css/magnific-popup.css" %}" type="text/css" />
-    <link href='{% static "css/ws-styles.css" %}' rel="stylesheet">
-    <link href="css/affogato.css" rel="stylesheet">
-    <link href="css/lco.css" rel="stylesheet">
-    <link href="{% static 'font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-    <!-- jQuery - Rest of JS is at the end. This is here so we can use Jquery in pages-->
-    <script src="{% static 'js/jquery.js' %}"></script>
-    {% block header_script %}{% endblock%}
-</head>
-<body>
+{% block nav-bar %}
 	<!-- Navigation -->
     <nav class="navbar navbar-inverse head home">
       <div class="container-fluid">
       	<div class="innerHead">
 	        <div class="navbar-header imLink">
-	          <a class="navbar-brand" href="/"><img src="images/header.png" class="headImg" /></a>
+	          <a class="navbar-brand" href="/"><img src='{% static "img/header.png" %}' class="headImg" /></a>
 	        </div>
 	        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
 	            <span class="sr-only">Toggle navigation</span>
@@ -54,7 +26,7 @@
 	                  <a href="/about/">ABOUT</a>
 	              </li>
 	              <li>
-	                  <a href="/public/">FOR EVERYONE</a>
+	                  <a href="/everyone/">FOR EVERYONE</a>
 	              </li>
 	              <li>
 	                  <a href="/astronomers/">FOR ASTRONOMERS</a>
@@ -70,28 +42,15 @@
 	    </div>
       </div>
     </nav>
-	<!--<header class="head">
-		<div class="innerHead">
-			<img src="images/header.png" class="headImg" />
+    {% endblock %}
 
-			<nav class="headNav navbar" id="navbar">
-				<ul class="nav nav-stacked">
-					<li><a href="#">ABOUT</a></li>
-					<li><a href="#">FOR EVERYONE</a></li>
-					<li><a href="#">FOR ASTRONOMERS</a></li>
-					<li><a href="#">OBSERVING PORTAL</a></li>
-				</ul>
-				<div class="clearfix"></div>
-			</nav>
-			<div class="clearfix"></div>
-		</div>
-	</header>-->
+{% block fullcontent %}
 	<section>
 		<div class="worldMap container-fluid">
-			<img src="images/map.png" class="bgMap" />
+			<img src='{% static "img/map/map.png" %}' class="bgMap" />
 			<div class="location israel" data-location="israel">
 				<div class="infoBox">
-					<img src="images/israel.jpg" />
+					<img src='{% static "img/map/israel.jpg" %}' />
 					<p><strong>Wise Observatory</strong><br />
 					Tel Aviv, Israel</p>
 					<p>One 1-meter telescope<br />
@@ -101,10 +60,10 @@
 			<div class="arrow israel" data-location="israel" data-direction="up"></div>
 			<div class="location chile" data-location="chile">
 				<div class="infoBox">
-					<img src="images/chile.jpg" />
+					<img src='{% static "img/map/lsc.jpg" %}' />
 					<p><strong>Cero Tololo Observatory</strong><br />
 					Cerro Tololo, Chile</p>
-					<p>One .4-meter telescope<br />
+					<p>One 0.4-meter telescope<br />
 					Three 1-meter telescopes</p>
 				</div>
 			</div>
@@ -120,15 +79,15 @@
 			<div class="arrow staBarbara" data-location="staBarbara" data-direction="up"></div>
 			<div class="location liverpool" data-location="liverpool">
 				<div class="infoBox">
-					<p><strong>Liverpool</strong><br />
-					United Kingdom</p>
-					<p>European Headquarters</p>
+					<p><strong>United Kingdom</strong></p>
+					<p>Liverpool, European Operations Center</p>
+          <p>Cardiff, Education Headquarters</p>
 				</div>
 			</div>
 			<div class="arrow liverpool" data-location="liverpool" data-direction="left"></div>
 			<div class="location china" data-location="china">
 				<div class="infoBox">
-					<img src="images/china.jpg" />
+					<img src='{% static "img/map/china.jpg" %}' />
 					<p><strong>Urumqui</strong><br />
 					Northwest China</p>
 					<p>Two 1-meter telescopes<br />
@@ -138,17 +97,17 @@
 			<div class="arrow china" data-location="china" data-direction="right"></div>
 			<div class="location hawaii" data-location="hawaii">
 				<div class="infoBox">
-					<img src="images/hawaii.jpg" />
+					<img src='{% static "img/map/ogg.jpg" %}' />
 					<p><strong>Halakala Observatory</strong><br />
 					Halakala, Hawaii</p>
-					<p>Two .4-meter telescopes<br />
+					<p>Two 0.4-meter telescopes<br />
 					One 2-meter telescope</p>
 				</div>
 			</div>
 			<div class="arrow hawaii" data-location="hawaii" data-direction="down"></div>
 			<div class="location texas" data-location="texas">
 				<div class="infoBox">
-					<img src="images/texas.jpg" />
+					<img src='{% static "img/map/texas.jpg" %}' />
 					<p><strong>McDonald Observatory</strong><br />
 					Fort Davis, Texas</p>
 					<p>One 1-meter telescope</p>
@@ -157,16 +116,16 @@
 			<div class="arrow texas" data-location="texas" data-direction="down"></div>
 			<div class="location tenerife" data-location="tenerife">
 				<div class="infoBox">
-					<img src="images/tenerife.jpg" />
+					<img src='{% static "img/map/tfn.jpg" %}' />
 					<p><strong>Teide Observatory</strong><br />
 					Tenerife, Canary Islands</p>
-					<p>Two .4-meter telescopes</p>
+					<p>Two 0.4-meter telescopes</p>
 				</div>
 			</div>
 			<div class="arrow tenerife" data-location="tenerife" data-direction="left"></div>
 			<div class="location southAfrica" data-location="southAfrica">
 				<div class="infoBox">
-					<img src="images/southAfrica.jpg" />
+					<img src='{% static "img/map/southAfrica.jpg" %}' />
 					<p><strong>South African<br />
 						Astronomical Observatory</strong><br />
 					Sutherland, South Africa</p>
@@ -176,10 +135,10 @@
 			<div class="arrow southAfrica" data-location="southAfrica" data-direction="up"></div>
 			<div class="location australia" data-location="australia">
 				<div class="infoBox">
-					<img src="images/australia.jpg" />
+					<img src='{% static "img/map/coj.jpg" %}' />
 					<p><strong>Siding Spring Observatory</strong><br />
 						New South Wales, Australia</p>
-						<p>Two .4-meter telescopes<br />
+						<p>Two 0.4-meter telescopes<br />
 						Two 1-meter telescopes<br />
 						One 2-meter telescope
 					</p>
@@ -215,12 +174,8 @@
 			</div>
 		</div>
 	</section>
-  <div class="row">
-    <span class="copyright">Copyright &copy; {% now "Y" %} Las Cumbres Observatory Global Telescope Network. All rights reserved.
-          </span>
-  </div>
 
-<script src="js/lco.js"></script>
-<script src="js/bootstrap.min.js"></script>
-</body>
-</html>
+{% endblock %}
+
+{% block content-footer %}
+{% endblock %}

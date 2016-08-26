@@ -1,9 +1,12 @@
 from django.contrib import admin
+from django.utils.translation import ugettext_lazy as _
 from mezzanine.pages.admin import PageAdmin
 from mezzanine.pages.models import RichTextPage, Page
 from mezzanine.galleries.models import Gallery
 from mezzanine.forms.models import  Form
 from mezzanine.blog.models import BlogPost
+from mezzanine.blog.admin import BlogPostAdmin
+
 from lcogt.models import Activity, Seminar, Profile, LCOPage
 
 from django.contrib.auth.admin import UserAdmin
@@ -11,9 +14,24 @@ from django.contrib.auth.models import User
 
 from reversion.admin import VersionAdmin
 
-
 class PageReversion(PageAdmin, VersionAdmin):
     pass
+
+
+class LCOBlogAdmin(BlogPostAdmin):
+    fieldsets =  (
+        (None, {
+            "fields": ["title", "status", "publish_date", "featured_image", "content"],
+        }),
+        (_("Meta data"), {
+            "fields": ["_meta_title", "slug",
+                       ("description", "gen_description"),
+                        "keywords"],
+            "classes": ("collapse-closed",)
+        }),
+    )
+
+
 
 # Define an inline admin descriptor for Employee model
 # which acts a bit like a singleton
@@ -62,6 +80,9 @@ class UserAdmin(UserAdmin):
 # Re-register UserAdmin
 admin.site.unregister(User)
 admin.site.register(User, UserAdmin)
+
+admin.site.unregister(BlogPost)
+admin.site.register(BlogPost, LCOBlogAdmin)
 
 admin.site.register(Activity, PageReversion)
 admin.site.register(Seminar, PageReversion)
