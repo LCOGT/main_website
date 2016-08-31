@@ -17,7 +17,7 @@ python-dateutil
 beautifulsoup4
 pdfminer
 flup
-django-lcobiblio
+django-lcobiblio==0.1.7
 git+git://github.com/zemogle/mezzanine-blocks.git#egg=mezzanine-blocks
 uWSGI
 opbeat

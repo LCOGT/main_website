@@ -19,6 +19,15 @@ h5 {
 	font-size: 1.25em;
 	font-family: 'Affogato-Bold', sans-serif;
 }
+
+.bigger {
+	font-size: 200%;
+}
+
+.biblio-journals{
+	line-height: 2em;
+}
+
 .head {
 	width: 100%;
 	padding-top: 10px;
@@ -162,6 +171,18 @@ h5 {
 .downPage .leftCol p, .downPage .leftCol h2, .downPage .leftCol h5 {
 	padding-right: 2em;
 }
+
+/* Custom page formats */
+ul.newslist, ul.list-papers {list-style: outside none none; margin: 0;padding-left: 0;}
+ul.newslist li {margin-bottom:4px;}
+ul.list-papers li {margin-bottom:10px;}
+.paper-title {font-size: 110%}
+.paper-citation, .stats-desc {color:#555;}
+.paper-authors {color:#aaa;}
+.green-3 { color: #a4cd39;}
+
+li .blog-date, li .blog-title-sm, li .seminar-date, li .seminar-title { display: table-cell;}
+li .blog-date, li .seminar-date {width:100px;}
 
 /* Sidebar Links */
 .linkBar {

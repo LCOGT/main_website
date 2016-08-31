@@ -93,6 +93,7 @@ DASHBOARD_TAGS = (
 # Setting to turn on featured images for blog posts. Defaults to False.
 #
 BLOG_USE_FEATURED_IMAGE = True
+BLOG_SLUG = 'news'
 
 # If True, the south application will be automatically added to the
 # INSTALLED_APPS setting.
@@ -187,15 +188,6 @@ DATABASES = {
         "HOST": os.environ.get('MEZZ_DB_HOST', ''),
         "OPTIONS": {'init_command': 'SET storage_engine=INNODB'} if PRODUCTION else {},
         "ENGINE": "django.db.backends.mysql",
-    },
-    'rbauth': {
-        'NAME': os.environ.get('RBAUTH_DB_NAME', ''),
-        "USER": os.environ.get('RBAUTH_DB_USER', ''),
-        "PASSWORD": os.environ.get('RBAUTH_DB_PASSWD', ''),
-        "HOST": os.environ.get('RBAUTH_DB_HOST', ''),
-        "OPTIONS": {'init_command': 'SET storage_engine=INNODB'} if PRODUCTION else {},
-        "ENGINE": "django.db.backends.mysql",
-        'TEST_DEPENDENCIES': [],
     }
 }
 
@@ -481,10 +473,5 @@ if 'test' in sys.argv:
         {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': 'test_db', # Add the name of your SQLite3 database file here.
-        },
-        'rbauth':
-                {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'test_rbauth', # Add the name of your SQLite3 database file here.
         }
     }

@@ -1,0 +1,31 @@
+{% extends "admin/index.html" %}
+
+{% load i18n mezzanine_tags staticfiles %}
+
+{% block content_title %}<h1>Las Cumbres Observatory</h1>{% endblock %}
+
+{% block sidebar %}
+{% if user.is_superuser %}
+<div id="content-related">
+  <div class="module" id="recent-actions-module">
+      <h2>{% trans 'Recent Page Edits' %}</h2>
+          {% load log %}
+          {% get_admin_log 30 as admin_log %}
+          {% if not admin_log %}
+          <p>{% trans 'None available' %}</p>
+          {% else %}
+          <ul class="actionlist" style="margin:0;">
+          {% for entry in admin_log %}
+          <li style="list-style-type:none;" class="{% if entry.is_addition %}addlink{% endif %}{% if entry.is_change %}changelink{% endif %}{% if entry.is_deletion %}deletelink{% endif %}">{% if not entry.is_deletion %}<a href="{{ entry.get_admin_url }}">{% endif %}{{ entry.object_repr }}{% if not entry.is_deletion %}</a>{% endif %}<br /><span class="mini quiet">{% filter capfirst %}{% trans entry.content_type.name %}{% endfilter %}</span></li>
+          {% endfor %}
+          </ul>
+          {% endif %}
+  </div>
+</div>
+{% endif %}
+
+    <div id="content-related" class="dashboard1">{% dashboard_column 2 %}</div>
+    {% block extendedsidebar %}
+    <div id="content-related" class="dashboard2">{% dashboard_column 1 %}</div>
+    {% endblock %}
+{% endblock %}
