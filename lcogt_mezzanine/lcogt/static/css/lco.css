@@ -20,6 +20,8 @@ h5 {
 	font-family: 'Affogato-Bold', sans-serif;
 }
 
+.menugrid h2 {margin-top:0;}
+
 .bigger {
 	font-size: 200%;
 }

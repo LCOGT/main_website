@@ -37,7 +37,7 @@ Space Book
 {%endblock%}
 
 
-{% block main %}
+{% block main %}{{block.super}}
 {% endblock %}
 
 {% block right_panel %}
@@ -47,7 +47,7 @@ Space Book
 {% page_menu page "pages/menus/tree.html" %}
 <a href="{{page.parent.get_absolute_url}}">Back up to "{{page.parent.title}}"</a>
 {% else%}
-{% richflatblock "observatory.side.block" %}
+{% richflatblock "sidebar.links" %}
 {% endif %}
 </div>
 {% endblock %}

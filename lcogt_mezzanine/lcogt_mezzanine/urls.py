@@ -21,9 +21,9 @@ admin.autodiscover()
 urlpatterns = [
     # url("^$", "mezzanine.pages.views.page", {"slug": "/"}, name="home"),
     url("^$", TemplateView.as_view(template_name='pages/index.html'), name="home"),
-    # url(r'^about/$', SpecialPage.as_view(), {"slug": "/about/"}, name="about"),
-    url(r'^everyone/$', SpecialPage.as_view(template_name='public.html'), {"slug": "/public/"}, name="everyone"),
-    url(r'^astronomers/$', SpecialPage.as_view(template_name='astronomers.html'), {"slug": "/astronomers/"}, name="astronomers"),
+    url(r'^about/$', SpecialPage.as_view(template_name='about.html'), {"slug": "/about/"}, name="about"),
+    url(r'^everyone/$', page, {"slug": "/public/"}, name="everyone"),
+    url(r'^astronomers/$', page, {"slug": "/astronomers/"}, name="astronomers"),
     url(r'^science/$', page, {"slug": "/science/"}, name="science"),
     url(r'^education/$', page, {"slug": "/education/"}, name="education"),
     url(r'^search/$', page, {"slug": "/search/"}, name="search"),
