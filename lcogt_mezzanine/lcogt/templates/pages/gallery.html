@@ -2,8 +2,9 @@
 
 {% load mezzanine_tags staticfiles %}
 
-{% block left_wrapper%}
-{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static "mezzanine/css/magnific-popup.css" %}">
+{% endblock extra_css %}
 
 {% block main %}
 
@@ -15,7 +16,7 @@
         {% with page.gallery.images.all as images %}
   				{% for image in images %}
           <div class="col-lg-3 col-md-4 col-xs-6 thumb">
-            <a class="thumbnail" rel="#image-1" title="{{image.description}}" href="{{ MEDIA_URL }}{% thumbnail image.file 600 450 %}">
+            <a class="thumbnail" rel="#image-1" title="{{image.description}}" href="{{ MEDIA_URL }}{{image.file}}">
               <img class="img-responsive" src="{{ MEDIA_URL }}{% thumbnail image.file 400 300 %}">
               </a>
           </div>
