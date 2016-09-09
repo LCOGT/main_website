@@ -4,7 +4,7 @@
 
 
 {% block header_script %}
-<script src="{% static "js/lco.js" %}"></script>
+<script src="{% static "js/lco.min.js" %}"></script>
 {% endblock %}
 
 {% block nav-bar %}
@@ -16,19 +16,20 @@
 	          <a class="navbar-brand" href="/"><img src='{% static "img/logo.png" %}' class="headImg" /></a>
 	        </div -->
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
             <span class="sr-only">Toggle navigation</span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
           <div class="navbar-header branding branding-logo">
-            <a href="http://lco.global/" title="LCO homepage" rel="home" class="navbar-brand"><img src="{% static 'img/LCO-logo-web.jpg' %}" alt="Las Cumbres Observatory" /></a>
+            <a href="/" title="LCO homepage" rel="home" class="navbar-brand"><img src="{% static 'img/LCO-logo-web.jpg' %}" alt="Las Cumbres Observatory" /></a>
           </div>
-          <div id="site-name" class="navbar-header branding">
-            <strong>Las Cumbres Observatory</strong><br/>
-            <span id="tag-line">
+          <div class="navbar-header branding">
+            <div id="lco-name">Las Cumbres Observatory</div>
+            <div id="tag-line">
               MANY EYES - ONE VISION
-            </span>
+            </div>
           </div>
 	        <div id="navbar" class="collapse navbar-collapse headNav">
 

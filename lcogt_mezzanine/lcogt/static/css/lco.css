@@ -50,7 +50,7 @@ h5 {
 	max-width: 1800px;
 	width: 100%;
 	margin: 0px auto;
-	padding-bottom: 16px;
+	padding-bottom: 5px;
 }
 .head.downPage .innerHead {
 	max-width: 1490px;
@@ -73,18 +73,18 @@ h5 {
 	display:table-cell;
 }
 
-.head #site-name.branding{
+.head .branding #lco-name{
 	padding-top:35px;
 }
-.head #site-name.branding strong {
-	font-family:'Montserrat', sans-serif;
+.head .branding #lco-name {
+	font-family:'Montserrat-Thin', sans-serif;
 	font-size: 2.5em;
 }
 
 .head .branding #tag-line{
 	font-family: 'Montserrat', sans-serif;
 	font-size: 1em;
-	line-height: 1em;
+	line-height: 1.5em;
 	letter-spacing: .1em;
 }
 
@@ -637,6 +637,19 @@ a.portalLink:hover {
  .icon-1m0:before{content:'\0042'}
  .icon-2m0:before{content:'\0043'}
 
+/* Glyphicon stacking and inversing */
+
+ .white, .white a {
+  color: #fff;
+}
+
+.icon-stack {
+    position: relative;
+}
+.icon-stack .glyphicon {
+    position: absolute;
+}
+
 /* media queries */
 
 @media screen and (max-device-width : 1745px), screen and (max-width: 1745px) {
@@ -703,10 +716,10 @@ a.portalLink:hover {
 		.worldMap .mapText {
 			font-size: 1.5em;
 		}
-		.head.downPage #site-name.branding strong {
+		.head.downPage .branding #lco-name {
 			font-size: 1em;
 		}
-		.head #site-name.branding strong {
+		.head .branding #lco-name {
 			font-size: 2em;
 		}
 	}
@@ -739,10 +752,10 @@ a.portalLink:hover {
 	.location.hawaii .infoBox {
 		margin-left: -11.823em;
 	}
-	.head.downPage #site-name.branding strong {
+	.head.downPage .branding #lco-name {
 		font-size:1.25em;
 	}
-	.head #site-name.branding strong {
+	.head .branding #lco-name {
 		font-size:2em;
 	}
 
@@ -759,17 +772,20 @@ a.portalLink:hover {
 		margin-top: 1%;
 	}
 
-	.head.downPage #site-name.branding strong {
+	.head.downPage .branding #lco-name {
 		font-size:1em;
 	}
-	.head #site-name.branding strong {
+	.head .branding #lco-name {
 		font-size:1.75em;
 	}
-	.head #site-name.branding{
-		padding-top:10px;
+	.head .branding{
+		padding-top:0;
 	}
 	.head .branding-logo img {
 		max-height:50px;
+	}
+	.head .innerHead {
+		padding-bottom: 0;
 	}
 
 }
@@ -793,12 +809,14 @@ a.portalLink:hover {
 		border-left: none;
 		margin-left: 0px;
 	}
-	.head.downPage #site-name.branding strong,
+	.head.downPage .branding #lco-name,
 	.head .branding #tag-line {
 			font-size:0.75em;
+			padding-top:10px;
 	}
-	.head #site-name.branding strong {
+	.head .branding #lco-name {
 		font-size:1em;
+		padding-top: 10px;
 	}
 }
 @media screen and (max-device-width : 767px), screen and (max-width: 767px) {
@@ -853,8 +871,9 @@ a.portalLink:hover {
 		display: none;
 	}
 	#tag-line,
-	.head #site-name.branding strong {
+	.head .branding #lco-name {
 		display:none;
+		padding:0;
 	}
 }
 /*  Location pulse animation */
