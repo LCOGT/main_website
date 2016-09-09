@@ -73,12 +73,17 @@ h5 {
 	display:table-cell;
 }
 
-.head .branding #lco-name{
-	padding-top:35px;
-}
 .head .branding #lco-name {
 	font-family:'Montserrat-Thin', sans-serif;
+}
+.head.home .branding #lco-name {
 	font-size: 2.5em;
+	padding-top:35px;
+}
+
+.head.downPage .branding #lco-name {
+	font-size: 2em;
+	padding-top:20px;
 }
 
 .head .branding #tag-line{
@@ -108,7 +113,7 @@ h5 {
 	width: 55.3%;
 	max-width: none;
 	margin-right: 0%;
-	margin-top: 2.2%;
+	padding-top: 20px;
 }
 
 .head.downPage #site-name.branding{
@@ -717,9 +722,10 @@ a.portalLink:hover {
 			font-size: 1.5em;
 		}
 		.head.downPage .branding #lco-name {
-			font-size: 1em;
+			padding-top:20px;
+			font-size: 1.5em;
 		}
-		.head .branding #lco-name {
+		.head.home .branding #lco-name {
 			font-size: 2em;
 		}
 	}
@@ -753,9 +759,9 @@ a.portalLink:hover {
 		margin-left: -11.823em;
 	}
 	.head.downPage .branding #lco-name {
-		font-size:1.25em;
+		font-size:1.5em;
 	}
-	.head .branding #lco-name {
+	.head.home .branding #lco-name {
 		font-size:2em;
 	}
 
@@ -772,10 +778,9 @@ a.portalLink:hover {
 		margin-top: 1%;
 	}
 
-	.head.downPage .branding #lco-name {
-		font-size:1em;
-	}
-	.head .branding #lco-name {
+
+	.head.home .branding #lco-name {
+		padding-top: 10px
 		font-size:1.75em;
 	}
 	.head .branding{
@@ -803,18 +808,21 @@ a.portalLink:hover {
     	font-size: 1em;
     }
 
+	.head.downPage .headNav {
+		width:45.5%;
+	}
+
 }
 @media screen and (max-device-width : 991px), screen and (max-width: 991px) {
 	.linkBar {
 		border-left: none;
 		margin-left: 0px;
 	}
-	.head.downPage .branding #lco-name,
 	.head .branding #tag-line {
 			font-size:0.75em;
 			padding-top:10px;
 	}
-	.head .branding #lco-name {
+	.head.home .branding #lco-name {
 		font-size:1em;
 		padding-top: 10px;
 	}
