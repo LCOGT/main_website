@@ -61,5 +61,8 @@ def rev_admin_url(modelname, objectid):
 		rev_text = "admin:blog_{}_change".format(modelname)
 	else:
 		rev_text = "admin:lcogt_{}_change".format(modelname)
-	change_url = reverse(rev_text, args=(objectid,))
-	return change_url
+	try:
+		change_url = reverse(rev_text, args=(objectid,))
+		return change_url
+	except:
+		return ''

@@ -41,12 +41,10 @@ green
 
 {% endif%}
 {% if not page.lcopage.no_side_block %}
-	{% if 'observatory' in page.keywords_string %}
-	{% richflatblock 'observatory.side.block' %}
-	{% elif 'education' in page.keywords_string %}
+	{% if 'education' in page.keywords_string %}
 	{% richflatblock 'education.side.block' %}
-	{% elif 'science' in page.keywords_string %}
-	{% richflatblock 'science.side.block' %}
+	{% else %}
+	{% richflatblock 'sidebar.links' %}
 	{% endif %}
 {% endif %}
 </div>

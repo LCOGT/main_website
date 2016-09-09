@@ -4,6 +4,14 @@
 /* ------------------------------------------------*/
 
 @font-face {
+    font-family: 'Montserrat';
+    src: url('../fonts/Montserrat-Regular.woff') format('woff'),
+         url('../fonts/Montserrat-Regular.woff2') format('woff2'),
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
     font-family: 'Affogato-Black';
     src: url('../fonts/Affogato-Black.eot');
     src: url('../fonts/Affogato-Black.eot?#iefix') format('embedded-opentype'),
