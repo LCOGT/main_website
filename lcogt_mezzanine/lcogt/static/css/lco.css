@@ -20,6 +20,10 @@ h5 {
 	font-family: 'Affogato-Bold', sans-serif;
 }
 
+p { margin: 0 0 30px;}
+
+p.normal { margin: 0 0 10px;}
+
 .menugrid h2 {margin-top:0;}
 
 .bigger {
@@ -451,8 +455,8 @@ hr.divider {
 	top: 37.214%;
 }
 .location.liverpool, .arrow.liverpool {
-	left: 49.644%;
-	top: 23.214%;
+	left: 49.9%;
+	top: 26%;
 }
 .location.china, .arrow.china {
 	left: 68.554%;
@@ -467,8 +471,8 @@ hr.divider {
 	top: 38.184%;
 }
 .location.tenerife, .arrow.tenerife {
-	left: 47.494%;
-	top: 39.984%;
+	left: 46.8%;
+	top: 44%;
 }
 .location.southAfrica, .arrow.southAfrica {
 	left: 55.574%;

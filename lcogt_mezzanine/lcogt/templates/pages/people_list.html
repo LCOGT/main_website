@@ -5,11 +5,12 @@
 
 {% block title_head %}Staff list{% endblock %}
 
-{% block title %}{%if not current %}Past {%else%}Current {%endif%}{%if science%}Science {%endif%}Staff List{% endblock %}
+{% block title %}{%if not current %}Past {%else%}Current {%endif%}Staff{% endblock %}
 
 {% block main_span_size %}col-md-12{% endblock %}
 
 {% block main %}
+{%if science%}<h2>Science Staff</h2>{%endif%}
 <h3>
 {%if not current %}
 <a href="{% url 'people' %}" class="btn btn-primary">Back to staff list &rarr;</a>
@@ -20,7 +21,7 @@
 
 {% for person in people %}
 <a href="{% url 'userprofile' person.user.username %}" title="View {{person.user.first_name}}&#039;s profile.">
-<div class="col-md-4 col-sm-6 text-center">
+<div class="col-md-3 col-sm-6 text-center">
     <img typeof="foaf:Image" src="{{ MEDIA_URL }}{% thumbnail person.mugshot 180 180%}" alt="{{person.user.first_name}}&#039;s picture" title="{{person.user.first_name}}&#039;s picture" class="img-circle center-block" />
   <h3>{{person.user.first_name}} {{person.user.last_name}}</h3>
   <p class="smaller">{{person.job_title}}</p>
@@ -28,4 +29,7 @@
 </a>
 {% endfor %}
 
+{% endblock %}
+
+{% block right_panel %}
 {% endblock %}
