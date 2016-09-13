@@ -134,7 +134,7 @@
         {% richflatblock "public.quicklinks" %}
       </div>
       <div class="col-md-4 news-links">
-        <h2><a href="{% url 'mezzanine.blog.views.blog_post_list' %}">News &amp; Press Releases</a></h2>
+        <h2><a href="{% url 'blog_post_list' %}">News &amp; Press Releases</a></h2>
         {% blog_recent_posts 5 as recent_posts %}
         {% if recent_posts %}
         <ul class="newslist">
