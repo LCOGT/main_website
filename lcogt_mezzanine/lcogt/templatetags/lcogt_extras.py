@@ -4,6 +4,9 @@ from random import randint
 from datetime import timedelta, datetime
 from mezzanine.pages.models import Page
 from django.urls import reverse
+import logging
+
+logger = logging.getLogger(__name__)
 
 register = template.Library()
 
@@ -33,7 +36,8 @@ def headerbar_image(keywords):
         image = images[randint(0, images.count() - 1)]
         return image.file
     except ValueError:
-        return ''
+        logger.error('Did not find GalleryImage: {}'.format(image))
+        return '/files/images/technical/LCOGT.1m-11.jpg'
 
 @register.filter
 def is_spacebook(keywords):
