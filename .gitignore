@@ -12,3 +12,4 @@ lcogt_mezzanine/static/media/files/*
 /src/*
 *.log
 *.json
+*.sql
