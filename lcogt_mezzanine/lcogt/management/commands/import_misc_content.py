@@ -71,7 +71,7 @@ class Command(BaseCommand):
         media = get_media(dbname,user,password,host)
         # Read the JSON in from file
         jd = open(url)
-        # Full list of Activity nodes 
+        # Full list of Activity nodes
         entries = json.load(jd)
 
         print "Read %s Pages" % len(entries)
@@ -89,7 +89,7 @@ class Command(BaseCommand):
             print "Found Observatory page: %s" % observatory
         for page in entries:
             if page['type'] in parents:
-                new_page= make_page(page,media,parents[page['type']]) 
+                new_page= make_page(page,media,parents[page['type']])
 
 
 def add_attached_media(media, entry):
@@ -129,4 +129,3 @@ def make_page(entry,media,parent=None):
         return page
     else:
         return LCOPage.objects.filter(title=entry['title'])[0], None
-

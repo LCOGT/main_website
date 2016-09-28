@@ -4,12 +4,18 @@
 {% block left_wrapper %}
 {% endblock %}
 
-{% block body-class %}education {%endblock%}
+{% block header-class %}green {%endblock%}
 
 {% block main_span_size %}col-md-8 leftCol{% endblock %}
 
 {% block title %}
-{% editable page.title %}{{ page.title }}{% endeditable %}
+Activity
+{% endblock %}
+
+{% block subtitle %}
+<div class="row">
+	<h2 class="subtitle col-md-12">{% editable page.title %}{{ page.title }}{% endeditable %}</h2>
+</div>
 {% endblock %}
 
 {% block main %}{{ block.super }}
@@ -43,18 +49,11 @@
 {% block right_panel %}
 <div class="col-md-4 linkBar">
 {% with page.activity.user as author %}
-<div class="sidebar-module sidebar-module-inset">
-	<div class="sidebar-module">
-	    <a href="{% url 'userprofile' author.username %}">
-				<img title="{{ author.get_full_name }}'s picture" alt="{{ author.get_full_name }}'s picture" src="{{MEDIA_URL}}{% thumbnail author.profile.mugshot 140 140 %}" typeof="foaf:Image" class="img-circle" />
-	    </a>
-	    <span class="views-label views-label-field-fullname">Author: </span>
-	    <div class="field-content author-polaroid"><a href="{% url 'userprofile' author.username %}">{{ author.get_full_name }}</a></div>
-  	<div class="views-field views-field-field-job-title">({{author.profile.job_title}})</div>
-		<a href="{% url "blog_post_list_author" author %}">More of news items by {{ author.get_full_name }}</a>
-	</div>
-</div>
+		<img title="{{ author.get_full_name }}'s picture" alt="{{ author.get_full_name }}'s picture" src="{{MEDIA_URL}}{% thumbnail author.profile.mugshot 140 140 %}" class="img-circle center-block" />
+	  <div class="text-center"><a href="{% url 'userprofile' author.username %}">{{ author.get_full_name }}</a></div>
+  	<div class="text-center">({{author.profile.job_title}})</div>
     {% endwith %}
+		<hr>
 {% richflatblock "education.side.block" %}
 </div>
 {%endblock%}

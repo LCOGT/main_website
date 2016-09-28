@@ -99,7 +99,7 @@
       <div class="row">
         {% nevercache %}
         {% if messages %}
-        <div class="messages">
+        <div class="messages col-md-12">
         {% for message in messages %}
         <div class="alert alert-dismissable alert-{{ message.tags }}" data-alert="alert">
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -112,6 +112,7 @@
       </div>
     </div>
 		<div class="container wide downPage">
+			{% block subtitle %}{% endblock %}
 			<div class="row">
 				<div class="{% block main_span_size %}col-md-12{% endblock %}">
 					{% block main %}{% endblock %}

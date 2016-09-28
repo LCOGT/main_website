@@ -612,6 +612,26 @@ a.portalLink:hover {
   opacity: 0.75;
 }
 
+.btn {
+	font-size: 1.21em;
+	font-family: 'Affogato-Regular', sans-serif;
+	text-decoration: none;
+	line-height: 1.3em;
+	text-align: center;
+	text-transform: uppercase;
+	opacity:1;
+}
+
+
+
+.btn.btn-primary {
+	color: #fff;
+	background-color: #009ec3;
+}
+
+.btn.btn-primary:hover{
+	background-color: #f04e23;
+}
 
 .clearfix {
 	clear: both;

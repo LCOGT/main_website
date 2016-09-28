@@ -18,10 +18,6 @@
 News
 {% endblock %}
 
-{% block subtitle %}
-{% editable blog_post.title %}{{ blog_post.title }}{% endeditable %}
-{% endblock %}
-
 {% block breadcrumb_menu %}
 {{ block.super }}
 <li class="active">{{ blog_post.title }}</li>
@@ -30,6 +26,7 @@ News
 {% block main_span_size %}col-md-8 main-blog{% endblock %}
 
 {% block main %}
+<h2 class="subtitle">{% editable blog_post.title %}{{ blog_post.title }}{% endeditable %}</h2>
 {% if settings.BLOG_USE_FEATURED_IMAGE and blog_post.featured_image %}
 {% block blog_post_list_post_featured_image %}
 {{ block.super }}

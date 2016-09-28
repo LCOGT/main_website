@@ -36,7 +36,7 @@ def headerbar_image(keywords):
         image = images[randint(0, images.count() - 1)]
         return image.file
     except ValueError:
-        logger.error('Did not find GalleryImage: {}'.format(image))
+        logger.error('Did not find GalleryImage: {}'.format(images))
         return '/files/images/technical/LCOGT.1m-11.jpg'
 
 @register.filter
