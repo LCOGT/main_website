@@ -255,6 +255,11 @@ li .blog-date, li .seminar-date {width:100px;}
 	padding-left: 4em;
 }
 
+.vcenter {
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
+}
 
 /* Footer */
 .footer .links {

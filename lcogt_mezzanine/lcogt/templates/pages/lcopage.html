@@ -16,6 +16,22 @@ green
 
 {% block main_span_size %}{% if page.lcopage.no_side_block %}col-md-12 {%else%}col-md-8 leftCol{%endif%}{% endblock %}
 
+{% block title %}
+{% if page.lcopage.use_parent %}
+{{page.get_ascendants|last}}
+{% else %}
+{% editable page.title %}{{ page.title }}{% endeditable %}
+{% endif %}
+{% endblock %}
+
+{% block subtitle %}
+{% if page.lcopage.use_parent %}
+<div class="row">
+	<h2 class="subtitle col-md-12">{% editable page.title %}{{ page.title }}{% endeditable %}</h2>
+</div>
+{% endif %}
+{% endblock %}
+
 {% block main %}{{ block.super }}
 
 {% if page.lcopage.no_side_block %}
@@ -38,7 +54,7 @@ green
 	{% editable page.lcopage.extra_info %}
 	{{ page.lcopage.extra_info|richtext_filters|safe }}
 	{% endeditable %}
-
+	<div class="col-md-4 linkBar">
 {% endif%}
 {% if not page.lcopage.no_side_block %}
 	{% if 'education' in page.keywords_string %}

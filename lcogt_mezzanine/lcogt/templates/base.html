@@ -84,10 +84,10 @@
   					<div class="col-md-8 title">
   						<h1>{% block title %}{% endblock %}</h1>
   					</div>
-  					<div class="col-md-4 col-sm-12 imgRotate">
+  					<div class="col-md-4 col-sm-12">
   						<!-- RANDOM PAIR OF IMAGES GO HERE -->
-              <img class="img-responsive" src="{{ MEDIA_URL }}{% thumbnail page.keywords_string|headerbar_image 500 250 %}">
-
+							{% headerbar_image as header_img_file %}
+              <img  src="{{ MEDIA_URL }}{% thumbnail header_img_file 500 250 %}">
   					</div>
   				</div>
   			</div>
@@ -129,54 +129,6 @@
 			<hr class="divider" />
 			<div class="row links">
         {% richflatblock "footer" %}
-				<!-- div class="col-md-3 col-sm-6">
-					<ul>
-						<li><a href="#">For Everyone</a></li>
-						   <li><a href="#">About LCO</a></li>
-						   <li><a href="#">Events</a></li>
-						   <li><a href="#">Public Archives</a></li>
-						   <li><a href="#">Observatory Status</a></li>
-						   <li><a href="#">Staff</a></li>
-						   <li><a href="#">Jobs</a></li>
-						   <li><a href="#">Sales</a></li>
-						   <li><a href="#">News</a></li>
-						   <li><a href="#">Contact</a></li>
-						</ul>
-
-				</div>
-				<div class="col-md-3 col-sm-6">
-					<ul>
-						<li><a href="#">Education<span class="edLink"> and Outreach</span></a></li>
-						   <li><a href="#">Activities</a></li>
-						   <li><a href="#">Observing Information</a></li>
-						   <li><a href="#">Latest Observations</a></li>
-						   <li><a href="#">Agent Exoplanet</a></li>
-						   <li><a href="#">SpaceBook</a></li>
-						   <li><a href="#">Star in a Box</a></li>
-						   <li><a href="#">Image Gallery</a></li>
-						   <li><a href="#">Open Source</a></li>
-						</ul>
-				</div>
-				<div class="col-md-3 col-sm-6">
-					<ul>
-						<li><a href="#">For Astronomers</a></li>
-						   <li><a href="#">Operational Status</a></li>
-						   <li><a href="#">Proposal Portal</a></li>
-						   <li><a href="#">Purchase Time</a></li>
-						   <li><a href="#">SSA and Satellite Archives</a></li>
-						   <li><a href="#">Data Archive</a></li>
-						   <li><a href="#">Seminar Series</a></li>
-						   <li><a href="#">Science Staff</a></li>
-						</ul>
-				</div>
-				<div class="col-md-3 col-sm-6">
-					<ul>
-						<li><a href="#">Observing Portal</a></li>
-						   <li><a href="#">Secure Login</a></li>
-						   <li><a href="#">About the Portal</a></li>
-						   <li><a href="#">Request an Account</a></li>
-						</ul>
-				</div-->
 			</div>
     </div>
   </section>
@@ -236,7 +188,6 @@
         <script src="{% static 'js/bootstrap.min.js' %}"></script>
         <!-- CMS js -->
         <script type="text/javascript" src="{% static "mezzanine/js/magnific-popup.js" %}"></script>
-				<script src="{% static "js/bootstrap.min.js" %}"></script>
         <script type="text/javascript">
           $(document).ready(function() {
               $('.gallery').magnificPopup({

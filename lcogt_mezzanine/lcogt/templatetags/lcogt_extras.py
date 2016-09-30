@@ -4,7 +4,9 @@ from random import randint
 from datetime import timedelta, datetime
 from mezzanine.pages.models import Page
 from django.urls import reverse
+from django.conf import settings
 import logging
+import os
 
 logger = logging.getLogger(__name__)
 
@@ -22,22 +24,15 @@ def body_class(keywords):
     else:
         return 'home'
 
-@register.filter
-def headerbar_image(keywords):
-    if 'education' in keywords or 'public' in keywords or 'spacebook' in keywords:
-        images = GalleryImage.objects.filter(gallery__title__icontains='astronomical')
-    elif 'science' in keywords or 'scientists' in keywords or 'research' in keywords:
-        images = GalleryImage.objects.filter(gallery__title__icontains='observatory')
-    elif 'observatory' in keywords or 'network' in keywords or 'engineering' in keywords or 'operations' in keywords:
-        images = GalleryImage.objects.filter(gallery__title__icontains='technical')
-    else:
-        images = GalleryImage.objects.all()
+@register.simple_tag
+def headerbar_image():
+    images = GalleryImage.objects.all()
     try:
         image = images[randint(0, images.count() - 1)]
         return image.file
     except ValueError:
         logger.error('Did not find GalleryImage: {}'.format(images))
-        return '/files/images/technical/LCOGT.1m-11.jpg'
+        return '/files/galleries/astrophotography/m104_bfulton.jpg'
 
 @register.filter
 def is_spacebook(keywords):

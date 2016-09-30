@@ -13,6 +13,7 @@ class LCOPage(Page):
     extra_info = RichTextField(_("Extra info"), default="", help_text=_('This information will appear in the side bar or directly below title if No Side Block is checked'), blank=True)
     no_side_block = models.BooleanField(_("No side block"),default=False, help_text=_("Check this if you don't want a side block"))
     no_links = models.BooleanField(_("No links in footer"),default=False, help_text=_("Check this if you don't want a links section in the footer"))
+    use_parent = models.BooleanField(_("Use parent's title"), default=False, help_text=_("Check if you want to use a longer title and have it appear below the bar"))
     class Meta:
         verbose_name = _("LCO Page+")
         verbose_name_plural = _("LCO Pages+")
@@ -55,7 +56,7 @@ class Seminar(Page):
     seminardate = models.DateTimeField(_('Seminar date/time'), blank=True,null=True)
     speaker_name = models.CharField(max_length=255,blank=True,null=True)
     speaker_institute = models.CharField(max_length=255, blank=True,null=True)
-    speaker_picture = FileBrowseField(_("Speaker mugshot"), max_length=200, directory="speakers/", extensions=[".jpg",".png",".gif",'.jpeg'], blank=True, null=True)
+    speaker_picture = FileBrowseField(_("Speaker mugshot"), max_length=200, directory="speakers/", extensions=[".jpg",".png",".gif",'.jpeg',".JPEG",".JPG"], blank=True, null=True)
     speaker_biog =   RichTextField(_("biography"),
             help_text=_("This field can contain HTML and should contain a few paragraphs describing the background of the person."),
             default="", blank=True)
