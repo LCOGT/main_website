@@ -11,9 +11,8 @@
   						<h1>{% editable page.title %}{{ page.title }}{% endeditable %}</h1>
   					</div>
   					<div class="col-md-4 col-sm-12 imgRotate">
-  						<!-- RANDOM PAIR OF IMAGES GO HERE -->
-              <img class="img-responsive" src="{{ MEDIA_URL }}{% thumbnail page.keywords_string|headerbar_image 500 250 %}">
-
+              {% headerbar_image as header_img_file %}
+              <img  src="{{ MEDIA_URL }}{% thumbnail header_img_file 500 250 %}">
   					</div>
   				</div>
   			</div>
