@@ -45,7 +45,7 @@ def checkUserObject(profile, password):
         user.save()
     except User.DoesNotExist:
         # Only create a user if their email address contains "@lcogt"
-        if email.find('@lcogt') != -1:
+        if profile['email'].find('@lcogt') != -1:
             name_count = User.objects.filter(username__startswith = profile['username']).count()
             if name_count:
                 username = '%s%s' % (profile['username'], name_count + 1)
@@ -66,22 +66,6 @@ def checkUserObject(profile, password):
         g.user_set.add(user)
 
     return user
-
-# def set_odin_session_token(token):
-#     '''
-#     Add token to session variable
-#     while the session is open get the user's proposal list
-#     '''
-#     try:
-#         request = ThreadLocal.get_current_request()
-#         request.session['odin_token'] = token
-#
-#         return True
-#     except Exception, e:
-#         logger.error(e)
-#         print(e)
-#
-#         return False
 
 class LCOAuthBackend(ModelBackend):
     def authenticate(self, username=None, password=None, request=None):

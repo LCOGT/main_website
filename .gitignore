@@ -7,7 +7,7 @@ local_settings.py
 /static
 /data
 /files
-lcogt_mezzanine/static/media/files/*
+lco_mezzanine/static/media/files/*
 /src
 /src/*
 *.log
