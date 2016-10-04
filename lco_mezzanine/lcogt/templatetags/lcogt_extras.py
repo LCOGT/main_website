@@ -51,7 +51,6 @@ def recent_edits(days):
 
 @register.filter
 def rev_admin_url(modelname, objectid):
-	print(modelname, objectid)
 	if modelname in ['richtextpage','page']:
 		rev_text = "admin:pages_{}_change".format(modelname)
 	elif modelname == 'gallery':
