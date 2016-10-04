@@ -1,2 +1,2 @@
 # Put your cron jobs here
-10 5 * * * source /var/www/apps/lcogt_mezzanine/cronwrapper; python /var/www/apps/lcogt_mezzanine/manage.py poll_repos >> /var/www/apps/lcogt_mezzanine/publications.log
+10 5 * * * source /var/www/apps/lco_mezzanine/cronwrapper; python /var/www/apps/lco_mezzanine/manage.py poll_repos >> /var/www/apps/lco_mezzanine/publications.log
