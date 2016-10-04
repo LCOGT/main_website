@@ -44,7 +44,6 @@ def seminar_home(request):
         nearest_seminar = seminars.order_by('seminardate')[0]
     else:
         nearest_seminar = Seminar.objects.latest('seminardate')
-    print(seminars)
     return render(request,'pages/seminar_home.html',{'seminars':seminars,'nearest_seminar': nearest_seminar})
 
 def seminar_list(request):

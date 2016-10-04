@@ -23,7 +23,7 @@ ENTRYPOINT [ "/init" ]
 
 # Setup the Python Django environment
 ENV PYTHONPATH /var/www/apps
-ENV DJANGO_SETTINGS_MODULE lco_mezzanine.settings
+ENV DJANGO_SETTINGS_MODULE lcogt_mezzanine.settings
 
 # Install packages and update base system
 RUN yum -y install epel-release \
@@ -33,8 +33,8 @@ RUN yum -y install epel-release \
         && yum -y clean all
 
 # Install the LCOGT Mezzanine webapp Python required packages
-COPY lco_mezzanine/requirements.pip /var/www/apps/lco_mezzanine/
-RUN pip install -r /var/www/apps/lco_mezzanine/requirements.pip --trusted-host buildsba.lco.gtn
+COPY lco_global/requirements.pip /var/www/apps/lco_global/
+RUN pip install -r /var/www/apps/lco_global/requirements.pip --trusted-host buildsba.lco.gtn
 
 # Ensure crond will run on all host operating systems
 RUN sed -i -e 's/\(session\s*required\s*pam_loginuid.so\)/#\1/' /etc/pam.d/crond
@@ -48,4 +48,4 @@ COPY config/crontab.root /var/spool/cron/root
 COPY config/robots.txt /var/www/robots.txt
 
 # Copy the LCOGT Mezzanine webapp files
-COPY lco_mezzanine /var/www/apps/lco_mezzanine
+COPY lco_global /var/www/apps/lco_global

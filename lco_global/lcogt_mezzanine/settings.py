@@ -214,7 +214,7 @@ CACHE_MIDDLEWARE_KEY_PREFIX = PROJECT_DIRNAME
 STATIC_URL = "/static/"
 STATIC_ROOT = '/var/www/html/static/'
 MEDIA_URL = "/files/"
-MEDIA_ROOT = '/var/www/apps/lcogt_mezzanine/static/media/files/'
+MEDIA_ROOT = '/var/www/apps/lco_global/static/media/files/'
 ROOT_URLCONF = "%s.urls" % PROJECT_DIRNAME
 
 ######################
@@ -230,7 +230,7 @@ RICHTEXT_ALLOWED_TAGS = ('a', 'abbr', 'acronym', 'address', 'area', 'article', '
 
 #TINYMCE_SETUP_JS = STATIC_URL + 'js/tinymce.config.js'
 
-FIXTURE_DIRS = (os.path.join(PROJECT_ROOT,'lcogt_mezzanine','fixtures'),)
+FIXTURE_DIRS = (os.path.join(PROJECT_ROOT,'lco_global','fixtures'),)
 MAX_PAGING_LINKS = 5
 
 # SECURITY WARNING: keep the secret key used in production secret!
