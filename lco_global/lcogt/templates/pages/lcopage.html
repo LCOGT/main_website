@@ -47,14 +47,16 @@ green
 {% block right_panel %}
 
 {%if not page.lcopage.extra_info and not page.lcopage.no_side_block%}
-<div class="col-md-4 linkBar">
+<div class="col-md-4">
+<div class="linkBar">
 {% endif%}
 
 {% if page.lcopage.extra_info and not page.lcopage.no_side_block %}
+<div class="col-md-4">
 	{% editable page.lcopage.extra_info %}
 	{{ page.lcopage.extra_info|richtext_filters|safe }}
 	{% endeditable %}
-	<div class="col-md-4 linkBar">
+	<div class="linkBar">
 {% endif%}
 {% if not page.lcopage.no_side_block %}
 	{% if 'education' in page.keywords_string %}
@@ -63,6 +65,7 @@ green
 	{% richflatblock 'sidebar.links' %}
 	{% endif %}
 {% endif %}
+</div>
 </div>
 {%endblock%}
 
