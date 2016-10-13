@@ -48,50 +48,7 @@ DASHBOARD_TAGS = (
     ("blog_tags.blog_recent_posts",),
 )
 
-# A sequence of templates used by the ``page_menu`` template tag. Each
-# item in the sequence is a three item sequence, containing a unique ID
-# for the template, a label for the template, and the template path.
-# These templates are then available for selection when editing which
-# menus a page should appear in. Note that if a menu template is used
-# that doesn't appear in this setting, all pages will appear in it.
 
-# PAGE_MENU_TEMPLATES = (
-#     (1, "Top navigation bar", "pages/menus/dropdown.html"),
-#     (2, "Left-hand tree", "pages/menus/tree.html"),
-#     (3, "Footer", "pages/menus/footer.html"),
-# )
-
-# A sequence of fields that will be injected into Mezzanine's (or any
-# library's) models. Each item in the sequence is a four item sequence.
-# The first two items are the dotted path to the model and its field
-# name to be added, and the dotted path to the field class to use for
-# the field. The third and fourth items are a sequence of positional
-# args and a dictionary of keyword args, to use when creating the
-# field instance. When specifying the field class, the path
-# ``django.models.db.`` can be omitted for regular Django model fields.
-#
-# EXTRA_MODEL_FIELDS = (
-#     (
-#         # Dotted path to field.
-#         "mezzanine.blog.models.BlogPost.image",
-#         # Dotted path to field class.
-#         "somelib.fields.ImageField",
-#         # Positional args for field class.
-#         ("Image",),
-#         # Keyword args for field class.
-#         {"blank": True, "upload_to": "blog"},
-#     ),
-#     # Example of adding a field to *all* of Mezzanine's content types:
-#     (
-#         "mezzanine.pages.models.Page.another_field",
-#         "IntegerField", # 'django.db.models.' is implied if path is omitted.
-#         ("Another name",),
-#         {"blank": True, "default": 1},
-#     ),
-# )
-
-# Setting to turn on featured images for blog posts. Defaults to False.
-#
 BLOG_USE_FEATURED_IMAGE = True
 BLOG_SLUG = 'news'
 
@@ -114,7 +71,7 @@ MANAGERS = ADMINS
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = ['dev.lco.global','.lco.global','.lco.gtn','.lcogt.net']
+ALLOWED_HOSTS = ['.lco.global','.lco.gtn','.lcogt.net']
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name

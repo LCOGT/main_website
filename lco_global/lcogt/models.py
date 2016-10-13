@@ -6,6 +6,7 @@ from mezzanine.core.fields import RichTextField, FileField
 from mezzanine.pages.models import RichTextPage, Page
 from mezzanine.core.models import Displayable, RichText, Ownable
 from mezzanine.utils.models import AdminThumbMixin
+from mezzanine.utils.urls import slugify, unique_slug
 from filebrowser_safe.fields import FileBrowseField
 
 class LCOPage(Page):
@@ -54,7 +55,7 @@ class Seminar(Page):
             help_text=_("What the talk will be about."),
             default="", blank=True)
     seminardate = models.DateTimeField(_('Seminar date/time'), blank=True,null=True)
-    speaker_name = models.CharField(max_length=255,blank=True,null=True)
+    speaker_name = models.CharField(max_length=255, default="tdb")
     speaker_institute = models.CharField(max_length=255, blank=True,null=True)
     speaker_picture = FileBrowseField(_("Speaker mugshot"), max_length=200, directory="speakers/", extensions=[".jpg",".png",".gif",'.jpeg',".JPEG",".JPG"], blank=True, null=True)
     speaker_biog =   RichTextField(_("biography"),
@@ -70,6 +71,12 @@ class Seminar(Page):
             return self.speaker_name.split(' ')[-1]
         else:
             return None
+
+    def save(self):
+        slug = "seminar/{}".format(slugify(self.last_name()))
+        slug_qs = Seminar.objects.exclude(id=self.id)
+        self.slug = unique_slug(slug_qs, "slug", slug)
+        super(Seminar, self).save()
 
 
 class Profile(models.Model):
