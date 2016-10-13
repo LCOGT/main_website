@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load mezzanine_tags blog_tags %}
 
-{% block head_title %}{{profile.user.first_name}} {{profile.user.last_name}}{% endblock %}
+{% block title_head %}{{profile.user.first_name}} {{profile.user.last_name}}{% endblock %}
 
 {% block body-class %}home {%endblock%}
 
@@ -15,11 +15,11 @@
 <h3><a href="{% url 'profileupdate' %}">Edit your profile</a></h3>
 {% endif %}
 
-<h4 class="title">
+<h2>
 {% editable profile.job_title %}
 {{ profile.job_title|safe }}
 {% endeditable %}
-</h4>
+</h2>
 
 {% editable profile.bio %}
 {{ profile.bio|richtext_filters|safe }}

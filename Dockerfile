@@ -7,10 +7,10 @@
 # It is convenient to have the whole webapp logically grouped into the same container.
 #
 # Build with
-# docker build -t docker.lcogt.net/mezzanine:latest .
+# docker build -t docker.lcogt.net/mezzanine:live .
 #
 # Push to Registry with
-# docker push docker.lcogt.net/mezzanine:latest
+# docker push docker.lcogt.net/mezzanine:live
 #
 ################################################################################
 
