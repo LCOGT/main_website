@@ -1,6 +1,6 @@
 #!/bin/bash
 
-TOPDIR="/var/www/apps/lcogt_mezzanine"
+TOPDIR="/var/www/apps/lco_global"
 
 # Generate cron wrapper to set correct environment variables
 cat > $TOPDIR/cronwrapper << EOF

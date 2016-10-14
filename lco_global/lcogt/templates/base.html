@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load pages_tags mezzanine_tags i18n staticfiles keyword_tags blog_tags block_tags lcogt_extras %}
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>{% block title_head %}Many Eyes - One Vision{% endblock %} | Las Cumbres Observatory</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="keywords" content="{% block meta_keywords %}{% endblock %}">
+  <meta name="description" content="{% block meta_description %}{% endblock %}">
+  <link rel="shortcut icon" href="https://cdn.lco.global/mainstyle/img/favicon.ico" type="image/x-icon" />
+
+    <!-- Bootstrap Core CSS -->
+		<link href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' rel="stylesheet">
+		<link href='https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css' rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href='https://cdn.lco.global/mainstyle/css/affogato-1.0.0.css' rel="stylesheet">
+    <link href='https://cdn.lco.global/mainstyle/css/lco-1.0.0.css' rel="stylesheet">
+		{% block extra_css %}{% endblock%}
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- jQuery - Rest of JS is at the end. This is here so we can use Jquery in pages-->
+    <script src="{% static 'js/jquery-3.1.0.min.js' %}"></script>
+    {% block header_script %}{% endblock%}
+</head>
+<body>
+	<!-- Navigation -->
+  {% block nav-bar %}
+    <nav class="navbar head downPage">
+      <div class="container-fluid">
+      	<div class="innerHead">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<div class="navbar-header branding branding-logo">
+            <a href="/" title="LCO homepage" rel="home" class="navbar-brand"><img src="https://cdn.lco.global/mainstyle/img/LCO-logo-web.jpg" alt="Las Cumbres Observatory" /></a>
+          </div>
+          <div class="navbar-header branding">
+            <div id="lco-name">Las Cumbres Observatory</div>
+          </div>
+	        <div id="navbar" class="collapse navbar-collapse headNav">
+
+	          <ul class="nav nav-right navbar-nav">
+	              <li class="hidden">
+	                  <a href="#page-top"></a>
+	              </li>
+	              <li>
+	                  <a href="/about/">ABOUT</a>
+	              </li>
+	              <li>
+	                  <a href="{% url 'everyone' %}">FOR EVERYONE</a>
+	              </li>
+	              <li>
+	                  <a href="{% url 'astronomers' %}">FOR ASTRONOMERS</a>
+	              </li>
+	              <li>
+	                  <a href="https://lcogt.net/observe/">OBSERVING PORTAL</a>
+	              </li>
+	          </ul>
+
+				<div class="clearfix"></div>
+	        </div><!--/.nav-collapse -->
+				<div class="clearfix"></div>
+	    </div>
+      </div>
+    </nav>
+    {% endblock %}
+
+    {% block fullcontent %}
+
+    <section>
+  		<div class="intro downPage {% block header-class %}{% endblock%}">
+  			<div class="container wide">
+  				<div class="row no-gutter">
+  					<div class="col-md-8 title">
+  						<h1>{% block title %}{% endblock %}</h1>
+  					</div>
+  					<div class="col-md-4 col-sm-12">
+  						<!-- RANDOM PAIR OF IMAGES GO HERE -->
+							{% headerbar_image as header_img_file %}
+              <img  src="{{ MEDIA_URL }}{% thumbnail header_img_file 500 250 %}">
+  					</div>
+  				</div>
+  			</div>
+  		</div>
+  	</section>
+
+	<section>
+    <div class="container">
+      <div class="row">
+        {% nevercache %}
+        {% if messages %}
+        <div class="messages col-md-12">
+        {% for message in messages %}
+        <div class="alert alert-dismissable alert-{{ message.tags }}" data-alert="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            {{ message }}
+        </div>
+        {% endfor %}
+        </div>
+        {% endif %}
+        {% endnevercache %}
+      </div>
+    </div>
+		<div class="container wide downPage">
+			{% block subtitle %}{% endblock %}
+			<div class="row">
+				<div class="{% block main_span_size %}col-md-12{% endblock %}">
+					{% block main %}{% endblock %}
+				</div>
+				{% block right_panel %}{% endblock %}
+			</div>
+		</div>
+	</section>
+  {% endblock%}
+
+{% block content-footer %}
+	<section>
+		<div class="container wide downPage footer">
+			<hr class="divider" />
+			<div class="row links">
+        {% richflatblock "footer" %}
+			</div>
+    </div>
+  </section>
+  {% endblock %}
+
+  <footer>
+    <div class="container wide downPage footer">
+      <div class="row social">
+          <ul class="list-inline social-buttons">
+            <li>
+            <a href="http://twitter.com/LCO_Global" alt="Las Cumbres Observatory on Twitter">
+            <span class="fa-stack fa-2x">
+              <i class="fa fa-circle fa-stack-2x"></i>
+              <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+            </li>
+            <li>
+            <a href="http://facebook.com/lascumbresobservatory" alt="Las Cumbres Observatory on Facebook">
+            <span class="fa-stack fa-2x">
+              <i class="fa fa-circle fa-stack-2x"></i>
+              <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+            </li>
+            <li>
+            <a href="/news/feeds/rss/" alt="Latest news from Las Cumbres Observatory via RSS">
+            <span class="fa-stack fa-2x">
+              <i class="fa fa-circle fa-stack-2x"></i>
+              <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+            </li>
+            <li>
+            <a href="/news/" alt="Latest news from Las Cumbres Observatory">
+            <span class="fa-stack fa-2x">
+              <i class="fa fa-circle fa-stack-2x"></i>
+              <i class="fa fa-newspaper-o fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+            </li>
+
+          </ul>
+        </div>
+        <div class="row">
+          <div class="copyright">Copyright &copy; {% now "Y" %} Las Cumbres Observatory. All rights reserved.</div>
+        </div>
+      </div>
+    </footer>
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    {% compress js %}
+
+        <!-- Bootstrap Core JavaScript -->
+				<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <!-- CMS js -->
+        <script type="text/javascript" src="{% static "mezzanine/js/magnific-popup.js" %}"></script>
+        <script type="text/javascript">
+          $(document).ready(function() {
+              $('.gallery').magnificPopup({
+                  delegate: 'a',
+                  type: 'image',
+                  gallery: {
+                      enabled: true,
+                  }
+              });
+          });
+          </script>
+
+        {% endcompress %}
+        {% editable_loader %}
+  </body>
+</html>

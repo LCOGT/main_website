@@ -1,0 +1,77 @@
+{% extends "pages/page.html" %}
+
+{% load mezzanine_tags block_tags %}
+{% block left_wrapper %}
+{% endblock %}
+
+{% block title_head %}{{ page.title }}{% endblock %}
+
+{% block header-class %}
+{% if 'science' in page.keywords_string or 'observatory' in page.keywords_string %}
+blue
+{% else %}
+green
+{% endif %}
+{% endblock%}
+
+{% block main_span_size %}{% if page.lcopage.no_side_block %}col-md-12 {%else%}col-md-8 leftCol{%endif%}{% endblock %}
+
+{% block title %}
+{% if page.lcopage.use_parent %}
+{{page.get_ascendants|last}}
+{% else %}
+{% editable page.title %}{{ page.title }}{% endeditable %}
+{% endif %}
+{% endblock %}
+
+{% block subtitle %}
+{% if page.lcopage.use_parent %}
+<div class="row">
+	<h2 class="subtitle col-md-12">{% editable page.title %}{{ page.title }}{% endeditable %}</h2>
+</div>
+{% endif %}
+{% endblock %}
+
+{% block main %}{{ block.super }}
+
+{% if page.lcopage.no_side_block %}
+<h2 class="subtitle">{% editable page.lcopage.extra_info %}{{page.lcopage.extra_info|richtext_filters|safe}}{% endeditable %}</h2>
+{% endif %}
+
+{% editable page.lcopage.content %}
+{{ page.lcopage.content|richtext_filters|safe }}
+{% endeditable %}
+
+{% endblock %}
+
+{% block right_panel %}
+
+{%if not page.lcopage.extra_info and not page.lcopage.no_side_block%}
+<div class="col-md-4">
+<div class="linkBar">
+{% endif%}
+
+{% if page.lcopage.extra_info and not page.lcopage.no_side_block %}
+<div class="col-md-4">
+	{% editable page.lcopage.extra_info %}
+	{{ page.lcopage.extra_info|richtext_filters|safe }}
+	{% endeditable %}
+	<div class="linkBar">
+{% endif%}
+{% if not page.lcopage.no_side_block %}
+	{% if 'education' in page.keywords_string %}
+	{% richflatblock 'education.side.block' %}
+	{% else %}
+	{% richflatblock 'sidebar.links' %}
+	{% endif %}
+{% endif %}
+</div>
+</div>
+{%endblock%}
+
+{% if page.lcopage.no_links %}
+	{% block footer-class%}fat-footer{% endblock %}
+
+	{% block footer-content %}
+	{% endblock %}
+{% endif %}

@@ -1,0 +1,59 @@
+{% extends "pages/page.html" %}
+
+{% load mezzanine_tags block_tags %}
+{% block left_wrapper %}
+{% endblock %}
+
+{% block header-class %}green {%endblock%}
+
+{% block main_span_size %}col-md-8 leftCol{% endblock %}
+
+{% block title %}
+Activity
+{% endblock %}
+
+{% block subtitle %}
+<div class="row">
+	<h2 class="subtitle col-md-12">{% editable page.title %}{{ page.title }}{% endeditable %}</h2>
+</div>
+{% endblock %}
+
+{% block main %}{{ block.super }}
+
+{% editable page.activity.summary %}
+<p>{{ page.activity.summary|richtext_filters|safe }}</p>
+{% endeditable %}
+
+{% editable page.activity.goals %}
+<p>{{ page.activity.goals|richtext_filters|safe }}</p>
+{% endeditable %}
+
+{% editable page.activity.planning %}
+<p>{{ page.activity.planning|richtext_filters|safe }}</p>
+{% endeditable %}
+
+{% editable page.activity.background %}
+<p>{{ page.activity.background|richtext_filters|safe }}</p>
+{% endeditable %}
+
+{% editable page.activity.full_text %}
+<p>{{ page.activity.full_text|richtext_filters|safe }}</p>
+{% endeditable %}
+
+{% editable page.activity.next_steps %}
+<p>{{ page.activity.next_steps|richtext_filters|safe }}</p>
+{% endeditable %}
+
+{% endblock %}
+
+{% block right_panel %}
+<div class="col-md-4 linkBar">
+{% with page.activity.user as author %}
+		<img title="{{ author.get_full_name }}'s picture" alt="{{ author.get_full_name }}'s picture" src="{{MEDIA_URL}}{% thumbnail author.profile.mugshot 140 140 %}" class="img-circle center-block" />
+	  <div class="text-center"><a href="{% url 'userprofile' author.username %}">{{ author.get_full_name }}</a></div>
+  	<div class="text-center">({{author.profile.job_title}})</div>
+    {% endwith %}
+		<hr>
+{% richflatblock "education.side.block" %}
+</div>
+{%endblock%}

@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load mezzanine_tags keyword_tags block_tags lcogt_extras pages_tags %}
+
+{% block fullcontent %}
+
+    <section>
+  		<div class="intro downPage green">
+  			<div class="container wide">
+  				<div class="row no-gutter">
+  					<div class="col-md-8 title">
+  						<h1>{% editable page.title %}{{ page.title }}{% endeditable %}</h1>
+  					</div>
+  					<div class="col-md-4 col-sm-12 imgRotate">
+              {% headerbar_image as header_img_file %}
+              <img  src="{{ MEDIA_URL }}{% thumbnail header_img_file 500 250 %}">
+  					</div>
+  				</div>
+  			</div>
+  		</div>
+  	</section>
+
+	<section>
+    <div class="container">
+      <div class="row">
+        {% nevercache %}
+        {% if messages %}
+        <div class="messages">
+        {% for message in messages %}
+        <div class="alert alert-dismissable alert-{{ message.tags }}" data-alert="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            {{ message }}
+        </div>
+        {% endfor %}
+        </div>
+        {% endif %}
+        {% endnevercache %}
+      </div>
+    </div>
+	</section>
+  {% editable page.lcopage.content %}
+  {{ page.lcopage.content|richtext_filters|safe }}
+  {% endeditable %}
+{% endblock %}

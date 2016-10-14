@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% load mezzanine_tags keyword_tags block_tags lcogt_extras pages_tags %}
+
+{% block meta_title %}{{ page.meta_title }}{% endblock %}
+
+{% block title_head %}{{ page.title }}{% endblock %}
+
+
+{% block header-class %}
+{% if 'spacebook' in page.keywords_string %}
+red
+{% else %}
+blue
+{% endif %}
+{% endblock%}
+
+{% block meta_keywords %}{% metablock %}
+{% keywords_for page as keywords %}
+{% for keyword in keywords %}
+    {% if not forloop.first %}, {% endif %}
+    {{ keyword }}
+{% endfor %}
+{% endmetablock %}{% endblock %}
+
+{% block meta_description %}{% metablock %}
+{{ page.description }}
+{% endmetablock %}{% endblock %}
+
+{% block main_span_size %}col-md-8 leftCol{% endblock %}
+
+{% block title %}
+{% if 'spacebook' in page.keywords_string%}
+Space Book
+{% else %}
+{% editable page.title %}{{ page.title }}{% endeditable %}
+{% endif %}
+{%endblock%}
+
+
+{% block main %}{{block.super}}
+{% endblock %}
+
+{% block right_panel %}
+<div class="col-md-4 linkBar">
+{% keywords_for page as keywords %}
+{% if keywords|is_spacebook %}
+{% page_menu page "pages/menus/tree.html" %}
+<a href="{{page.parent.get_absolute_url}}">Back up to "{{page.parent.title}}"</a>
+{% else%}
+{% richflatblock "sidebar.links" %}
+{% endif %}
+</div>
+{% endblock %}

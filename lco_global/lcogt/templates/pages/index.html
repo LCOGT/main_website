@@ -1,0 +1,179 @@
+{% extends 'base.html' %}
+
+{% load pages_tags mezzanine_tags i18n staticfiles keyword_tags blog_tags block_tags lcogt_extras %}
+
+
+{% block header_script %}
+<script src="{% static "js/lco-map-1.0.0.min.js" %}"></script>
+{% endblock %}
+
+{% block nav-bar %}
+	<!-- Navigation -->
+    <nav class="navbar head home">
+      <div class="container-fluid">
+      	<div class="innerHead">
+	        <!-- div class="navbar-header imLink">
+	          <a class="navbar-brand" href="/"><img src='{% static "img/logo.png" %}' class="headImg" /></a>
+	        </div -->
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <div class="navbar-header branding branding-logo">
+            <a href="/" title="LCO homepage" rel="home" class="navbar-brand"><img src="https://cdn.lco.global/mainstyle/img/LCO-logo-web.jpg" alt="Las Cumbres Observatory" /></a>
+          </div>
+          <div class="navbar-header branding">
+            <div id="lco-name">Las Cumbres Observatory</div>
+            <div id="tag-line">
+              MANY EYES - ONE VISION
+            </div>
+          </div>
+	        <div id="navbar" class="collapse navbar-collapse headNav">
+
+	          <ul class="nav nav-stacked">
+	              <li class="hidden">
+	                  <a href="#page-top"></a>
+	              </li>
+	              <li>
+	                  <a href="/about/">ABOUT</a>
+	              </li>
+	              <li>
+	                  <a href="/everyone/">FOR EVERYONE</a>
+	              </li>
+	              <li>
+	                  <a href="/astronomers/">FOR ASTRONOMERS</a>
+	              </li>
+	              <li>
+	                  <a href="http://lcogt.net/observe/">OBSERVING PORTAL</a>
+	              </li>
+	          </ul>
+
+				<div class="clearfix"></div>
+	        </div><!--/.nav-collapse -->
+				<div class="clearfix"></div>
+	    </div>
+      </div>
+    </nav>
+    {% endblock %}
+
+{% block fullcontent %}
+	<section>
+		<div class="worldMap container-fluid">
+			<img src='{% static "img/map/map.png" %}' class="bgMap" />
+			<div class="location israel" data-location="israel">
+				<div class="infoBox">
+					<img src='{% static "img/map/israel.jpg" %}' />
+					<p><strong>Wise Observatory</strong><br />
+					South District, Israel</p>
+					<p>One 1-meter telescope<br />
+					<span class="light">coming online in 2017</span></p>
+				</div>
+			</div>
+			<div class="arrow israel" data-location="israel" data-direction="up"></div>
+			<div class="location chile" data-location="chile">
+				<div class="infoBox">
+					<img src='{% static "img/map/lsc.jpg" %}' />
+					<p><strong>Cerro Tololo Observatory</strong><br />
+					Region IV, Chile</p>
+					<p>One 0.4-meter telescope<br />
+					Three 1-meter telescopes</p>
+				</div>
+			</div>
+			<div class="arrow chile" data-location="chile" data-direction="left"></div>
+			<div class="location staBarbara" data-location="staBarbara">
+				<div class="infoBox">
+					<p><strong>Goleta</strong><br />
+					California</p>
+					<p>International Headquarters<br />
+					and Data Center</p>
+				</div>
+			</div>
+			<div class="arrow staBarbara" data-location="staBarbara" data-direction="up"></div>
+			<div class="location liverpool" data-location="liverpool">
+				<div class="infoBox">
+					<p><strong>United Kingdom</strong></p>
+					<p>Liverpool, European Operations Center</p>
+          <p>Cardiff, Education Headquarters</p>
+				</div>
+			</div>
+			<div class="arrow liverpool" data-location="liverpool" data-direction="left"></div>
+			<div class="location china" data-location="china">
+				<div class="infoBox">
+					<img src='{% static "img/map/china.jpg" %}' />
+					<p><strong>Ali Observatory</strong><br />
+					Western Tibet, China</p>
+					<p>Two 1-meter telescopes<br />
+					<span class="light">coming online in 2018</span></p>
+				</div>
+			</div>
+			<div class="arrow china" data-location="china" data-direction="right"></div>
+			<div class="location hawaii" data-location="hawaii">
+				<div class="infoBox">
+					<img src='{% static "img/map/ogg.jpg" %}' />
+					<p><strong>Haleakala Observatory</strong><br />
+					Maui, Hawaii</p>
+					<p>Two 0.4-meter telescopes<br />
+					One 2-meter telescope</p>
+				</div>
+			</div>
+			<div class="arrow hawaii" data-location="hawaii" data-direction="down"></div>
+			<div class="location texas" data-location="texas">
+				<div class="infoBox">
+					<img src='{% static "img/map/texas.jpg" %}' />
+					<p><strong>McDonald Observatory</strong><br />
+					Fort Davis, Texas</p>
+					<p>One 1-meter telescope</p>
+				</div>
+			</div>
+			<div class="arrow texas" data-location="texas" data-direction="down"></div>
+			<div class="location tenerife" data-location="tenerife">
+				<div class="infoBox">
+					<img src='{% static "img/map/tfn.jpg" %}' />
+					<p><strong>Teide Observatory</strong><br />
+					Canary Islands, Spain</p>
+					<p>Two 0.4-meter telescopes</p>
+				</div>
+			</div>
+			<div class="arrow tenerife" data-location="tenerife" data-direction="left"></div>
+			<div class="location southAfrica" data-location="southAfrica">
+				<div class="infoBox">
+					<img src='{% static "img/map/southAfrica.jpg" %}' />
+					<p><strong>South African<br />
+						Astronomical Observatory</strong><br />
+					Sutherland, South Africa</p>
+					<p>Three 1-meter telescopes</p>
+				</div>
+			</div>
+			<div class="arrow southAfrica" data-location="southAfrica" data-direction="up"></div>
+			<div class="location australia" data-location="australia">
+				<div class="infoBox">
+					<img src='{% static "img/map/coj.jpg" %}' />
+					<p><strong>Siding Spring Observatory</strong><br />
+						New South Wales, Australia</p>
+						<p>Two 0.4-meter telescopes<br />
+						Two 1-meter telescopes<br />
+						One 2-meter telescope
+					</p>
+				</div>
+			</div>
+			<div class="arrow australia" data-location="australia" data-direction="left"></div>
+			<a href="javascript:;" class="displayBox">Show Entire Network</a>
+			<div class="mapText">
+        {% editable page.lcopage.extra_info %}
+        {{ page.lcopage.extra_info|richtext_filters|safe }}
+        {% endeditable %}
+			</div>
+		</div>
+	</section>
+  {% editable page.lcopage.content %}
+  {{ page.lcopage.content|richtext_filters|safe }}
+  {% endeditable %}
+
+
+{% endblock %}
+
+{% block content-footer %}
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends "pages/seminar_home.html" %}
+{% load mezzanine_tags blog_tags block_tags %}
+
+{% block header-class %}blue{% endblock%}
+
+{% block title %}
+Seminar series
+{% endblock %}
+
+{% block main_span_size %}col-md-8 leftCol{% endblock %}
+
+{% block main %}
+				<h2>{% editable page.seminar.title %}{{page.seminar.title}}{% endeditable %}</h2>
+
+				<h3><a href="{{page.seminar.speaker_link}}">{{ page.seminar.speaker_name|safe }}, {{page.seminar.speaker_institute}}</a></h3>
+
+				<h3>{{ page.seminar.seminardate|date:"d M Y - H:i" }}</h3>
+
+				{% editable page.seminar.abstract %}
+				<p>{{ page.seminar.abstract|richtext_filters|safe }}</p>
+				{% endeditable %}
+
+				<p>{% richflatblock 'seminar.block' %}</p>
+{% endblock %}
+
+{% block right_panel %}
+<div class="col-md-4 linkBar">
+				<h3>Biography</h3>
+				{% if page.seminar.speaker_picture%}
+				<img src="{{MEDIA_URL}}{% thumbnail page.seminar.speaker_picture 120 0 %}" alt="{{page.seminar.speaker_name}}" />
+				{% endif %}
+
+				{% editable page.seminar.speaker_biog %}
+				{{ page.seminar.speaker_biog|richtext_filters|safe }}
+				{% endeditable %}
+
+				<div class="back-button">
+				<a href="{{page.parent.get_absolute_url}}">Back to {{page.parent}} &rarr;</a>
+				</div>
+</div>
+{%endblock%}
