@@ -1,3 +1,4 @@
 .dockerignore
 .git
 lco_mezzanine/static/media/files/*
+local_settings.py

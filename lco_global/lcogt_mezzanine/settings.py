@@ -394,11 +394,12 @@ RBAUTH_PROFILE_API = 'https://lcogt.net/observe/api/profile/'
 # Allow any settings to be defined in local_settings.py which should be
 # ignored in your version control system allowing for settings to be
 # defined per machine.
-try:
-    from .local_settings import *
-except ImportError as e:
-    if "local_settings" not in str(e):
-        raise e
+if not CURRENT_PATH.startswith('/var/www'):
+    try:
+        from .local_settings import *
+    except ImportError as e:
+        if "local_settings" not in str(e):
+            raise e
 
 
 AUTH_PROFILE_MODULE = 'lcogt.Profile'
