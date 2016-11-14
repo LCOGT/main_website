@@ -350,10 +350,6 @@ LOGGING = {
             'handlers' : ['file','console'],
             'level'    : 'DEBUG',
         },
-        'auth_backends' : {
-            'handlers' : ['file'],
-            'level'    : 'DEBUG',
-        }
     }
 }
 
@@ -383,8 +379,8 @@ AUTH_BASE_URL = ''
 AUTH_TOKEN_URL = ''
 CLIENT_ID = os.environ.get('MEZZ_RBAUTH_ID','')
 CLIENT_SECRET = os.environ.get('MEZZ_RBAUTH_SECRET','')
-RBAUTH_TOKEN_URL = 'https://lcogt.net/observe/o/token/'
-RBAUTH_PROFILE_API = 'https://lcogt.net/observe/api/profile/'
+RBAUTH_TOKEN_URL = 'https://lco.global/observe/o/token/'
+RBAUTH_PROFILE_API = 'https://lco.global/observe/api/profile/'
 
 
 ##################
