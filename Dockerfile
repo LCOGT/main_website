@@ -28,7 +28,7 @@ ENV DJANGO_SETTINGS_MODULE lcogt_mezzanine.settings
 # Install packages and update base system
 RUN yum -y install epel-release \
         && yum -y install cronie libjpeg-devel nginx python-pip mysql-devel python-devel supervisor \
-        && yum -r install libxml2-devel libxslt-devel \
+        && yum -y install libxml2-devel libxslt-devel \
         && yum -y groupinstall "Development Tools" \
         && yum -y update \
         && yum -y clean all

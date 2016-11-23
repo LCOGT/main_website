@@ -190,12 +190,12 @@ RICHTEXT_ALLOWED_TAGS = ('a', 'abbr', 'acronym', 'address', 'area', 'article', '
 FIXTURE_DIRS = (os.path.join(PROJECT_ROOT,'lco_global','fixtures'),)
 MAX_PAGING_LINKS = 5
 
-# SECURITY WARNING: keep the secret key used in production secret!
-chars = 'abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)'
-#SECRET_KEY = get_random_string(50, chars)
-
-import random
-SECRET_KEY = ''.join(random.SystemRandom().choice(chars) for _ in range(50))
+if os.environ.get('SECRET_KEY', ''):
+    SECRET_KEY = os.environ.get('SECRET_KEY', '')
+else:
+    import random
+    chars = 'abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)'
+    SECRET_KEY = ''.join(random.SystemRandom().choice(chars) for _ in range(50))
 
 ################
 # APPLICATIONS #
