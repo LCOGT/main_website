@@ -18,7 +18,7 @@ Seminar series
           <h3><span content="2015-02-19T15:30:00+00:00" datatype="xsd:dateTime" property="dc:date" class="date-display-single">{{nearest_seminar.seminardate|date:"d M Y"}}</span></h3>
         </ul>
         </div>
-        {% richflatblock "seminar.details.block" %}
+        <p>{% richflatblock 'seminar.block' %}</p>
 {% endblock %}
 
 {% block right_panel %}

@@ -1,7 +1,7 @@
 {% extends "blog/blog_post_list.html" %}
 {% load mezzanine_tags comment_tags keyword_tags rating_tags i18n disqus_tags lcogt_extras blog_tags %}
 
-{% block title_head %}{{ page.title }}{% endblock %}
+{% block title_head %}{{ blog_post.title }}{% endblock %}
 {% block meta_title %}{{ blog_post.meta_title }}{% endblock %}
 
 {% block meta_keywords %}{% metablock %}
@@ -53,9 +53,14 @@ News
 {% endblock %}
 
 {% block blog_post_detail_sharebuttons %}
+{% now "Y-m-d" as todays_date %}
+{% if blog_post.status == 2  %}
+{% if todays_date > blog_post.publish_date|date:"Y-m-d" %}
 {% set_short_url_for blog_post %}
 <a class="btn btn-primary" target="_blank" href="http://twitter.com/home?status={{ blog_post.short_url|urlencode }}%20{{ blog_post.title|urlencode }}"><i class="fa fa-twitter fa-3"></i> {% trans "Share on Twitter" %}</a>
 <a class="btn btn-primary" target="_blank" href="http://facebook.com/sharer.php?u={{ request.build_absolute_uri }}&amp;t={{ blog_post.title|urlencode }}"><i class="fa fa-facebook fa-3"></i> {% trans "Share on Facebook" %}</a>
+{% endif %}
+{% endif %}
 {% endblock %}
 
 {% block blog_post_previous_next %}

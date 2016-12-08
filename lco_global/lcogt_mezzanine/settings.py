@@ -116,7 +116,6 @@ INTERNAL_IPS = ("127.0.0.1",)
 
 
 AUTHENTICATION_BACKENDS = (
-    'lcogt_mezzanine.auth_backends.LCOAuthBackend',
     "mezzanine.core.auth_backends.MezzanineBackend",
     )
 
