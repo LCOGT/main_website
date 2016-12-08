@@ -10,7 +10,7 @@ from requests_oauthlib import OAuth2Session
 import json
 import logging
 
-logger = logging.getLogger('lcogt')
+logger = logging.getLogger(__name__)
 
 
 def rbauth_login(email, password, request=None):
@@ -44,7 +44,7 @@ def checkUserObject(profile, password):
             user.email == profile['email']
         user.save()
     except User.DoesNotExist:
-        logger.debug('Locating user {}'.format(profile['email']))
+        logger.error('Locating user {}'.format(profile['email']))
         # Only create a user if their email address contains "@lcogt"
         if profile['email'].find('@lco.global') != -1:
             name_count = User.objects.filter(username__startswith = profile['username']).count()
@@ -53,10 +53,10 @@ def checkUserObject(profile, password):
             user = User.objects.create_user(username,email=profile['email'])
             user.first_name = profile['first_name']
             user.last_name = profile['last_name']
-            user.set_password(profile['password'])
+            user.set_password(password)
             user.save()
         else:
-            logger.debug('User {} does not exist'.format(profile['email']))
+            logger.error('User {} does not exist'.format(profile['email']))
             return None
 #### Check there is a profile for this user
         user.is_staff = True
