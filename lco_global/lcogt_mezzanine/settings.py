@@ -178,6 +178,7 @@ ROOT_URLCONF = "%s.urls" % PROJECT_DIRNAME
 ######################
 
 # Set where Filebrowser looks for these files
+FILEBROWSER_MAX_UPLOAD_SIZE = 50000000
 FILEBROWSER_DIRECTORY = ''
 FILEBROWSER_MEDIA_URL = MEDIA_URL
 
