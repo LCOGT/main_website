@@ -26,6 +26,20 @@
     <![endif]-->
     <!-- jQuery - Rest of JS is at the end. This is here so we can use Jquery in pages-->
     <script src="{% static 'js/jquery-3.1.0.min.js' %}"></script>
+    <script type="text/javascript">
+    $(document).ready(function () {
+        resize_to_fit();
+    });
+
+    function resize_to_fit(){
+        var fontsize = $('#title-container h1').css('font-size');
+        $('#title-container h1').css('fontSize', parseFloat(fontsize) - 1);
+
+        if($('#title-container h1').height() >= $('.intro').height()-30){
+            resize_to_fit();
+        }
+    }
+    </script>
     {% block header_script %}{% endblock%}
 </head>
 <body>
@@ -80,7 +94,7 @@
   		<div class="intro downPage {% block header-class %}{% endblock%}">
   			<div class="container wide">
   				<div class="row no-gutter">
-  					<div class="col-md-8 title">
+  					<div class="col-md-8 title" id="title-container">
   						<h1>{% block title %}{% endblock %}</h1>
   					</div>
   					<div class="col-md-4 col-sm-12">
