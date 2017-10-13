@@ -385,20 +385,12 @@ hr.divider {
 	overflow: visible;
 	position: absolute;
 	z-index: 30;
-	-webkit-animation: pulse 2s infinite;
-	-moz-animation:    pulse 2s infinite;
-	-o-animation:      pulse 2s infinite;
-	animation:         pulse 2s infinite;
 }
 .location.staBarbara, .location.liverpool {
 	width: 16px;
 	height: 16px;
 	background-color: #ffcb08;
 	margin: 0px -13px -13px 0px;
-	-webkit-animation: yellowPulse 2s infinite;
-	-moz-animation:    yellowPulse 2s infinite;
-	-o-animation:      yellowPulse 2s infinite;
-	animation:         yellowPulse 2s infinite;
 }
 .location .infoBox {
 	background-color: #009ec3;
@@ -548,21 +540,26 @@ hr.divider {
 	transition: margin-left 0.5s;*/
 }
 a.displayBox {
+  cursor: pointer;
 	position: absolute;
 	left: 2.35%;
-	top: 41.07%;
+	top: 25%;
 	display: block;
 	background-color: #ffcb08;
 	padding: 11px 18px;
 	font-family: 'Affogato-Medium', sans-serif;
-	font-size: .95em;
-	line-height: .95em;
+	font-size: 1.21em;
+	line-height: 1.21em;
 	color: #000;
 	text-decoration: none;
 	letter-spacing: .1em;
 	text-transform: uppercase;
 	-webkit-transition: background-color 0.5s, top 0.5s, left 0.5s;
 	transition: background-color 0.5s, top 0.5s, left 0.5s;
+  -webkit-animation: yellowPulse 2s infinite;
+  -moz-animation:    yellowPulse 2s infinite;
+  -o-animation:      yellowPulse 2s infinite;
+  animation:         yellowPulse 2s infinite;
 }
 a.displayBox.shown {
 	background-color: #a4cd39;
@@ -716,7 +713,7 @@ a.portalLink:hover   {
 	}
 	a.displayBox {
 		left: 2.35%;
-		top: 38%;
+		top: 25%;
 		-webkit-transition: top 0.5s;
 		transition: top 0.5s;
 	}
@@ -747,8 +744,8 @@ a.portalLink:hover   {
 	}
 	a.displayBox {
 		left: 1.35%;
-		top: 36%;
-		font-size: 0.75em;
+		top: 25%;
+		font-size: 1.21em;
 		/*-webkit-transition: top 0.5s, left 0.5s, font-size 0.5s;
 		transition: top 0.5s, left 0.5s, font-size 0.5s;*/
 	}
@@ -845,7 +842,14 @@ a.portalLink:hover   {
 		font-size: 17px;
 	}
 	a.displayBox {
-		display: none;
+		position: inherit;
+    text-align: center;
+    display: block;
+    font-size: 1.21em;
+    animation:         none;
+    -webkit-animation: none;
+    -moz-animation:    none;
+    -o-animation:      none;
 	}
 	.location.hawaii .infoBox {
 		margin-left: -7.823em;

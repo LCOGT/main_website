@@ -97,7 +97,7 @@ function posMobileBox () {
 //Temporary javascript solution to place images on down pages.
 //Since JS can't read directory contents, you need to know how many images there are ahead of time.
 //You also need to have a consistent naming scheme.
-//This should be replaced by a backend image randomizer, 
+//This should be replaced by a backend image randomizer,
 //or an AJAX response from a simple server-side script.
 /*function placeImgs (available, numImg, target) {
     var imgArray = [];
