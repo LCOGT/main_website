@@ -71,7 +71,7 @@ MANAGERS = ADMINS
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = ['.lco.global','.lco.gtn','.lcogt.net']
+ALLOWED_HOSTS = ['.lco.global','.lco.gtn','.lcogt.net','localhost']
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -137,6 +137,17 @@ FILEBROWSER_EXTENSIONS = {
     'Video': ['.mov','.wmv','.mpeg','.mpg','.avi','.rm','ogv','.m4v'],
     'Audio': ['.mp3','.mp4','.wav','.aiff','.midi','.m4p','.ogg']
 }
+
+FILEBROWSER_VERSIONS = {
+    'admin_thumbnail': {'verbose_name': 'Admin Thumbnail', 'width': 60, 'height': 60, 'opts': 'crop'},
+    'thumbnail': {'verbose_name': 'Thumbnail (1 col)', 'width': 60, 'height': 60, 'opts': 'crop'},
+    'small': {'verbose_name': 'Small (2 col)', 'width': 140, 'height': '', 'opts': ''},
+    'medium': {'verbose_name': 'Medium (4col )', 'width': 300, 'height': '', 'opts': ''},
+    'big': {'verbose_name': 'Big (6 col)', 'width': 460, 'height': '', 'opts': ''},
+    'large': {'verbose_name': 'Large (8 col)', 'width': 680, 'height': '', 'opts': ''}
+    }
+
+FILEBROWSER_ADMIN_THUMBNAIL = 'admin_thumbnail'
 
 
 #############

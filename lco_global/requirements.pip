@@ -1,6 +1,6 @@
 --extra-index-url=http://buildsba.lco.gtn/python/
 MySQL-python
-Mezzanine
+git+git://github.com/stephenmcd/mezzanine.git#egg=mezzanine 
 django-reversion
 Pillow
 bleach
