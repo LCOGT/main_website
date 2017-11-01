@@ -35,7 +35,8 @@ RUN yum -y install epel-release \
 
 # Install the LCOGT Mezzanine webapp Python required packages
 COPY lco_global/requirements.pip /var/www/apps/lco_global/
-RUN pip install -r /var/www/apps/lco_global/requirements.pip --trusted-host buildsba.lco.gtn
+RUN pip install -r /var/www/apps/lco_global/requirements.pip --trusted-host buildsba.lco.gtn \
+        && rm -rf ~/.cache/pip
 
 # Ensure crond will run on all host operating systems
 RUN sed -i -e 's/\(session\s*required\s*pam_loginuid.so\)/#\1/' /etc/pam.d/crond
