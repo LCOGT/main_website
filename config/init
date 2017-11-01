@@ -12,6 +12,8 @@ export MEZZ_DB_HOST="${MEZZ_DB_HOST}"
 export MEZZ_DB_USER="${MEZZ_DB_USER}"
 export MEZZ_DB_PASSWD="${MEZZ_DB_PASSWD}"
 
+export ADS_TOKEN="${ADS_TOKEN}"
+
 EOF
 
 # Make cron wrapper executable
