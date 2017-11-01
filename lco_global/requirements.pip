@@ -19,7 +19,7 @@ lxml
 beautifulsoup4
 pdfminer
 flup
-django-lcobiblio==0.1.7
+django-lcobiblio==0.2.0
 git+git://github.com/zemogle/mezzanine-blocks.git#egg=mezzanine-blocks
 uWSGI
 opbeat

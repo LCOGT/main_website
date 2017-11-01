@@ -19,14 +19,18 @@ a:hover {
 h1 .editable-form { color:#000;}
 .helptext {font-size: 12px !important;}
 
+
 h5 {
 	font-size: 1.25em;
-	font-family: 'Affogato-Bold', sans-serif;
 }
 
 p { margin: 0 0 30px;}
 
 p.normal { margin: 0 0 10px;}
+
+.downPage strong {
+  font-family: 'Affogato-Medium', sans-serif;
+}
 
 .menugrid h2 {margin-top:0;}
 
@@ -202,8 +206,21 @@ p.normal { margin: 0 0 10px;}
 	font-size: 4.9em;
 	color: #fff;
 }
+
+.downPage h1,
+.downPage h2,
+.downPage h3,
+.downPage h4,
+.downPage h5 {
+  font-family: 'Affogato-Medium', sans-serif;
+}
+
 .downPage h2 {
-	font-size: 3em;
+	font-size: 2.5em;
+}
+
+.downPage h3 {
+	font-size: 1.5em;
 }
 
 .downPage h2.subtitle {

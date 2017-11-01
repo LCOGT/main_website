@@ -351,7 +351,11 @@ LOGGING = {
         'console': {
             'level': 'DEBUG',
             'class': 'logging.StreamHandler',
-        }
+        },
+        'null': {
+            'level': 'DEBUG',
+            'class':'logging.NullHandler',
+            }
     },
     'loggers': {
         'django.request': {
@@ -360,14 +364,20 @@ LOGGING = {
             'propagate': True,
         },
         'django': {
-            'handlers':['file','console'],
+            'handlers':['console'],
             'propagate': True,
-            'level':'INFO',
+            'level':'DEBUG',
         },
         'lcogt' : {
-            'handlers' : ['file','console'],
+            'handlers' : ['console'],
+            'propagate': True,
             'level'    : 'DEBUG',
         },
+        'django.db.backends': {
+            'handlers': ['null'],
+            'propagate': False,
+            'level':'DEBUG',
+        }
     }
 }
 
@@ -389,16 +399,7 @@ EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASSWORD','')
 EMAIL_PORT          =  587
 DEFAULT_FROM_EMAIL  = 'Webmaster <portal@lcogt.net>'
 
-###################
-# OAuth provider  #
-###################
-
-AUTH_BASE_URL = ''
-AUTH_TOKEN_URL = ''
-CLIENT_ID = os.environ.get('MEZZ_RBAUTH_ID','')
-CLIENT_SECRET = os.environ.get('MEZZ_RBAUTH_SECRET','')
-RBAUTH_TOKEN_URL = 'https://lco.global/observe/o/token/'
-RBAUTH_PROFILE_API = 'https://lco.global/observe/api/profile/'
+ADS_TOKEN = os.environ.get('ADS_TOKEN','')
 
 
 ##################
