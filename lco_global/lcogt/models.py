@@ -9,6 +9,7 @@ from mezzanine.utils.models import AdminThumbMixin
 from mezzanine.utils.urls import slugify, unique_slug
 from filebrowser_safe.fields import FileBrowseField
 
+
 class LCOPage(Page):
     content = RichTextField(_("Main Content"), default="", help_text=_('Main content'), blank=True)
     extra_info = RichTextField(_("Extra info"), default="", help_text=_('This information will appear in the side bar or directly below title if No Side Block is checked'), blank=True)
@@ -111,3 +112,9 @@ class Profile(models.Model):
 
     def __unicode__(self):
         return "Profile for %s, %s" % (self.user.last_name, self.user.first_name)
+
+class SpacePage(Page):
+    related_activity = models.ManyToManyField(Activity,
+                                 verbose_name=_("Related activities"), blank=True)
+    class Meta:
+        verbose_name = _("SpaceBook page")
