@@ -70,22 +70,6 @@ class SeminarList(View):
 
         return render(request,'pages/seminar_list.html', {"seminars": seminars,"years":years})
 
-# def seminar_list(request):
-#     seminar_list = Seminar.objects.all().order_by('-seminardate')
-#     paginator = Paginator(seminar_list, 25) # Show 25 seminars per page
-#
-#     page = request.GET.get('page')
-#     try:
-#         seminars = paginator.page(page)
-#     except PageNotAnInteger:
-#         # If page is not an integer, deliver first page.
-#         seminars = paginator.page(1)
-#     except EmptyPage:
-#         # If page is out of range (e.g. 9999), deliver last page of results.
-#         seminars = paginator.page(paginator.num_pages)
-#
-#     return render(request,'pages/seminar_list.html', {"seminars": seminars})
-
 def activity_list(request):
     # Only show published i.e. status = 0 activities
     activity_list = Activity.objects.filter(status=2).order_by('title')
