@@ -43,6 +43,14 @@ Seminar series
 
 {% block right_panel %}
 <div class="col-md-4 linkBar">
+<a href="{% url 'seminar_home' %}">Seminar Home</a>
+<h3>View Seminars by Year</h3>
+<ul>
+{% for year in years reversed %}
+<li><a href="{% url 'seminars_year' year %}">{{year}}</a></li>
+{% endfor%}
+<li><a href="{% url 'seminars' %}">All</a></li>
+</ul>
 {% richflatblock "science.side.block" %}
 </div>
 {%endblock%}

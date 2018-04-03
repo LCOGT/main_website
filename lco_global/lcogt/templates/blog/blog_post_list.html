@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load i18n mezzanine_tags blog_tags keyword_tags disqus_tags %}
+{% load i18n mezzanine_tags keyword_tags disqus_tags %}
 
 {% block meta_title %}{% if page %}{{ page.meta_title }}{% else %}{% trans "News" %}{% endif %}{% endblock %}
 
@@ -29,15 +29,9 @@
 {{ block.super }}
 {% if tag or category or year or month or author %}
 <li>{% spaceless %}
-{% if tag %}
-    {% trans "Tag:" %} {{ tag }}
-{% else %}{% if category %}
-    {% trans "Category:" %} {{ category }}
-{% else %}{% if year or month %}
-    {% if month %}{{ month }}, {% endif %}{{ year }}
-{% else %}{% if author %}
+{% if author %}
     {% trans "Author:" %} {{ author.get_full_name|default:author.username }}
-{% endif %}{% endif %}{% endif %}{% endif %}
+{% endif %}
 {% endspaceless %}
 </li>
 {% endif %}
@@ -50,7 +44,7 @@
 
 {% block main %}
 
-{% if tag or category or year or month or author %}
+{% if tag or category or author %}
     {% block blog_post_list_filterinfo %}
     <p>
     {% if tag %}

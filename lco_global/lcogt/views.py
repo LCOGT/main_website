@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 from django import forms
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import Http404, HttpResponseRedirect
@@ -39,28 +39,52 @@ def user_profile(request,username):
     return render(request, 'pages/userprofile.html', {'profile': profile,'papers':papers})
 
 def seminar_home(request):
-    seminars = Seminar.objects.filter(seminardate__gt=datetime.now()).order_by('-seminardate')
+    starttime = datetime.utcnow() - timedelta(minutes=360)
+    seminars = Seminar.objects.filter(seminardate__gt=starttime).order_by('seminardate')
     if seminars:
         nearest_seminar = seminars.order_by('seminardate')[0]
     else:
         nearest_seminar = Seminar.objects.latest('seminardate')
     return render(request,'pages/seminar_home.html',{'seminars':seminars,'nearest_seminar': nearest_seminar})
 
-def seminar_list(request):
-    seminar_list = Seminar.objects.all().order_by('-seminardate')
-    paginator = Paginator(seminar_list, 25) # Show 25 seminars per page
 
-    page = request.GET.get('page')
-    try:
-        seminars = paginator.page(page)
-    except PageNotAnInteger:
-        # If page is not an integer, deliver first page.
-        seminars = paginator.page(1)
-    except EmptyPage:
-        # If page is out of range (e.g. 9999), deliver last page of results.
-        seminars = paginator.page(paginator.num_pages)
+class SeminarList(View):
 
-    return render(request,'pages/seminar_list.html', {"seminars": seminars})
+    def get(self, request, *args, **kwargs):
+        seminar_list = Seminar.objects.all().order_by('-seminardate')
+        years = range(2016, datetime.now().year+1)
+
+        page = request.GET.get('page')
+        year = kwargs.get('year','')
+        if year:
+            seminar_list = seminar_list.filter(seminardate__year=year)
+        paginator = Paginator(seminar_list, 25) # Show 25 seminars per page
+        try:
+            seminars = paginator.page(page)
+        except PageNotAnInteger:
+            # If page is not an integer, deliver first page.
+            seminars = paginator.page(1)
+        except EmptyPage:
+            # If page is out of range (e.g. 9999), deliver last page of results.
+            seminars = paginator.page(paginator.num_pages)
+
+        return render(request,'pages/seminar_list.html', {"seminars": seminars,"years":years})
+
+# def seminar_list(request):
+#     seminar_list = Seminar.objects.all().order_by('-seminardate')
+#     paginator = Paginator(seminar_list, 25) # Show 25 seminars per page
+#
+#     page = request.GET.get('page')
+#     try:
+#         seminars = paginator.page(page)
+#     except PageNotAnInteger:
+#         # If page is not an integer, deliver first page.
+#         seminars = paginator.page(1)
+#     except EmptyPage:
+#         # If page is out of range (e.g. 9999), deliver last page of results.
+#         seminars = paginator.page(paginator.num_pages)
+#
+#     return render(request,'pages/seminar_list.html', {"seminars": seminars})
 
 def activity_list(request):
     # Only show published i.e. status = 0 activities

@@ -8,7 +8,7 @@ from django.contrib import admin
 from mezzanine.core.views import direct_to_template
 from mezzanine.pages.views import page
 from lcogt.views import UpdateProfile, SpecialPage, activity_list, people, \
-    science_people, user_profile, seminar_list, seminar_home, activity_list
+    science_people, user_profile, seminar_home, activity_list, SeminarList
 import biblio.views as bv
 
 
@@ -33,7 +33,8 @@ urlpatterns = [
     url(r'^people/$', people, {'current':True}, name="people"),
     url(r'^user/(?P<username>\w+)/$',user_profile, name="userprofile"),
     url(r'^seminar/$',seminar_home,name='seminar_home'),
-    url(r'^seminar/archive/$',seminar_list,name='seminars'),
+    url(r'^seminar/archive/(?P<year>[0-9]+)/$',SeminarList.as_view(),name='seminars_year'),
+    url(r'^seminar/archive/$',SeminarList.as_view(),name='seminars'),
     url(r'^education/activity/$',activity_list,name='activities'),
     url(r'^observatory/visibility/$',SpecialPage.as_view(template_name='pages/visibility.html'), {"slug": "observatory/visibility"}, name="visibility"),
     url(r'^publications/$', bv.home, name='bibliohome'),

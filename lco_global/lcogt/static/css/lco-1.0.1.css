@@ -248,7 +248,9 @@ ul.list-papers li {margin-bottom:10px;}
 .green-3 { color: #a4cd39;}
 
 li .blog-date, li .blog-title-sm, li .seminar-date, li .seminar-title { display: table-cell;}
-li .blog-date, li .seminar-date {width:100px;}
+li .blog-date {width:100px;}
+
+li .seminar-date, li .seminar-title { width:50%; display:inline-block;}
 
 /* Sidebar Links */
 .linkBar {
