@@ -7,7 +7,7 @@ from mezzanine.forms.models import  Form
 from mezzanine.blog.models import BlogPost
 from mezzanine.blog.admin import BlogPostAdmin
 
-from lcogt.models import Activity, Seminar, Profile, LCOPage
+from lcogt.models import Activity, Seminar, Profile, LCOPage, SpacePage
 
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
@@ -87,3 +87,4 @@ admin.site.register(BlogPost, LCOBlogAdmin)
 admin.site.register(Activity, PageReversion)
 admin.site.register(Seminar, PageReversion)
 admin.site.register(LCOPage, PageReversion)
+admin.site.register(SpacePage, PageReversion)

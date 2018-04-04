@@ -114,6 +114,9 @@ class Profile(models.Model):
         return "Profile for %s, %s" % (self.user.last_name, self.user.first_name)
 
 class SpacePage(Page):
+    content = RichTextField(_("content"),
+            help_text=_("page text"),
+            default="", blank=True)
     related_activity = models.ManyToManyField(Activity,
                                  verbose_name=_("Related activities"), blank=True)
     class Meta:
