@@ -40,6 +40,7 @@ urlpatterns = [
     url(r'^publications/$', bv.home, name='bibliohome'),
     url(r'^publications/stats/(?P<year>\d{4})/$',bv.summary,name='bibliostats_year'),
     url(r'^publications/stats/$',bv.summary,name='bibliostats'),
+    
 
     # MEZZANINE'S URLS
     # ----------------

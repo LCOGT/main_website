@@ -1,0 +1,51 @@
+{% extends "pages/page.html" %}
+{% load mezzanine_tags keyword_tags block_tags lcogt_extras pages_tags staticfiles %}
+
+{% block header-class %}
+red
+{% endblock%}
+
+{% block meta_keywords %}{% metablock %}
+{% keywords_for page as keywords %}
+{% for keyword in keywords %}
+    {% if not forloop.first %}, {% endif %}
+    {{ keyword }}
+{% endfor %}
+{% endmetablock %}{% endblock %}
+
+{% block meta_description %}{% metablock %}
+{{ page.description }}
+{% endmetablock %}{% endblock %}
+
+{% block main_span_size %}col-md-8 leftCol{% endblock %}
+
+{% block title %}
+{% editable page.title %}{{ page.title }}{% endeditable %}
+{%endblock%}
+
+
+{% block main %}{{block.super}}
+
+{% editable page.spacepage.content %}
+{{ page.spacepage.content|richtext_filters|safe }}
+{% endeditable %}
+{% endblock %}
+
+{% block right_panel %}
+<div class="col-md-4 linkBar">
+<p>
+<a href="/spacebook/"><img src="{% static "img/spacebook.jpg" %}" class="img-responsive"/></a></br>
+
+{% page_menu page "pages/menus/tree.html" %}
+
+{% if page.parent %}
+<a href="/spacebook/"><i class="fa fa-home"></i> SpaceBook home</a></br>
+
+{% if page.parent.title != "Space Book"%}
+<a href="{{page.parent.get_absolute_url}}"><i class="fa fa-level-up"></i> "{{page.parent.title}}"</a></br>
+{% endif%}
+
+<p>{% richflatblock 'spacebook.block' %}</p>
+{% endif %}
+</div>
+{% endblock %}

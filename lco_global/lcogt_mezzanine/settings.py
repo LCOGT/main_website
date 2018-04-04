@@ -358,15 +358,20 @@ LOGGING = {
             }
     },
     'loggers': {
+        'django': {
+        'handlers':['console'],
+        'propagate': True,
+        'level':'INFO',
+        },
         'django.request': {
             'handlers': ['mail_admins'],
             'level': 'ERROR',
             'propagate': True,
         },
-        'django': {
-            'handlers':['console'],
-            'propagate': True,
-            'level':'DEBUG',
+        'django.template': {
+            'handlers': ['console'],
+            'level': 'INFO',
+            'propagate': False,
         },
         'lcogt' : {
             'handlers' : ['console'],
