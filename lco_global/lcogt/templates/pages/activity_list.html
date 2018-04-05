@@ -2,6 +2,9 @@
 {% load mezzanine_tags block_tags %}
 
 {% block meta_title %}Activity List{% endblock %}
+{% block title_head %}Activity List{% endblock %}
+
+{% block header-class %}red{% endblock%}
 
 {% block body-class %}education {%endblock%}
 
@@ -9,38 +12,54 @@
 Activities
 {% endblock %}
 
-{% block main_span_size %}col-md-8 leftCol{% endblock %}
 
 {% block main %}
 
-<ul class="newslist">
+<div class="row">
+  <div class="col-md-6 col-md-offset-4">
+    <a class="activity-icon" href="/education/activity/?age=6">
+      <span class="fa-stack fa-3x">
+        <i class="fa fa-circle fa-stack-2x"></i>
+        <strong class="fa-stack-1x icon-text">Age<br/>6-11</strong>
+      </span></a>
+
+    <a class="activity-icon" href="/education/activity/?age=11">
+      <span class="fa-stack fa-3x">
+        <i class="fa fa-circle fa-stack-2x"></i>
+        <strong class="fa-stack-1x icon-text">Age<br/>11-16</strong>
+      </span></a>
+
+    <a class="activity-icon" href="/education/activity/?age=16">
+      <span class="fa-stack fa-3x">
+        <i class="fa fa-circle fa-stack-2x"></i>
+        <strong class="fa-stack-1x icon-text">Age<br/>16-18</strong>
+      </span></a>
+
+      <a class="activity-icon" href="/education/activity/?age=all">
+        <span class="fa-stack fa-3x">
+          <i class="fa fa-circle fa-stack-2x"></i>
+          <strong class="fa-stack-1x icon-text">All<br/>Ages</strong>
+        </span></a>
+
+  </div>
+</div>
+
+<div class="row">
 {% for activity in activities %}
-    <li>
-      <h3 class="list-item-title"><a href="{{activity.get_absolute_url}}">{{ activity.title }}</a></h3>
+{% if forloop.counter0|divisibleby:3 %}
+        </div>
+        <div class="row">
+    {% endif %}
+  <div class="col-md-4">
+{% if activity.featured_image %}
+      <p><img class="img-responsive" src="{{ MEDIA_URL }}{{ activity.featured_image }}"></p>
+{% endif %}
+      <h3><a href="{{activity.get_absolute_url}}">{{ activity.title }}</a></h3>
       <div>{{activity.summary|safe}}</div>
-    </li>
+    </div>
 {% endfor %}
-</ul>
-
-<div class="pagination">
-    <span class="step-links">
-        {% if activities.has_previous %}
-            <a href="?page={{ activities.previous_page_number }}">previous</a>
-        {% endif %}
-
-        <span class="current">
-            Page {{ activities.number }} of {{ activities.paginator.num_pages }}.
-        </span>
-
-        {% if activities.has_next %}
-            <a href="?page={{ activities.next_page_number }}">next</a>
-        {% endif %}
-    </span>
 </div>
 {% endblock %}
 
 {% block right_panel %}
-<div class="col-md-4 linkBar">
-{% richflatblock "education.side.block" %}
-</div>
 {%endblock%}

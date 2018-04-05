@@ -41,6 +41,9 @@ News
 {% endblock %}
 
 {% block blog_post_detail_content %}
+{% if blog_post.status == 1 %}
+<p class="bg-warning" style="text-align:center;">Draft</p>
+{% endif %}
 {% editable blog_post.content %}
 {{ blog_post.content|richtext_filters|safe }}
 {% endeditable %}

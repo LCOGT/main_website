@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load i18n mezzanine_tags keyword_tags disqus_tags %}
+{% load i18n mezzanine_tags keyword_tags block_tags %}
 
 {% block meta_title %}{% if page %}{{ page.meta_title }}{% else %}{% trans "News" %}{% endif %}{% endblock %}
 
@@ -76,26 +76,30 @@
 
 {% if settings.BLOG_USE_FEATURED_IMAGE and blog_post.featured_image %}
 {% block blog_post_list_post_featured_image %}
-<p>
-<a href="{{ blog_post.get_absolute_url }}">
-    <img class="img-responsive" src="{{ MEDIA_URL }}{{ blog_post.featured_image }}">
-</a>
-</p>
+<div class="row">
+  <div class="col-md-4">
+    <a href="{{ blog_post.get_absolute_url }}">
+      <img class="img-responsive" src="{{ MEDIA_URL }}{{ blog_post.featured_image }}">
+    </a>
+  </div>
+  <div class="col-md-8">
 {% endblock %}
 {% endif %}
 {% block blog_post_list_post_title %}
-{% editable blog_post.title %}
 
-        <h2 class="blog-post-title"><a href="{{ blog_post.get_absolute_url }}">{{ blog_post.title }}</a></h2>
 
-{% endeditable %}
+
+        <h3 class="blog-post-title"><a href="{{ blog_post.get_absolute_url }}">{{ blog_post.title }}</a>
+        {% if blog_post.status == 1 %}
+        <span class="bg-warning">Draft</span>
+        {% endif %}
+      </h3>
+
 {% endblock %}
 
 
 {% block blog_post_list_post_content %}
-{% editable blog_post.content %}
 {{ blog_post.description_from_content|safe }}
-{% endeditable %}
 {% endblock %}
 
 {% block blog_post_list_post_links %}
@@ -104,6 +108,10 @@
     <a href="{{ blog_post.get_absolute_url }}">read more &rarr;</a>
     </p>
 </div>
+{% if settings.BLOG_USE_FEATURED_IMAGE and blog_post.featured_image %}
+</div>
+</div>
+{% endif %}
 {% endblock %}
 
 {% endfor %}
@@ -116,6 +124,9 @@
 
 {% block right_panel %}
 <div class="col-md-4 linkBar">
-{% include "blog/includes/filter_panel.html" %}
+  <p>{% richflatblock 'sidebar.links' %}</p>
+  <h3>{% trans "Subscribe" %}</h3>
+      <a href="{% url "blog_post_feed" "rss" %}">{% trans "RSS" %}</a> /
+      <a href="{% url "blog_post_feed" "atom" %}">{% trans "Atom" %}</a>
 </div>
 {% endblock %}

@@ -45,7 +45,13 @@ class Activity(Page, Ownable):
     featured_image = FileBrowseField("Image", max_length=200, directory="files/", extensions=[".jpg",".png",".gif",'.jpeg'], blank=True, null=True)
     related_posts = models.ManyToManyField("self",
                                  verbose_name=_("Related activities"), blank=True)
-
+    evaluation = RichTextField(_("evaluation"),
+        help_text=_("How to ensure the goals are reached"),
+        default="", blank=True)
+    suitability = models.IntegerField(
+        choices=((1, "6-11"),(2,"12-16"), (3,"16-18"), (4, "All")),
+        help_text=_("What can the audience do after this activity?"),
+        default=4)
     admin_thumb_field = "featured_image"
 
     class Meta:

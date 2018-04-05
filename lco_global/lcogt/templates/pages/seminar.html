@@ -11,6 +11,9 @@ Seminar series
 
 {% block main %}
 				<h2>{% editable page.seminar.title %}{{page.seminar.title}}{% endeditable %}</h2>
+        {% if page.status == 1 %}
+        <p class="bg-warning" style="text-align:center;">Draft</p>
+        {% endif %}
 
 				<h3><a href="{{page.seminar.speaker_link}}">{{ page.seminar.speaker_name|safe }}, {{page.seminar.speaker_institute}}</a></h3>
 

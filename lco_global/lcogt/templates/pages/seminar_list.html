@@ -19,7 +19,11 @@ Seminar series
 {% for seminar in seminars %}
     <li>
       <h3 class="list-item-title"><a href="{{seminar.get_absolute_url}}">{{ seminar.title }}</a></h3>
-      <div>{{seminar.speaker_name}} - {{seminar.seminardate|date:"d M Y"}}</div>
+      <div>{{seminar.speaker_name}} - {{seminar.seminardate|date:"d M Y"}}
+        {% if blog_post.status == 1 %}
+        <span class="bg-warning">Draft</span>
+        {% endif %}
+      </div>
     </li>
 {% endfor %}
 </ul>

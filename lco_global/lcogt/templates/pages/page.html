@@ -29,15 +29,15 @@ blue
 {% block main_span_size %}col-md-8 leftCol{% endblock %}
 
 {% block title %}
-{% if 'spacebook' in page.keywords_string%}
-Space Book
-{% else %}
 {% editable page.title %}{{ page.title }}{% endeditable %}
-{% endif %}
 {%endblock%}
 
 
-{% block main %}{{block.super}}
+{% block main %}
+{% if page.status == 1 %}
+<p class="bg-warning" style="text-align:center;">Draft</p>
+{% endif %}
+{{block.super}}
 {% endblock %}
 
 {% block right_panel %}

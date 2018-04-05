@@ -51,6 +51,7 @@ DASHBOARD_TAGS = (
 
 BLOG_USE_FEATURED_IMAGE = True
 BLOG_SLUG = 'news'
+BLOG_POST_PER_PAGE = 10
 
 # If True, the south application will be automatically added to the
 # INSTALLED_APPS setting.
@@ -80,7 +81,7 @@ ALLOWED_HOSTS = ['.lco.global','.lco.gtn','.lcogt.net','localhost']
 # timezone as the operating system.
 # If running in a Windows environment this must be set to the same as your
 # system time zone.
-TIME_ZONE = 'Etc/Universal'
+TIME_ZONE = 'UTC'
 
 # If you set this to True, Django will use timezone-aware datetimes.
 USE_TZ = True

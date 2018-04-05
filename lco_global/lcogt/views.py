@@ -70,22 +70,18 @@ class SeminarList(View):
 
         return render(request,'pages/seminar_list.html', {"seminars": seminars,"years":years})
 
-def activity_list(request):
-    # Only show published i.e. status = 0 activities
-    activity_list = Activity.objects.filter(status=2).order_by('title')
-    paginator = Paginator(activity_list, 25) # Show 25 activities per page
+class ActivityList(View):
 
-    page = request.GET.get('page')
-    try:
-        activities = paginator.page(page)
-    except PageNotAnInteger:
-        # If page is not an integer, deliver first page.
-        activities = paginator.page(1)
-    except EmptyPage:
-        # If page is out of range (e.g. 9999), deliver last page of results.
-        activitys = paginator.page(paginator.num_pages)
-
-    return render(request,'pages/activity_list.html', {"activities": activities})
+    def get(self, request, *args, **kwargs):
+        # Only show published i.e. status = 2 activities
+        activities = Activity.objects.filter(status=2).order_by('title')
+        age = request.GET.get('age',4)
+        if age:
+            choices = {'6':1,'11':2,'16':3,'all':4}
+            age_choice = choices.get(age,4)
+            if age_choice != 4:
+                activities = activities.filter(suitability=age_choice)
+        return render(request,'pages/activity_list.html', {"activities": activities})
 
 class ProfileForm(ModelForm):
     class Meta:
