@@ -22,4 +22,3 @@ flup
 django-lcobiblio==0.2.2
 git+git://github.com/zemogle/mezzanine-blocks.git#egg=mezzanine-blocks
 uWSGI
-opbeat
