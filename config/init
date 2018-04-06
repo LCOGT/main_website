@@ -16,6 +16,8 @@ export ADS_TOKEN="${ADS_TOKEN}"
 
 EOF
 
+echo "default-time-zone = 'UTC'" >> /etc/my.cnf
+
 # Make cron wrapper executable
 chmod +x $TOPDIR/cronwrapper
 

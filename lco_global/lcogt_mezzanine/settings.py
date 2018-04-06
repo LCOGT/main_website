@@ -221,7 +221,6 @@ else:
 ################
 
 INSTALLED_APPS = (
-    'opbeat.contrib.django',
     "lcogt",
     "django.contrib.admin",
     "django.contrib.auth",
@@ -275,7 +274,6 @@ TEMPLATES = [
 # these middleware classes will be applied in the order given, and in the
 # response phase the middleware will be applied in reverse order.
 MIDDLEWARE_CLASSES = (
-    'opbeat.contrib.django.middleware.OpbeatAPMMiddleware',
     "mezzanine.core.middleware.UpdateCacheMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.locale.LocaleMiddleware",
@@ -387,12 +385,6 @@ LOGGING = {
     }
 }
 
-OPBEAT = {
-    'ORGANIZATION_ID': os.environ.get('MEZZ_OPBEAT_ORGID',''),
-    'APP_ID': os.environ.get('MEZZ_OPBEAT_APPID',''),
-    'SECRET_TOKEN': os.environ.get('MEZZ_OPBEAT_TOKEN',''),
-    'DEBUG': DEBUG,
-}
 
 ###################
 # Email settings  #
