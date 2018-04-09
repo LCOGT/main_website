@@ -75,12 +75,10 @@ class ActivityList(View):
     def get(self, request, *args, **kwargs):
         # Only show published i.e. status = 2 activities
         activities = Activity.objects.filter(status=2).order_by('title')
-        age = request.GET.get('age',4)
-        if age:
-            choices = {'6':1,'11':2,'16':3,'all':4}
-            age_choice = choices.get(age,4)
-            if age_choice != 4:
-                activities = activities.filter(suitability=age_choice)
+        age = request.GET.get('age','all')
+        if age in ['6','11','16','all']:
+            if age != 'all':
+                activities = activities.filter(agerange__contains=age)
         return render(request,'pages/activity_list.html', {"activities": activities})
 
 class ProfileForm(ModelForm):

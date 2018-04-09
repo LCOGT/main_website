@@ -4,6 +4,7 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from mezzanine.core.fields import RichTextField, FileField
 from mezzanine.pages.models import RichTextPage, Page
+from mezzanine.core.fields import MultiChoiceField
 from mezzanine.core.models import Displayable, RichText, Ownable
 from mezzanine.utils.models import AdminThumbMixin
 from mezzanine.utils.urls import slugify, unique_slug
@@ -22,6 +23,11 @@ class LCOPage(Page):
         db_table = 'lcogt_lcopage'
 
 class Activity(Page, Ownable):
+    agerange = MultiChoiceField(
+        choices=(('6', "6-11"),('11',"11-16"), ('16',"16-18"), ('all', "All")),
+        help_text=_("What is the age range for this activity?"),
+        default='all',
+        max_length=20)
     full_text = RichTextField(_("full text"),
             help_text=_("The full activity text"),
             default="", blank=True)
@@ -48,14 +54,12 @@ class Activity(Page, Ownable):
     evaluation = RichTextField(_("evaluation"),
         help_text=_("How to ensure the goals are reached"),
         default="", blank=True)
-    suitability = models.IntegerField(
-        choices=((1, "6-11"),(2,"12-16"), (3,"16-18"), (4, "All")),
-        help_text=_("What can the audience do after this activity?"),
-        default=4)
+
     admin_thumb_field = "featured_image"
 
     class Meta:
         db_table = 'lcogt_activity'
+
 
 class Seminar(Page):
     abstract = RichTextField(_("abstract"),
