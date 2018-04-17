@@ -12,6 +12,10 @@ a.activity-icon:hover {
  padding-top:15px;
 }
 
+.row-m-b{
+  margin-bottom : 10px
+}
+
 .breadcrumbs{
 
   padding-left: 0;
