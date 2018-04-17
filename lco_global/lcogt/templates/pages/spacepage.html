@@ -23,6 +23,15 @@ red
 {% editable page.title %}{{ page.title }}{% endeditable %}
 {%endblock%}
 
+{% block breadcrumb_menu_outer %}
+<div class="container wide">
+    <ul class="breadcrumbs">
+    {% spaceless %}
+    {% page_menu "pages/menus/breadcrumb.html" %}
+    {% endspaceless %}
+    </ul>
+</div>
+{% endblock %}
 
 {% block main %}{{block.super}}
 
