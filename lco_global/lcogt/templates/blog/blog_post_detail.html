@@ -19,9 +19,7 @@
 News
 {% endblock %}
 
-{% block breadcrumb_menu %}
-{{ block.super }}
-<li class="active">{{ blog_post.title }}</li>
+{% block breadcrumb_menu_outer %}
 {% endblock %}
 
 {% block main_span_size %}col-md-8 main-blog{% endblock %}
@@ -30,9 +28,12 @@ News
 <h2 class="subtitle">{% editable blog_post.title %}{{ blog_post.title }}{% endeditable %}</h2>
 {% if settings.BLOG_USE_FEATURED_IMAGE and blog_post.featured_image %}
 {% block blog_post_list_post_featured_image %}
-{{ block.super }}
+<div class="row">
+  <img class="img-responsive" src="{{ MEDIA_URL }}{{ blog_post.featured_image }}">
+</div>
 {% endblock %}
 {% endif %}
+
 
 
 

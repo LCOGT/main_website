@@ -110,13 +110,8 @@
   	</section>
 
 	<section>
-    <div class="container">
-        <ul class="breadcrumb">
-        {% spaceless %}
-        {% block breadcrumb_menu %}{% page_menu "pages/menus/breadcrumb.html" %}{% endblock %}
-        {% endspaceless %}
-        </ul>
-    </div>
+    {% block breadcrumb_menu_outer %}
+    {% endblock %}
 
     <div class="container">
       <div class="row">

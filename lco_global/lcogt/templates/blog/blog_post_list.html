@@ -40,7 +40,7 @@
 {% block left_wrapper %}
 {% endblock %}
 
-{% block main_span_size %}col-md-8 leftCol{% endblock %}
+{% block main_span_size %}col-md-12{% endblock %}
 
 {% block main %}
 
@@ -117,16 +117,9 @@
 {% endfor %}
 
 {% pagination_for blog_posts %}
-
+<p>{% trans "Subscribe to our news" %} <a href="{% url "blog_post_feed" "rss" %}">{% trans "RSS" %}</a> /
+    <a href="{% url "blog_post_feed" "atom" %}">{% trans "Atom" %}</a>
+</p>
 {% endblock %}
 
 {% block blog_post_list_post_metainfo %}{% endblock %}
-
-{% block right_panel %}
-<div class="col-md-4 linkBar">
-  <p>{% richflatblock 'sidebar.links' %}</p>
-  <h3>{% trans "Subscribe" %}</h3>
-      <a href="{% url "blog_post_feed" "rss" %}">{% trans "RSS" %}</a> /
-      <a href="{% url "blog_post_feed" "atom" %}">{% trans "Atom" %}</a>
-</div>
-{% endblock %}

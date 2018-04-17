@@ -1,6 +1,6 @@
 {% extends "pages/page.html" %}
 
-{% load mezzanine_tags block_tags %}
+{% load mezzanine_tags block_tags pages_tags %}
 {% block left_wrapper %}
 {% endblock %}
 
@@ -15,6 +15,16 @@ Activity
 {% block subtitle %}
 <div class="row">
 	<h2 class="subtitle col-md-12">{% editable page.title %}{{ page.title }}{% endeditable %}</h2>
+</div>
+{% endblock %}
+
+{% block breadcrumb_menu_outer %}
+<div class="container wide">
+    <ul class="breadcrumbs">
+    {% spaceless %}
+    {% page_menu "pages/menus/breadcrumb.html" %}
+    {% endspaceless %}
+    </ul>
 </div>
 {% endblock %}
 
