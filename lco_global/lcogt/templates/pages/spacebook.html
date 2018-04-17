@@ -1,0 +1,32 @@
+{% extends "pages/page.html" %}
+{% load mezzanine_tags keyword_tags block_tags lcogt_extras pages_tags staticfiles %}
+
+{% block header-class %}red{% endblock%}
+
+{% block main_span_size %}col-md-12{% endblock %}
+
+{% block title %}
+{% editable page.title %}{{ page.title }}{% endeditable %}
+{%endblock%}
+
+
+{% block main %}{{block.super}}
+
+{% editable page.spacepage.content %}
+{{ page.spacepage.content|richtext_filters|safe }}
+{% endeditable %}
+
+
+<div class="row">
+  {% for chapter in chapters %}
+  <div class="col-3-md">
+    <a href="{{ chapter.get_absolute_url }}" class="btn btn-default" role="button">
+      <h4>{{ chapter.title }}</h4>
+      <p>This is sample text</p>
+    </a>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}
+
+{% block right_panel %}{% endblock %}

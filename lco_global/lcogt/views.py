@@ -116,3 +116,10 @@ class UpdateProfile(UpdateView):
     def get_success_url(self):
 
         return reverse('userprofile',kwargs={'username':self.request.user.username})
+
+class SpaceBook(View):
+    template_name = 'pages/spacebook.html'
+
+    def get(self, request, *args, **kwargs):
+        chapters = SpacePage.objects.filter(parent_id=821)
+        return render(request, self.template_name, {"chapters": chapters})

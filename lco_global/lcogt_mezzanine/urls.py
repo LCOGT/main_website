@@ -8,7 +8,7 @@ from django.contrib import admin
 from mezzanine.core.views import direct_to_template
 from mezzanine.pages.views import page
 from lcogt.views import UpdateProfile, SpecialPage, ActivityList, people, \
-    science_people, user_profile, seminar_home, SeminarList
+    science_people, user_profile, seminar_home, SeminarList, SpaceBook
 import biblio.views as bv
 
 
@@ -40,7 +40,7 @@ urlpatterns = [
     url(r'^publications/$', bv.home, name='bibliohome'),
     url(r'^publications/stats/(?P<year>\d{4})/$',bv.summary,name='bibliostats_year'),
     url(r'^publications/stats/$',bv.summary,name='bibliostats'),
-
+    url(r'^spacebook/$',SpaceBook.as_view(), name='spacebook'),
 
     # MEZZANINE'S URLS
     # ----------------
