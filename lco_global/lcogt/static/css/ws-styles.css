@@ -67,3 +67,18 @@ a.activity-icon:hover {
 .breadcrumbs>li.active:after{
   display: none;
 }
+
+.chapter-sb {
+  display:inline-block;
+}
+
+.chapter-title {
+  font-size:1.7em;
+  margin-bottom:5px;
+}
+
+.chapter-desc {
+  max-height: 100px;
+  overflow:hidden;
+  text-overflow: ellipsis;
+}

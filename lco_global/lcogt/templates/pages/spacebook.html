@@ -16,14 +16,16 @@
 {{ page.spacepage.content|richtext_filters|safe }}
 {% endeditable %}
 
-
+<h2>Chapters</h2>
 <div class="row">
   {% for chapter in chapters %}
-  <div class="col-3-md">
-    <a href="{{ chapter.get_absolute_url }}" class="btn btn-default" role="button">
-      <h4>{{ chapter.title }}</h4>
-      <p>This is sample text</p>
-    </a>
+  <div class="col-md-3">
+    <div class="chapter-sb">
+      <a href="{{ chapter.get_absolute_url }}">
+        <div class="chapter-title">{{ chapter.title }}</div>
+      </a>
+      <div class="chapter-desc">{{ chapter.description }}</div>
+    </div>
   </div>
   {% endfor %}
 </div>
