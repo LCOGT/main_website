@@ -22,7 +22,7 @@
 {% for person in people %}
 <a href="{% url 'userprofile' person.user.username %}" title="View {{person.user.first_name}}&#039;s profile.">
 <div class="col-md-3 col-sm-6 text-center" style="height:300px;">
-    <img typeof="foaf:Image" src="{{ MEDIA_URL }}{% thumbnail person.mugshot 180 180%}" alt="{{person.user.first_name}}&#039;s picture" title="{{person.user.first_name}}&#039;s picture" class="img-circle center-block" />
+    <img typeof="foaf:Image" src="{{ MEDIA_URL }}{% thumbnail person.mugshot 180 180%}" alt="{{person.user.first_name}}&#039;s picture" title="{{person.user.first_name}}&#039;s picture" class="img-circle img-responsive center-block" />
   <h3>{{person.user.first_name}} {{person.user.last_name}}</h3>
   <p><small>{{person.job_title}}</small></p>
 </div>
