@@ -29,7 +29,7 @@ News
 {% if settings.BLOG_USE_FEATURED_IMAGE and blog_post.featured_image %}
 {% block blog_post_list_post_featured_image %}
 <div class="row">
-  <img class="img-responsive" src="{{ MEDIA_URL }}{{ blog_post.featured_image }}">
+  <img class="img-responsive" src="{{ MEDIA_URL }}{% thumbnail blog_post.featured_image 400 400 %}">
 </div>
 {% endblock %}
 {% endif %}

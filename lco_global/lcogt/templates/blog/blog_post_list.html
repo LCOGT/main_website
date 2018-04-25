@@ -79,7 +79,7 @@
 <div class="row row-m-b">
   <div class="col-md-4">
     <a href="{{ blog_post.get_absolute_url }}">
-      <img class="img-rounded img-responsive" src="{{ MEDIA_URL }}{{ blog_post.featured_image }}">
+      <img class="img-rounded img-responsive" src="{{ MEDIA_URL }}{% thumbnail blog_post.featured_image 400 400 %}">
     </a>
   </div>
   <div class="col-md-8">
