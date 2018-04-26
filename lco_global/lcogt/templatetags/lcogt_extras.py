@@ -1,8 +1,10 @@
-from django import template
+from mezzanine import template
+from django.db.models import Q
 from mezzanine.galleries.models import GalleryImage
 from random import randint
 from datetime import timedelta, datetime
 from mezzanine.pages.models import Page
+from mezzanine.blog.models import BlogPost, BlogCategory
 from django.urls import reverse
 from django.conf import settings
 import logging
@@ -64,3 +66,29 @@ def rev_admin_url(modelname, objectid):
 		return change_url
 	except:
 		return ''
+
+@register.filter
+def category_check(category_qs, category):
+    """
+    Checks to see if 'text' appears at the title to any category in this
+    provided QuerySet
+    """
+    titles = [c.title for c in category_qs]
+    if category in titles:
+        return True
+    else:
+        return False
+
+@register.as_tag
+def lco_blog_recent_posts(limit=5):
+    """
+    Put a list of recently published blog posts into the template
+    context. A tag title or slug, category title or slug or author's
+    username can also be specified to filter the recent posts returned.
+    Usage::
+        {% lco_blog_recent_posts 5 as recent_posts %}
+    """
+    blog_posts = BlogPost.objects.published().select_related("user")
+    announcement = BlogCategory.objects.get(title='Announcement')
+    blogs = blog_posts.filter(categories__isnull=True)
+    return list(blogs[:limit])

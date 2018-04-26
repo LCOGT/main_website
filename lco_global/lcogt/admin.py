@@ -21,11 +21,10 @@ class PageReversion(PageAdmin, VersionAdmin):
 class LCOBlogAdmin(BlogPostAdmin):
     fieldsets =  (
         (None, {
-            "fields": ["title", "status", "publish_date", "featured_image", "content"],
+            "fields": ["title", "status", "publish_date", "categories", "slug", ("description", "gen_description"), "featured_image", "content"],
         }),
         (_("Meta data"), {
-            "fields": ["_meta_title", "slug",
-                       ("description", "gen_description"),
+            "fields": ["_meta_title",
                         "keywords"],
             "classes": ("collapse-closed",)
         }),
@@ -52,7 +51,7 @@ def not_current_staff(self,request,queryset):
     for item in queryset:
         item.profile.current = False
         item.profile.save()
-    self.message_user(request,"Changes %s people to not current staff" % queryset.count())
+    self.message_user(request,"Changed %s people to not current staff" % queryset.count())
 not_current_staff.short_description = "Change to not current staff"
 
 # Define a new User admin
@@ -60,6 +59,7 @@ class UserAdmin(UserAdmin):
     list_display = ['last_name','first_name','_science_team','_current_staff']
     inlines = (ProfileInline, )
     actions = [make_science_staff,not_current_staff]
+    ordering = ['last_name']
 
     def _science_team(self,obj):
         if Profile.objects.get(user=obj).science_team:

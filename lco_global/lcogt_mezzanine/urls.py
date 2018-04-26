@@ -7,8 +7,9 @@ from django.contrib import admin
 
 from mezzanine.core.views import direct_to_template
 from mezzanine.pages.views import page
+import mezzanine.blog.views as blogv
 from lcogt.views import UpdateProfile, SpecialPage, ActivityList, people, \
-    science_people, user_profile, seminar_home, SeminarList, SpaceBook
+    science_people, user_profile, seminar_home, SeminarList, SpaceBook, lco_blog_post_list
 import biblio.views as bv
 
 
@@ -44,7 +45,10 @@ urlpatterns = [
 
     # MEZZANINE'S URLS
     # ----------------
-    url('^news/', include("mezzanine.blog.urls")),
+    url("^news/category/(?P<category>.*)/$", blogv.blog_post_list, name="blog_post_list_category"),
+    url("^news/(?P<slug>.*)/$", blogv.blog_post_detail, name="blog_post_detail"),
+    url("^news/$", lco_blog_post_list, name="blog_post_list"),
+
     url("^admin/", include(admin.site.urls)),
     url("^", include("mezzanine.urls")),
 ]

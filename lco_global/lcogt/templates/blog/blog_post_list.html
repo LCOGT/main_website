@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load i18n mezzanine_tags keyword_tags block_tags %}
+{% load i18n mezzanine_tags keyword_tags block_tags blog_tags %}
 
 {% block meta_title %}{% if page %}{{ page.meta_title }}{% else %}{% trans "News" %}{% endif %}{% endblock %}
 
@@ -21,7 +21,11 @@
 {% if page %}
 {% editable page.title %}{{ page.title }}{% endeditable %}
 {% else %}
+{% if category.slug == 'announcement' %}
+Announcements
+{%else%}
 {% trans "News" %}
+{% endif %}
 {% endif %}
 {% endblock %}
 
@@ -40,37 +44,21 @@
 {% block left_wrapper %}
 {% endblock %}
 
-{% block main_span_size %}col-md-12{% endblock %}
+{% block main_span_size %}col-md-8{% endblock %}
 
 {% block main %}
 
-{% if tag or category or author %}
-    {% block blog_post_list_filterinfo %}
-    <p>
-    {% if tag %}
-        {% trans "Viewing posts tagged" %} {{ tag }}
-    {% else %}{% if category %}
-        {% trans "Viewing posts for the category" %} {{ category }}
-    {% else %}{% if year or month %}
-        {% trans "Viewing posts from" %} {% if month %}{{ month }}, {% endif %}
-        {{ year }}
-    {% else %}{% if author %}
-        {% trans "Viewing posts by" %}
-        {{ author.get_full_name|default:author.username }}
-    {% endif %}{% endif %}{% endif %}{% endif %}
-    {% endblock %}
-    </p>
-{% else %}
-    {% if page %}
-    {% block blog_post_list_pagecontent %}
-    {% if page.get_content_model.content %}
-        {% editable page.get_content_model.content %}
-        {{ page.get_content_model.content|richtext_filters|safe }}
-        {% endeditable %}
-    {% endif %}
-    {% endblock %}
-    {% endif %}
+
+{% if page %}
+{% block blog_post_list_pagecontent %}
+{% if page.get_content_model.content %}
+    {% editable page.get_content_model.content %}
+    {{ page.get_content_model.content|richtext_filters|safe }}
+    {% endeditable %}
 {% endif %}
+{% endblock %}
+{% endif %}
+
 
 {% for blog_post in blog_posts.object_list %}
 
@@ -122,4 +110,27 @@
 </p>
 {% endblock %}
 
-{% block blog_post_list_post_metainfo %}{% endblock %}
+{% block right_panel %}
+
+<div class="col-md-4 linkBar">
+  {% if category.slug == 'announcement' %}
+  {% blog_recent_posts limit=5 as recent_posts %}
+  <h3>Recent News</h3>
+  {% else %}
+  {% blog_recent_posts limit=5 category="announcement" as recent_posts %}
+  <h3>Recent Announcements</h3>
+  {% endif %}
+  <ul class="newslist">
+  {% for recent_post in recent_posts %}
+    <li>
+      <span class="blog-date">{{ recent_post.publish_date|date:"d M" }}</span><span class="blog-title-sm"><a href="{{ recent_post.get_absolute_url }}"> {{ recent_post.title }}</a></span>
+    </li>
+  {% endfor %}
+  {% if category.slug == 'announcement' %}
+  <p><i class="fa fa-newspaper-o"></i> <a href="{% url 'blog_post_list' %}">All News</a></p>
+  {% else %}
+  <p><i class="fa fa-bullhorn"></i> <a href="{% url 'blog_post_list_category' 'announcement' %}">All Announcements</a></p>
+  {% endif %}
+  </ul>
+</div>
+{% endblock %}
