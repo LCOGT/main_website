@@ -114,7 +114,7 @@ Announcements
 
 <div class="col-md-4 linkBar">
   {% if category.slug == 'announcement' %}
-  {% blog_recent_posts limit=5 as recent_posts %}
+  {% lco_blog_recent_posts limit=5 as recent_posts %}
   <h3>Recent News</h3>
   {% else %}
   {% blog_recent_posts limit=5 category="announcement" as recent_posts %}

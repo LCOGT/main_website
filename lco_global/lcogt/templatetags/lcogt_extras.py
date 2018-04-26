@@ -4,7 +4,7 @@ from mezzanine.galleries.models import GalleryImage
 from random import randint
 from datetime import timedelta, datetime
 from mezzanine.pages.models import Page
-from mezzanine.blog.models import BlogPost, BlogCategory
+from mezzanine.blog.models import BlogPost
 from django.urls import reverse
 from django.conf import settings
 import logging
@@ -89,6 +89,5 @@ def lco_blog_recent_posts(limit=5):
         {% lco_blog_recent_posts 5 as recent_posts %}
     """
     blog_posts = BlogPost.objects.published().select_related("user")
-    announcement = BlogCategory.objects.get(title='Announcement')
     blogs = blog_posts.filter(categories__isnull=True)
     return list(blogs[:limit])
