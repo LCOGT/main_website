@@ -11,6 +11,7 @@ from lcogt.models import Activity, Seminar, Profile, LCOPage, SpacePage
 
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
+from django.forms import CheckboxSelectMultiple
 
 from reversion.admin import VersionAdmin
 
@@ -29,7 +30,7 @@ class LCOBlogAdmin(BlogPostAdmin):
             "classes": ("collapse-closed",)
         }),
     )
-
+    filter_horizontal = () # Overrides the default
 
 
 # Define an inline admin descriptor for Employee model
