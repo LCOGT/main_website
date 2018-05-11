@@ -9,7 +9,7 @@ from mezzanine.core.views import direct_to_template
 from mezzanine.pages.views import page
 import mezzanine.blog.views as blogv
 from lcogt.views import UpdateProfile, SpecialPage, ActivityList, people, \
-    science_people, user_profile, seminar_home, SeminarList, SpaceBook, lco_blog_post_list
+    user_profile, seminar_home, SeminarList, SpaceBook, lco_blog_post_list
 import biblio.views as bv
 
 
@@ -30,7 +30,8 @@ urlpatterns = [
     url(r'^search/$', page, {"slug": "/search/"}, name="search"),
     url(r'^editprofile/$',UpdateProfile.as_view(),name="profileupdate"),
     url(r'^people/alumni/$', people, {'current':False}, name="oldpeople"),
-    url(r'^people/science/$', science_people, name="scientists"),
+    url(r'^people/science/$', people, {'current':True, 'scientist':True}, name="scientists"),
+    url(r'^people/postdocs/$', people, {'current':True, 'scientist':True, 'postdoc':True}, name="postdocs"),
     url(r'^people/$', people, {'current':True}, name="people"),
     url(r'^user/(?P<username>\w+)/$',user_profile, name="userprofile"),
     url(r'^seminar/$',seminar_home,name='seminar_home'),

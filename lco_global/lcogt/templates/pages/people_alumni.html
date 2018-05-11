@@ -1,0 +1,31 @@
+{% extends 'pages/page.html' %}
+{% load mezzanine_tags block_tags %}
+
+{% block meta_title %}Past Staff List{% endblock %}
+
+{% block title_head %}Past Staff list{% endblock %}
+
+{% block title %}Past Staff{% endblock %}
+
+{% block main_span_size %}col-md-12{% endblock %}
+
+{% block main %}
+<div class="row">
+<a href="{% url 'people' %}" class="btn btn-default">All Staff</a>
+<a href="{% url 'scientists' %}" class="btn btn-default">Scientists</a>
+<a href="{% url 'postdocs' %}" class="btn btn-default">Post-docs</a>
+</div>
+
+<table class="table">
+{% for person in people %}
+<tr>
+  <td>{{person.user.first_name}} {{person.user.last_name}}</td>
+  <td>{{person.job_title}}</td>
+</tr>
+{% endfor %}
+</table>
+
+{% endblock %}
+
+{% block right_panel %}
+{% endblock %}

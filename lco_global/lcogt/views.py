@@ -24,13 +24,27 @@ class SpecialPage(DetailView):
     template = 'pages/public.html'
 
 
-def science_people(request):
-    people = Profile.objects.filter(science_team=True,current=True).order_by('user__last_name')
-    return render(request,'pages/people_list.html',{'people':people,'science':True,'current': True})
-
-def people(request,current=True):
-    people = Profile.objects.filter(~Q(user__username='admin'),current=current).order_by('user__last_name')
-    return render(request,'pages/people_list.html',{'people':people,'current':current})
+def people(request, current=True, scientist=False, postdoc=False):
+    template = 'pages/people_list.html'
+    past = None
+    if scientist:
+        if postdoc:
+            people = Profile.objects.filter(scientist=True, post_doc=True).order_by('user__last_name')
+        else:
+            people = Profile.objects.filter(scientist=True, post_doc=False).order_by('user__last_name')
+        staff = people.filter(current=True)
+        past = people.filter(current=False)
+    else:
+        staff = Profile.objects.filter(~Q(user__username='admin'),current=current).order_by('user__last_name')
+    if not current:
+        template = 'pages/people_alumni.html'
+    return render(request, template, {
+        'people'    : staff,
+        'past'      : past,
+        'current'   : current,
+        'scientist' : scientist,
+        'postdoc'   : postdoc
+        })
 
 def user_profile(request,username):
     try:
@@ -90,7 +104,7 @@ class ActivityList(View):
 class ProfileForm(ModelForm):
     class Meta:
         model = Profile
-        fields=['mugshot','job_title','bio','science_team','research_interests']
+        fields=['mugshot','job_title','bio','scientist','post_doc','research_interests']
 
 class UpdateProfile(UpdateView):
     model = Profile

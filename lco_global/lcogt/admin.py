@@ -41,12 +41,19 @@ class ProfileInline(admin.StackedInline):
     verbose_name_plural = 'user profiles'
     max_num = 1
 
-def make_science_staff(self,request,queryset):
+def make_postdoc(self,request,queryset):
 	for item in queryset:
-		item.profile.science_team = True
+		item.profile.post_doc = True
 		item.profile.save()
-	self.message_user(request,"Added %s people to science team" % queryset.count())
-make_science_staff.short_description = "Add to science team"
+	self.message_user(request,"Added %s people as postdocs" % queryset.count())
+make_postdoc.short_description = "Change to PostDoc"
+
+def make_staff_scientist(self,request,queryset):
+	for item in queryset:
+		item.profile.scientist = True
+		item.profile.save()
+	self.message_user(request,"Added %s people as staff scientists" % queryset.count())
+make_staff_scientist.short_description = "Change to Staff Scientist"
 
 def not_current_staff(self,request,queryset):
     for item in queryset:
@@ -57,18 +64,26 @@ not_current_staff.short_description = "Change to not current staff"
 
 # Define a new User admin
 class UserAdmin(UserAdmin):
-    list_display = ['last_name','first_name','_science_team','_current_staff']
+    list_display = ['last_name','first_name','_scientist','_post_doc','_current_staff']
     inlines = (ProfileInline, )
-    actions = [make_science_staff,not_current_staff]
+    actions = [make_staff_scientist, make_postdoc, not_current_staff]
     ordering = ['last_name']
 
-    def _science_team(self,obj):
-        if Profile.objects.get(user=obj).science_team:
+    def _scientist(self,obj):
+        if Profile.objects.get(user=obj).scientist:
             return True
         else:
             return False
-    _science_team.boolean = True
-    _science_team.short_description = 'Science Staff?'
+    _scientist.boolean = True
+    _scientist.short_description = 'Staff Scientist'
+
+    def _post_doc(self,obj):
+        if Profile.objects.get(user=obj).post_doc:
+            return True
+        else:
+            return False
+    _post_doc.boolean = True
+    _post_doc.short_description = 'Post Doc'
 
     def _current_staff(self,obj):
         if Profile.objects.get(user=obj).current:
