@@ -96,7 +96,7 @@ class ActivityList(View):
         # Only show published i.e. status = 2 activities
         activities = Activity.objects.filter(status=2).order_by('title')
         age = request.GET.get('age','all')
-        if age in ['6','11','16','all']:
+        if age in ['7','11','16','all']:
             if age != 'all':
                 activities = activities.filter(agerange__contains=age)
         return render(request,'pages/activity_list.html', {"activities": activities})

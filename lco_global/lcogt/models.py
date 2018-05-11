@@ -24,7 +24,7 @@ class LCOPage(Page):
 
 class Activity(Page, Ownable):
     agerange = MultiChoiceField(
-        choices=(('6', "6-11"),('11',"11-16"), ('16',"16-18"), ('all', "All")),
+        choices=(('7', "7-11"),('11',"11-16"), ('16',"16-18"), ('all', "All")),
         help_text=_("What is the age range for this activity?"),
         default='all',
         max_length=20)
