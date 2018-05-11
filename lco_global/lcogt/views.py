@@ -27,11 +27,9 @@ class SpecialPage(DetailView):
 def people(request, current=True, scientist=False, postdoc=False):
     template = 'pages/people_list.html'
     past = None
-    if scientist:
-        if postdoc:
-            people = Profile.objects.filter(scientist=True, post_doc=True).order_by('user__last_name')
-        else:
-            people = Profile.objects.filter(scientist=True, post_doc=False).order_by('user__last_name')
+    print(postdoc,scientist)
+    if scientist or postdoc:
+        people = Profile.objects.filter(scientist=scientist, post_doc=postdoc).order_by('user__last_name')
         staff = people.filter(current=True)
         past = people.filter(current=False)
     else:
@@ -99,6 +97,7 @@ class ActivityList(View):
         if age in ['7','11','16','all']:
             if age != 'all':
                 activities = activities.filter(agerange__contains=age)
+
         return render(request,'pages/activity_list.html', {"activities": activities})
 
 class ProfileForm(ModelForm):

@@ -6,7 +6,7 @@
 {% block title_head %}Staff list{% endblock %}
 
 {% block title %}
-{% if scientist %}
+{% if scientist or postdoc %}
 {% if postdoc %}
 Post-docs
 {% else %}
@@ -53,6 +53,7 @@ All Staff
 </a>
 {% endfor %}
 </div>
+{% endif %}
 
 {% endblock %}
 
