@@ -1,6 +1,6 @@
 from __future__ import absolute_import, unicode_literals
 import os, sys
-#from django.utils.crypto import get_random_string
+import rollbar
 
 
 ######################
@@ -72,7 +72,7 @@ MANAGERS = ADMINS
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = ['.lco.global','.lco.gtn','.lcogt.net','localhost']
+ALLOWED_HOSTS = ['.lco.global','.lco.gtn','.lcogt.net','localhost', 'web']
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -291,6 +291,7 @@ MIDDLEWARE_CLASSES = (
     # "mezzanine.core.middleware.SSLRedirectMiddleware",
     "mezzanine.pages.middleware.PageMiddleware",
     "mezzanine.core.middleware.FetchFromCacheMiddleware",
+    'rollbar.contrib.django.middleware.RollbarNotifierMiddleware',
 )
 
 # Store these package names here as they may change in the future since
@@ -340,12 +341,6 @@ LOGGING = {
             'level': 'ERROR',
             'filters': ['require_debug_false'],
             'class': 'django.utils.log.AdminEmailHandler'
-        },
-        'file': {
-            'level': 'DEBUG',
-            'class': 'logging.FileHandler',
-            'filename': 'website.log',
-            'formatter': 'verbose',
         },
         'console': {
             'level': 'DEBUG',
@@ -407,7 +402,7 @@ ADS_TOKEN = os.environ.get('ADS_TOKEN','')
 # Allow any settings to be defined in local_settings.py which should be
 # ignored in your version control system allowing for settings to be
 # defined per machine.
-if not CURRENT_PATH.startswith('/var/www'):
+if not CURRENT_PATH.startswith('/src'):
     try:
         from .local_settings import *
     except ImportError as e:
@@ -416,6 +411,14 @@ if not CURRENT_PATH.startswith('/var/www'):
 
 
 AUTH_PROFILE_MODULE = 'lcogt.Profile'
+
+ROLLBAR = {
+    'access_token': os.environ.get('ROLLBAR_TOKEN',''),
+    'environment': 'development' if DEBUG else 'production',
+    'root': CURRENT_PATH,
+}
+
+rollbar.init(**ROLLBAR)
 
 ####################
 # DYNAMIC SETTINGS #
