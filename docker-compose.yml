@@ -1,0 +1,29 @@
+version: '2'
+services:
+  nginx:
+    image: nginx:1.14-alpine
+    ports:
+      - "80:80"
+    volumes:
+      - ./docker/etc/nginx/conf.d:/etc/nginx/conf.d:ro
+      - ./files:/var/www/html/files:ro
+    mem_limit: 256m
+    network_mode: bridge
+    depends_on:
+      - mezzanine
+    links:
+      - "mezzanine:mezzanine"
+
+  mezzanine:
+    image: docker.lco.global/mezzanine:latest
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./files:/var/www/html/files:rw
+    environment:
+      - MEZZ_DB_HOST=db.example.com
+      - MEZZ_DB_USER=username
+      - MEZZ_DB_PASS=password
+      - MEZZ_DB_NAME=databasename
+    mem_limit: 256m
+    network_mode: bridge

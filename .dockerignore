@@ -2,3 +2,6 @@
 .git
 lcogt_mezzanine/static/media/files/*
 local_settings.py
+docker-compose.yml
+README.md
+LICENSE

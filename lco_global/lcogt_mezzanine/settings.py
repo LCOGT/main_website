@@ -191,7 +191,7 @@ STATIC_ROOT = '/var/www/html/static/'
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 MEDIA_URL = '/files/'
-MEDIA_ROOT = '/var/www/apps/lco_global/static/media/files/'
+MEDIA_ROOT = '/var/www/html/files/'
 
 ROOT_URLCONF = "%s.urls" % PROJECT_DIRNAME
 

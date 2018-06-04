@@ -1,0 +1,5 @@
+#!/bin/sh
+cd /var/www/apps/lco_global/
+python manage.py migrate --no-input
+python manage.py collectstatic --no-input
+exec gunicorn -w 4 -k gevent -b 0.0.0.0:8080 lcogt_mezzanine.wsgi
