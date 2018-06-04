@@ -2,9 +2,9 @@ version: '2'
 services:
   nginx:
     image: nginx:latest
-    container_name: nz02
+    container_name: nginx1
     ports:
-      - "8000:8000"
+      - "80:80"
     volumes:
       - ./lco_global:/lco_global
       - ./config/nginx:/etc/nginx/conf.d
@@ -13,18 +13,14 @@ services:
 
   web:
       build: .
-      container_name: dz02
+      container_name: django1
       volumes:
         - ./lco_global:/lco_global
       expose:
-        - "8000"
+        - "80"
       mem_limit: 256m
       environment:
         - MEZZ_DB_HOST=db1.lco.gtn
         - MEZZ_DB_USER=main_website
         - MEZZ_DB_PASSWD=main_website
         - MEZZ_DB_NAME=main_website
-        - MEZZ_RBAUTH_ID=LyzSwGorj7CElpCy93OGAGNjFKs2oJjnCbnABcUX
-        - MEZZ_RBAUTH_SECRET=g11gDIUsbU1hf5X4EgGxm6CtAiztYv70Unjo4TMvZmh7g6rdT3ViSNhdJgjQcQbZbY9l5W58I64cXsWXfjuxcgP72mX8bvxwuguzQpqy6ZXsxbtRoLlr9VVKIQoWCNLk
-        - EMAIL_USER=portal@lcogt.net
-        - EMAIL_PASSWORD=W3bP0rta1
