@@ -159,7 +159,7 @@ DATABASES = {
     'default': {
         'NAME': os.environ.get('MEZZ_DB_NAME', ''),
         "USER": os.environ.get('MEZZ_DB_USER', ''),
-        "PASSWORD": os.environ.get('MEZZ_DB_PASSWD', ''),
+        "PASSWORD": os.environ.get('MEZZ_DB_PASS', ''),
         "HOST": os.environ.get('MEZZ_DB_HOST', ''),
         "OPTIONS": {'init_command': 'SET storage_engine=INNODB'} if PRODUCTION else {},
         "ENGINE": "django.db.backends.mysql",
@@ -188,8 +188,11 @@ CACHE_MIDDLEWARE_KEY_PREFIX = PROJECT_DIRNAME
 
 STATIC_URL = "/static/"
 STATIC_ROOT = '/var/www/html/static/'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
 MEDIA_URL = "/files/"
 MEDIA_ROOT = '/var/www/apps/lco_global/static/media/files/'
+
 ROOT_URLCONF = "%s.urls" % PROJECT_DIRNAME
 
 ######################
@@ -274,6 +277,7 @@ TEMPLATES = [
 # these middleware classes will be applied in the order given, and in the
 # response phase the middleware will be applied in reverse order.
 MIDDLEWARE_CLASSES = (
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "mezzanine.core.middleware.UpdateCacheMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.locale.LocaleMiddleware",
@@ -291,7 +295,7 @@ MIDDLEWARE_CLASSES = (
     # "mezzanine.core.middleware.SSLRedirectMiddleware",
     "mezzanine.pages.middleware.PageMiddleware",
     "mezzanine.core.middleware.FetchFromCacheMiddleware",
-    'rollbar.contrib.django.middleware.RollbarNotifierMiddleware',
+    "rollbar.contrib.django.middleware.RollbarNotifierMiddleware",
 )
 
 # Store these package names here as they may change in the future since
