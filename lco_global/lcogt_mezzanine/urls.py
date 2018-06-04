@@ -10,7 +10,7 @@ from mezzanine.pages.views import page
 import mezzanine.blog.views as blogv
 from lcogt.views import UpdateProfile, SpecialPage, ActivityList, people, \
     user_profile, seminar_home, SeminarList, SpaceBook, lco_blog_post_list
-import biblio.views as bv
+from biblio import urls as bibu
 
 
 admin.autodiscover()
@@ -39,10 +39,8 @@ urlpatterns = [
     url(r'^seminar/archive/$',SeminarList.as_view(),name='seminars'),
     url(r'^education/activity/$',ActivityList.as_view(),name='activities'),
     url(r'^observatory/visibility/$',SpecialPage.as_view(template_name='pages/visibility.html'), {"slug": "observatory/visibility"}, name="visibility"),
-    url(r'^publications/$', bv.home, name='bibliohome'),
-    url(r'^publications/stats/(?P<year>\d{4})/$',bv.summary,name='bibliostats_year'),
-    url(r'^publications/stats/$',bv.summary,name='bibliostats'),
     url(r'^spacebook/$',SpaceBook.as_view(), name='spacebook'),
+    url(r'^publications/', include(bibu)),
 
     # MEZZANINE'S URLS
     # ----------------
