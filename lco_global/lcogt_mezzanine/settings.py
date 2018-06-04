@@ -402,7 +402,7 @@ ADS_TOKEN = os.environ.get('ADS_TOKEN','')
 # Allow any settings to be defined in local_settings.py which should be
 # ignored in your version control system allowing for settings to be
 # defined per machine.
-if not CURRENT_PATH.startswith('/src'):
+if not CURRENT_PATH.startswith('/lco_global'):
     try:
         from .local_settings import *
     except ImportError as e:
