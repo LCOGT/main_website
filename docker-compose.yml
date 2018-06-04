@@ -21,9 +21,9 @@ services:
     volumes:
       - ./files:/var/www/html/files:rw
     environment:
-      - MEZZ_DB_HOST=db.example.com
-      - MEZZ_DB_USER=username
-      - MEZZ_DB_PASS=password
-      - MEZZ_DB_NAME=databasename
+      - DB_HOST=db.example.com
+      - DB_USER=username
+      - DB_PASS=password
+      - DB_NAME=databasename
     mem_limit: 256m
     network_mode: bridge

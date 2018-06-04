@@ -36,10 +36,10 @@ instructions instead:
 This project is configured using environment variables. The available
 configuration options and their defaults are listed below.
 
-- **`MEZZ_DB_HOST`** - MySQL Database Hostname (default: `db.example.com`)
-- **`MEZZ_DB_NAME`** - MySQL Database Name (default: `main_website`)
-- **`MEZZ_DB_USER`** - MySQL Database Username (default: `username`)
-- **`MEZZ_DB_PASS`** - MySQL Database Password (default: `password`)
+- **`DB_HOST`** - MySQL Database Hostname (default: `db.example.com`)
+- **`DB_NAME`** - MySQL Database Name (default: `main_website`)
+- **`DB_USER`** - MySQL Database Username (default: `username`)
+- **`DB_PASS`** - MySQL Database Password (default: `password`)
 - **`SECRET_KEY`** - Django Secret Key (default: random)
 - **`EMAIL_USER`** - SMTP Username (default: None)
 - **`EMAIL_PASS`** - SMTP Password (default: None)

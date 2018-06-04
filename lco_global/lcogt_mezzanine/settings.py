@@ -157,10 +157,10 @@ FILEBROWSER_ADMIN_THUMBNAIL = 'admin_thumbnail'
 
 DATABASES = {
     'default': {
-        'NAME': os.environ.get('MEZZ_DB_NAME', ''),
-        "USER": os.environ.get('MEZZ_DB_USER', ''),
-        "PASSWORD": os.environ.get('MEZZ_DB_PASS', ''),
-        "HOST": os.environ.get('MEZZ_DB_HOST', ''),
+        'NAME': os.environ.get('DB_NAME', ''),
+        "USER": os.environ.get('DB_USER', ''),
+        "PASSWORD": os.environ.get('DB_PASS', ''),
+        "HOST": os.environ.get('DB_HOST', ''),
         "OPTIONS": {'init_command': 'SET storage_engine=INNODB'} if PRODUCTION else {},
         "ENGINE": "django.db.backends.mysql",
     }
