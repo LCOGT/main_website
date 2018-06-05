@@ -5,5 +5,6 @@ git+git://github.com/stephenmcd/mezzanine.git#egg=mezzanine
 django-lcobiblio==0.3
 git+git://github.com/zemogle/mezzanine-blocks.git#egg=mezzanine-blocks
 rollbar
-gunicorn
+gunicorn[gevent]==19.8.1
 django-reversion
+whitenoise==3.3.1

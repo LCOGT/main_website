@@ -4,7 +4,7 @@
 {% block meta_title %}{{profile.user.first_name}} {{profile.user.last_name}}{% endblock %}
 
 {% block extra_js %}
-<script type="text/javascript" src="/static/filebrowser/js/AddFileBrowser.js"></script>
+<script type="text/javascript" src="{% static 'filebrowser/js/AddFileBrowser.js' %}"></script>
 	<script type="text/javascript">
 		$(document).ready(function() {
 		    $('#id_mugshot').val();

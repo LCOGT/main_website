@@ -1,26 +1,29 @@
 version: '2'
 services:
   nginx:
-    image: nginx:latest
-    container_name: nginx1
+    image: nginx:1.14-alpine
     ports:
       - "80:80"
     volumes:
-      - ./lco_global:/lco_global
-      - ./config/nginx:/etc/nginx/conf.d
+      - ./docker/etc/nginx/conf.d:/etc/nginx/conf.d:ro
+      - ./files:/var/www/html/files:ro
+    mem_limit: 256m
+    network_mode: bridge
     depends_on:
-      - web
+      - mezzanine
+    links:
+      - "mezzanine:mezzanine"
 
-  web:
-      build: .
-      container_name: django1
-      volumes:
-        - ./lco_global:/lco_global
-      expose:
-        - "80"
-      mem_limit: 256m
-      environment:
-        - MEZZ_DB_HOST=db1.lco.gtn
-        - MEZZ_DB_USER=main_website
-        - MEZZ_DB_PASSWD=main_website
-        - MEZZ_DB_NAME=main_website
+  mezzanine:
+    image: docker.lco.global/mezzanine:latest
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./files:/var/www/html/files:rw
+    environment:
+      - DB_HOST=db.example.com
+      - DB_USER=username
+      - DB_PASS=password
+      - DB_NAME=databasename
+    mem_limit: 256m
+    network_mode: bridge

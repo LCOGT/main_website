@@ -3,15 +3,18 @@ MAINTAINER Edward Gomez <egomez@lco.global>
 
 ENV PYTHONUNBUFFERED 1
 ENV C_FORCE_ROOT true
-RUN mkdir /var/www/apps/lco_global
-WORKDIR /var/www/apps/lco_global
 
-COPY ./lco_global /var/www/apps/lco_global
-
+# install depedencies
+COPY lco_global/requirements.pip /var/www/apps/lco_global/
 RUN apk --no-cache add mariadb-client-libs \
         && apk --no-cache add --virtual .build-deps gcc mariadb-dev musl-dev git \
         && apk --no-cache add libjpeg-turbo jpeg-dev libjpeg libjpeg-turbo-dev \
-        && pip --no-cache-dir --trusted-host=buildsba.lco.gtn install gunicorn[gevent] -r requirements.pip \
+        && pip --no-cache-dir --trusted-host=buildsba.lco.gtn install -r /var/www/apps/lco_global/requirements.pip \
         && apk --no-cache del .build-deps
 
-CMD python manage.py collectstatic --no-input;python manage.py migrate; gunicorn lcogt_mezzanine.wsgi -b 0.0.0.0:80
+# install entrypoint
+COPY docker/init /
+
+# install web application
+COPY lco_global /var/www/apps/lco_global/
+ENTRYPOINT [ "/init" ]
