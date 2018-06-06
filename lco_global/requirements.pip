@@ -2,7 +2,7 @@
 mysqlclient
 django>=1.10,<1.11
 git+git://github.com/stephenmcd/mezzanine.git#egg=mezzanine
-django-lcobiblio==0.3.2
+django-lcobiblio==0.3.3
 git+git://github.com/zemogle/mezzanine-blocks.git#egg=mezzanine-blocks
 rollbar
 gunicorn[gevent]==19.8.1
