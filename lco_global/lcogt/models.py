@@ -122,7 +122,7 @@ class Profile(models.Model):
     def get_absolute_url(self):
         return ("person_detail", (), {"slug": self.slug})
 
-    def __unicode__(self):
+    def __str__(self):
         return "Profile for %s, %s" % (self.user.last_name, self.user.first_name)
 
 class SpacePage(Page):
