@@ -133,8 +133,8 @@ STATICFILES_FINDERS = (
 FILE_UPLOAD_PERMISSIONS = 0o644
 
 FILEBROWSER_EXTENSIONS = {
-    'Image': ['.jpg','.jpeg','.gif','.png','.tif','.tiff','.JPEG','.TIFF'],
-    'Document': ['.pdf','.doc','.rtf','.txt','.xls','.csv','.tar','.zip','.json','.docx','.xlsx', '.gz'],
+    'Image': ['.jpg','.jpeg','.gif','.png','.tif','.tiff','.JPEG','.TIFF','.JPG','.svg'],
+    'Document': ['.pdf','.doc','.rtf','.txt','.xls','.csv','.tar','.zip','.json','.docx','.xlsx', '.gz', '.STL'],
     'Video': ['.mov','.wmv','.mpeg','.mpg','.avi','.rm','.ogv','.m4v', '.mp4'],
     'Audio': ['.mp3', '.wav','.aiff','.midi','.m4p','.ogg']
 }
