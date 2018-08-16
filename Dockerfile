@@ -6,7 +6,7 @@ ENV C_FORCE_ROOT true
 
 # install depedencies
 COPY lco_global/requirements.pip /var/www/apps/lco_global/
-RUN apk --no-cache add mariadb-client-libs \
+RUN apk --no-cache add mariadb-connector-c \
         && apk --no-cache add --virtual .build-deps gcc mariadb-dev musl-dev git \
         && apk --no-cache add libjpeg-turbo jpeg-dev libjpeg libjpeg-turbo-dev \
         && pip --no-cache-dir --trusted-host=buildsba.lco.gtn install -r /var/www/apps/lco_global/requirements.pip \
