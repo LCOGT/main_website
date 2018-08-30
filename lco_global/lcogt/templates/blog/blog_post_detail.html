@@ -137,7 +137,7 @@ News
         <span class="blog-date">{{ recent_post.publish_date|date:"d M" }}</span><span class="blog-title-sm"><a href="{{ recent_post.get_absolute_url }}"> {{ recent_post.title }}</a></span>
       </li>
     {% endfor %}
-    <p><i class="fa fa-bullhorn"></i> <a href="{% url 'blog_post_list_category' announcement %}">View All Announcements</a></p>
+    <p><i class="fa fa-bullhorn"></i> <a href="{% url 'blog_post_list_category' 'announcement' %}">View All Announcements</a></p>
     {% endif %}
   </div>
 </div>
