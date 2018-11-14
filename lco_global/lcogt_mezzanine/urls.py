@@ -16,6 +16,8 @@ import biblio.urls
 # You can also change the ``home`` view to add your own functionality
 # to the project's homepage.
 
+admin.autodiscover()
+
 urlpatterns = [
     # url("^$", "mezzanine.pages.views.page", {"slug": "/"}, name="home"),
     url(r"^$", SpecialPage.as_view(template_name='pages/index.html'), {"slug": "/"}, name="home"),
@@ -46,6 +48,7 @@ urlpatterns = [
     url(r"^news/$", lco_blog_post_list, name="blog_post_list"),
 
     url(r'^admin/', include(admin.site.urls)),
+    url(r"^", include("mezzanine.urls")),
     url(r'^accounts/', include('django.contrib.auth.urls'))
     ]
 
