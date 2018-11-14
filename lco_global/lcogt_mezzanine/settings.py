@@ -1,7 +1,5 @@
 from __future__ import absolute_import, unicode_literals
 import os, sys
-import rollbar
-
 
 ######################
 # MEZZANINE SETTINGS #
@@ -188,7 +186,6 @@ CACHE_MIDDLEWARE_KEY_PREFIX = PROJECT_DIRNAME
 
 STATIC_URL = '/static/'
 STATIC_ROOT = '/var/www/html/static/'
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 MEDIA_URL = '/files/'
 MEDIA_ROOT = '/var/www/html/files/'
@@ -224,6 +221,7 @@ else:
 ################
 
 INSTALLED_APPS = (
+    'whitenoise.runserver_nostatic',
     "lcogt",
     "django.contrib.admin",
     "django.contrib.auth",
@@ -277,10 +275,10 @@ TEMPLATES = [
 # these middleware classes will be applied in the order given, and in the
 # response phase the middleware will be applied in reverse order.
 MIDDLEWARE = (
+    'django.middleware.security.SecurityMiddleware',
     "whitenoise.middleware.WhiteNoiseMiddleware",
     "mezzanine.core.middleware.UpdateCacheMiddleware",
     'django.contrib.sessions.middleware.SessionMiddleware',
-
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -294,7 +292,6 @@ MIDDLEWARE = (
     "mezzanine.core.middleware.SitePermissionMiddleware",
     "mezzanine.pages.middleware.PageMiddleware",
     "mezzanine.core.middleware.FetchFromCacheMiddleware",
-    "rollbar.contrib.django.middleware.RollbarNotifierMiddleware",
 )
 
 # Store these package names here as they may change in the future since
@@ -414,14 +411,6 @@ if not CURRENT_PATH.startswith('/var/www'):
 
 
 AUTH_PROFILE_MODULE = 'lcogt.Profile'
-
-ROLLBAR = {
-    'access_token': os.environ.get('ROLLBAR_TOKEN',''),
-    'environment': 'development' if DEBUG else 'production',
-    'root': CURRENT_PATH,
-}
-
-rollbar.init(**ROLLBAR)
 
 ####################
 # DYNAMIC SETTINGS #

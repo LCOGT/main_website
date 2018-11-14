@@ -1,10 +1,9 @@
 --extra-index-url=http://buildsba.lco.gtn/python/
 mysqlclient
-django>=1.10,<1.11
+django==1.11.16
 git+git://github.com/stephenmcd/mezzanine.git#egg=mezzanine
-django-lcobiblio==0.3.4
+django-lcobiblio==0.3.5
 git+git://github.com/zemogle/mezzanine-blocks.git#egg=mezzanine-blocks
-rollbar
 gunicorn[gevent]==19.8.1
 django-reversion
 whitenoise==3.3.1

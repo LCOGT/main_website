@@ -1,6 +1,6 @@
 from __future__ import unicode_literals
 
-from django.conf.urls import include, url
+from django.conf.urls import url, include
 from django.conf.urls.i18n import i18n_patterns
 from django.views.generic import TemplateView
 from django.contrib import admin
@@ -10,10 +10,7 @@ from mezzanine.pages.views import page
 import mezzanine.blog.views as blogv
 from lcogt.views import UpdateProfile, SpecialPage, ActivityList, people, \
     user_profile, seminar_home, SeminarList, SpaceBook, lco_blog_post_list
-from biblio import urls as bibu
-
-
-admin.autodiscover()
+import biblio.urls
 
 # Add the urlpatterns for any custom Django applications here.
 # You can also change the ``home`` view to add your own functionality
@@ -21,7 +18,7 @@ admin.autodiscover()
 
 urlpatterns = [
     # url("^$", "mezzanine.pages.views.page", {"slug": "/"}, name="home"),
-    url("^$", SpecialPage.as_view(template_name='pages/index.html'), {"slug": "/"}, name="home"),
+    url(r"^$", SpecialPage.as_view(template_name='pages/index.html'), {"slug": "/"}, name="home"),
     url(r'^about/$', SpecialPage.as_view(template_name='about.html'), {"slug": "/about/"}, name="about"),
     url(r'^everyone/$', page, {"slug": "/public/"}, name="everyone"),
     url(r'^astronomers/$', page, {"slug": "/astronomers/"}, name="astronomers"),
@@ -40,17 +37,17 @@ urlpatterns = [
     url(r'^education/activity/$',ActivityList.as_view(),name='activities'),
     url(r'^observatory/visibility/$',SpecialPage.as_view(template_name='pages/visibility.html'), {"slug": "observatory/visibility"}, name="visibility"),
     url(r'^spacebook/$',SpaceBook.as_view(), name='spacebook'),
-    url(r'^publications/', include(bibu)),
+    url(r'^publications/', include(biblio.urls)),
 
     # MEZZANINE'S URLS
     # ----------------
-    url("^news/category/(?P<category>.*)/$", blogv.blog_post_list, name="blog_post_list_category"),
-    url("^news/(?P<slug>.*)/$", blogv.blog_post_detail, name="blog_post_detail"),
-    url("^news/$", lco_blog_post_list, name="blog_post_list"),
+    url(r"^news/category/(?P<category>.*)/$", blogv.blog_post_list, name="blog_post_list_category"),
+    url(r"^news/(?P<slug>.*)/$", blogv.blog_post_detail, name="blog_post_detail"),
+    url(r"^news/$", lco_blog_post_list, name="blog_post_list"),
 
-    url("^admin/", include(admin.site.urls)),
-    url("^", include("mezzanine.urls")),
-]
+    url(r'^admin/', include(admin.site.urls)),
+    url(r'^accounts/', include('django.contrib.auth.urls'))
+    ]
 
 
 # Adds ``STATIC_URL`` to the context of error pages, so that error
