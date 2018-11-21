@@ -2,7 +2,7 @@
 mysqlclient
 django >= 1.11, < 1.12
 mezzanine
-django-lcobiblio==0.3.5
+django-lcobiblio==0.4.0
 git+git://github.com/zemogle/mezzanine-blocks.git#egg=mezzanine-blocks
 gunicorn[gevent]==19.8.1
 django-reversion
