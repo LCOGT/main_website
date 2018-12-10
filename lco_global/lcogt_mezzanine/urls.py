@@ -46,9 +46,7 @@ urlpatterns = [
 
     # MEZZANINE'S URLS
     # ----------------
-    url(r"^news/category/(?P<category>.*)/$", blogv.blog_post_list, name="blog_post_list_category"),
-    url(r"^news/(?P<slug>.*)/$", blogv.blog_post_detail, name="blog_post_detail"),
-    url(r"^news/$", lco_blog_post_list, name="blog_post_list"),
+    url('^news/', include("mezzanine.blog.urls")),
 
     url(r'^admin/', include(admin.site.urls)),
     url(r"^", include("mezzanine.urls")),

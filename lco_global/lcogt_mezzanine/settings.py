@@ -51,6 +51,7 @@ BLOG_USE_FEATURED_IMAGE = True
 BLOG_SLUG = 'news'
 BLOG_POST_PER_PAGE = 10
 
+BLOG_RSS_LIMIT = 3
 # If True, the south application will be automatically added to the
 # INSTALLED_APPS setting.
 USE_SOUTH = False
