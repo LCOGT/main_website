@@ -146,7 +146,7 @@ class SpacePage(Page):
 class PartnerPage(Page):
     content = RichTextField(_("About"), default="", help_text=_('Main content'), blank=True)
     organizers = models.CharField(_("organizers names"), max_length=200, blank=True, help_text=_("Example: Jane Doe"))
-    partner_logo = FileBrowseField(_("parter logo"), max_length=200, directory="partner_logos/", extensions=[".jpg",".png",".gif",'.jpeg',".JPEG",".JPG"], blank=True, null=True)
+    partner_logo = FileBrowseField(_("parter logo"), max_length=200, directory="edu/Partners/", extensions=[".jpg",".png",".gif",'.jpeg',".JPEG",".JPG"], blank=True, null=True)
     partner_site = models.URLField(_("Link to partner website"), blank=True)
     organization = models.CharField(_("institution or organization"), max_length=200, blank=True, help_text=_("Where is the project based, who is running it?"))
     outputs = RichTextField(_("Outputs"), default="", help_text=_('What did they achieve and want to share?'), blank=True)
