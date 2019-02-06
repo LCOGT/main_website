@@ -143,6 +143,17 @@ class SpaceBook(View):
         chapters = SpacePage.objects.filter(parent_id=821)
         return render(request, self.template_name, {"chapters": chapters})
 
+
+class PartnersView(View):
+    template_name = 'pages/partners.html'
+
+    def get(self, request, *args, **kwargs):
+        active = kwargs.get('active',True)
+        partners = PartnerPage.objects.filter(active=active)
+        print("here")
+        return render(request, self.template_name, {"partners": partners, "active":active})
+
+
 def lco_blog_post_list(request, tag=None, year=None, month=None, username=None,
                    category=None, template="blog/blog_post_list.html",
                    extra_context=None):

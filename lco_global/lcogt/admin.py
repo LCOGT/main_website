@@ -7,7 +7,7 @@ from mezzanine.forms.models import  Form
 from mezzanine.blog.models import BlogPost
 from mezzanine.blog.admin import BlogPostAdmin
 
-from lcogt.models import Activity, Seminar, Profile, LCOPage, SpacePage
+from lcogt.models import Activity, Seminar, Profile, LCOPage, SpacePage, PartnerPage
 
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
@@ -32,6 +32,19 @@ class LCOBlogAdmin(BlogPostAdmin):
     )
     filter_horizontal = () # Overrides the default
 
+class PartnerAdmin(PageAdmin):
+    fieldsets =  (
+        (None, {
+            "fields": ["title", "status", "start", "end", "active", "content", "outputs",
+                        "organizers", "organization", "partner_logo", "partner_site", "contact",
+                        "audience_type","region"],
+        }),
+        (_("Meta data"), {
+            "fields": ["_meta_title",
+                        "keywords", "publish_date", "slug"],
+            "classes": ("collapse-closed",)
+        }),
+    )
 
 # Define an inline admin descriptor for Employee model
 # which acts a bit like a singleton
@@ -104,3 +117,4 @@ admin.site.register(Seminar, PageReversion)
 admin.site.register(LCOPage, PageReversion)
 admin.site.register(Activity)#, PageReversion)
 admin.site.register(SpacePage)#, PageReversion)
+admin.site.register(PartnerPage, PartnerAdmin)

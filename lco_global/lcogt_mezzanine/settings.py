@@ -22,15 +22,13 @@ PRODUCTION = True if CURRENT_PATH.startswith('/var/www') else False
 ADMIN_MENU_ORDER = (
     ("Content", (
             "pages.Page",
-            "lcogt.Activity",
-            "lcogt.Seminar",
             "lcogt.LCOPage",
+            "lcogt.Activity",
+            "lcogt.SpacePage",
+            "lcogt.PartnerPage",
+            "lcogt.Seminar",
             "blog.BlogPost",
-            "blog.BlogCategory",
-            "mezzanine_blocks.Block",
             "mezzanine_blocks.RichBlock",
-            "mezzanine_blocks.ImageBlock",
-            "generic.ThreadedComment",
 
             ("Media Library", "fb_browse"),
         )
@@ -303,8 +301,15 @@ PACKAGE_NAME_GRAPPELLI = "grappelli_safe"
 # Ownable models that should be seen by everyone in the admin
 
 OWNABLE_MODELS_ALL_EDITABLE = (
+    "pages.Page",
     "blog.BlogPost",
     "lcogt.Activity",
+    "lcogt.SpacePage",
+    "lcogt.LCOPage",
+    "lcogt.Activity",
+    "lcogt.SpacePage",
+    "lcogt.PartnerPage",
+    "lcogt.Seminar",
 )
 
 #########################

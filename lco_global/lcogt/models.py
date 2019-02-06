@@ -10,6 +10,13 @@ from mezzanine.utils.models import AdminThumbMixin
 from mezzanine.utils.urls import slugify, unique_slug
 from filebrowser_safe.fields import FileBrowseField
 
+AUDIENCES = (('a', "In-person workshops/training/mentoring"),('b',"Online workshops/training/mentoring"),
+        ('c', "General audience"),('d', "Citizen science"))
+
+REGIONS = (('a', "Europe"),('b', 'Sub-Saharan Africa'), ('d','Northern Africa'),
+                    ('e','Northern America'),('f','Latin America and Caribean'), ('g','Oceania'),('h','Asia'),
+                    ('x','Online only'))
+
 
 class LCOPage(Page):
     content = RichTextField(_("Main Content"), default="", help_text=_('Main content'), blank=True)
@@ -59,6 +66,8 @@ class Activity(Page, Ownable):
 
     class Meta:
         db_table = 'lcogt_activity'
+        verbose_name = _("Activity")
+        verbose_name_plural = _("Activities")
 
 
 class Seminar(Page):
@@ -133,3 +142,40 @@ class SpacePage(Page):
                                  verbose_name=_("Related activities"), blank=True)
     class Meta:
         verbose_name = _("SpaceBook page")
+
+class PartnerPage(Page):
+    content = RichTextField(_("About"), default="", help_text=_('Main content'), blank=True)
+    organizers = models.CharField(_("organizers names"), max_length=200, blank=True, help_text=_("Example: Jane Doe"))
+    partner_logo = FileBrowseField(_("parter logo"), max_length=200, directory="partner_logos/", extensions=[".jpg",".png",".gif",'.jpeg',".JPEG",".JPG"], blank=True, null=True)
+    partner_site = models.URLField(_("Link to partner website"), blank=True)
+    organization = models.CharField(_("institution or organization"), max_length=200, blank=True, help_text=_("Where is the project based, who is running it?"))
+    outputs = RichTextField(_("Outputs"), default="", help_text=_('What did they achieve and want to share?'), blank=True)
+    contact = models.CharField(_("contact"), max_length=200, blank=True, help_text=_("Link to contact page or email"))
+    active = models.BooleanField(_("active partner"), default=True)
+    start = models.DateField(_("When did the partner start?"))
+    end = models.DateField(_("When did the partner project end?"), blank=True)
+    region = MultiChoiceField(_("Region"),
+            choices=REGIONS,
+            help_text=_("Where is your audience based?"),
+            default='all',
+            max_length=20)
+    audience_type = MultiChoiceField(_("Audience type"),
+            choices=AUDIENCES,
+            help_text=_("What type of audience?"),
+            default='all',
+            max_length=20)
+
+    class Meta:
+        verbose_name = _("Partner info page")
+
+    @property
+    def audience_list(self):
+        choices = dict(AUDIENCES)
+        result = [choices[i] for i in self.audience_type]
+        return result
+
+    @property
+    def region_list(self):
+        choices = dict(REGIONS)
+        result = [choices[i] for i in self.region]
+        return result

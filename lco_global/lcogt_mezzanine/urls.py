@@ -12,7 +12,8 @@ from mezzanine.core.views import direct_to_template
 from mezzanine.pages.views import page
 import mezzanine.blog.views as blogv
 from lcogt.views import UpdateProfile, SpecialPage, ActivityList, people, \
-    user_profile, seminar_home, SeminarList, SpaceBook, lco_blog_post_list
+    user_profile, seminar_home, SeminarList, SpaceBook, lco_blog_post_list, \
+    PartnersView
 import biblio.urls
 
 # Add the urlpatterns for any custom Django applications here.
@@ -40,6 +41,7 @@ urlpatterns = [
     url(r'^seminar/archive/(?P<year>[0-9]+)/$',SeminarList.as_view(),name='seminars_year'),
     url(r'^seminar/archive/$',SeminarList.as_view(),name='seminars'),
     url(r'^education/activity/$',ActivityList.as_view(),name='activities'),
+    url(r'^education/partners/$', PartnersView.as_view(), name="partners"),
     url(r'^observatory/visibility/$',SpecialPage.as_view(template_name='pages/visibility.html'), {"slug": "observatory/visibility"}, name="visibility"),
     url(r'^spacebook/$',SpaceBook.as_view(), name='spacebook'),
     url(r'^publications/', include(biblio.urls)),

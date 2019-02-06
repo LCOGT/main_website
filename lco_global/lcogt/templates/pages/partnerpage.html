@@ -1,0 +1,135 @@
+{% extends "pages/page.html" %}
+
+{% load mezzanine_tags block_tags %}
+{% block left_wrapper %}
+{% endblock %}
+
+{% block title_head %}{{ page.title }}{% endblock %}
+
+{% block main_span_size %}{% if page.partnerpage.no_side_block %}col-md-12 {%else%}col-md-8 leftCol{%endif%}{% endblock %}
+
+{% block title %}
+Global Sky Partners
+{% endblock %}
+
+{% block subtitle %}
+<div class="row">
+	<h2 class="subtitle col-md-12">{% editable page.title %}{{ page.title }}{% endeditable %}</h2>
+</div>
+{% endblock %}
+
+{% block main %}{{ block.super }}
+
+<h3>About</h3>
+{% editable page.partnerpage.content %}
+{{ page.partnerpage.content|richtext_filters|safe }}
+{% endeditable %}
+
+<div class="well">
+{% if  page.partnerpage.organizers %}
+<div class="row">
+  <div class="col-md-4">
+    <strong>Organizers:</strong>
+  </div>
+  <div class="col-md-8">
+    {% editable page.partnerpage.organizers %}
+    {{ page.partnerpage.organizers|safe }}
+    {% endeditable %}
+  </div>
+</div>
+{% endif %}
+
+{% if  page.partnerpage.organization %}
+<div class="row">
+  <div class="col-md-4">
+    <strong>Affiliation:</strong>
+  </div>
+  <div class="col-md-8">
+    {% editable page.partnerpage.organization %}
+    {{ page.partnerpage.organization|safe }}
+    {% endeditable %}
+  </div>
+</div>
+{% endif %}
+
+{% if  page.partnerpage.partner_site %}
+<div class="row">
+  <div class="col-md-4">
+    <strong>Partner website:</strong>
+  </div>
+  <div class="col-md-8">
+    {% editable page.partnerpage.partner_site %}
+    <a href="{{ page.partnerpage.partner_site|safe }}">For more information</a>
+    {% endeditable %}
+  </div>
+</div>
+{% endif %}
+
+<div class="row">
+  <div class="col-md-4">
+    <strong>Active:</strong>
+  </div>
+  <div class="col-md-8">
+    {{ page.partnerpage.start|date:"M Y" }} &#8594; {% if page.partnerpage.active %} present {% else %}{{ page.partnerpage.end|date:"M Y" }}{% endif %}
+  </div>
+</div>
+
+{% if  page.partnerpage.contact %}
+<div class="row">
+  <div class="col-md-4">
+    <strong>Contact:</strong>
+  </div>
+  <div class="col-md-8">
+    {% editable page.partnerpage.contact %}
+    <a href="{{ page.partnerpage.contact|safe }}">Get in touch with this partner</a>
+    {% endeditable %}
+  </div>
+</div>
+{% endif %}
+<div class="row">
+  <div class="col-md-4">
+    <strong>Audience:</strong>
+  </div>
+  <div class="col-md-8">
+    {% editable page.partnerpage.audience_type %}
+    {{ page.partnerpage.audience_list|unordered_list }}
+    {% endeditable %}
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-4">
+    <strong>Audience Region:</strong>
+  </div>
+  <div class="col-md-8">
+    {% editable page.partnerpage.region %}
+    {{ page.partnerpage.region_list|unordered_list }}
+    {% endeditable %}
+  </div>
+</div>
+
+</div>
+
+{% if  page.partnerpage.outputs %}
+<h3>What we achieved:</h3>
+{% editable page.partnerpage.outputs %}
+{{ page.partnerpage.outputs|richtext_filters|safe }}
+{% endeditable %}
+{% endif %}
+
+{% endblock %}
+
+{% block right_panel %}
+
+<div class="col-md-4">
+  {% with page.partnerpage.partner_logo as img_file %}
+  {% if img_file %}
+  <img src="{{ MEDIA_URL }}{% thumbnail img_file 300 0 %}" />
+  {% endif %}
+  {% endwith %}
+
+  <div class="linkBar">
+  	{% richflatblock 'education.side.block' %}
+  </div>
+</div>
+{%endblock%}

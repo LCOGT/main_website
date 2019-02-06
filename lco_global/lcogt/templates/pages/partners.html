@@ -1,0 +1,50 @@
+{% extends "pages/page.html" %}
+{% load mezzanine_tags keyword_tags block_tags lcogt_extras pages_tags staticfiles %}
+
+{% block main_span_size %}col-md-12{% endblock %}
+
+{% block title %}
+{% editable page.title %}{{ page.title }}{% endeditable %}
+{%endblock%}
+
+
+{% block main %}{{block.super}}
+
+{% editable page.lcopage.content %}
+{{ page.lcopage.content|richtext_filters|safe }}
+{% endeditable %}
+
+<hr />
+
+<h2>Our Current Global Sky Partners</h2>
+<div class="row">
+  {% for partner in partners %}
+  <div class="col-md-4">
+    <div class="thumbnail partner-box">
+    {% with partner.partner_logo as img_file %}
+    {% if img_file %}
+    <img src="{{ MEDIA_URL }}{% thumbnail img_file 300 0 %}" />
+    {% endif %}
+    {% endwith %}
+    <div class="caption">
+      <a href="{{ partner.get_absolute_url }}">
+        <div class="partner-title">{{ partner.title }}</div>
+      </a>
+      <div class="partner-desc">{{ partner.description|safe|truncatechars_html:60 }}</div>
+    </div>
+    </div>
+  </div>
+  {% if forloop.counter|divisibleby:"3" %}
+  <div class="clearfix visible-md-block visible-lg-block"></div>
+  {% endif %}
+  {% endfor %}
+</div>
+{% endblock %}
+
+<hr />
+
+{% editable page.lcopage.extra_info %}
+{{ page.lcopage.extra_info|richtext_filters|safe }}
+{% endeditable %}
+
+{% block right_panel %}{% endblock %}

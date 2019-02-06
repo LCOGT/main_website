@@ -20,13 +20,16 @@
 <div class="row">
   {% for chapter in chapters %}
   <div class="col-md-3">
-    <div class="chapter-sb">
+    <div class="chapter-sb thumbnail spacechapter-box">
       <a href="{{ chapter.get_absolute_url }}">
-        <div class="chapter-title">{{ chapter.title }}</div>
+        <div class="chapter-title">{{forloop.counter}}. {{ chapter.title }}</div>
       </a>
-      <div class="chapter-desc">{{ chapter.description }}</div>
+      <div class="chapter-desc">{{ chapter.description|truncatechars_html:80 }}</div>
     </div>
   </div>
+  {% if forloop.counter|divisibleby:"4" %}
+  <div class="clearfix visible-md-block visible-lg-block"></div>
+  {% endif %}
   {% endfor %}
 </div>
 {% endblock %}
