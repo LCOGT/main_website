@@ -149,8 +149,7 @@ class PartnersView(View):
 
     def get(self, request, *args, **kwargs):
         active = kwargs.get('active',True)
-        partners = PartnerPage.objects.filter(active=active)
-        print("here")
+        partners = PartnerPage.objects.filter(active=active).order_by('title')
         return render(request, self.template_name, {"partners": partners, "active":active})
 
 
