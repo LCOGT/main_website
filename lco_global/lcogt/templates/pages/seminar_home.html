@@ -15,7 +15,7 @@ Seminar Series
         <div id="seminar-home">
           <h3 class="field-content">{{nearest_seminar.speaker_name}}</h3>
           <h2 class="field-content"><a href="{{nearest_seminar.get_absolute_url}}">{{nearest_seminar.title}}</a></h2>
-          <h3><span content="2015-02-19T15:30:00+00:00" datatype="xsd:dateTime" property="dc:date" class="date-display-single">{{nearest_seminar.seminardate|date:"d M Y"}}</span></h3>
+          <h3><span content="2015-02-19T15:30:00+00:00" datatype="xsd:dateTime" property="dc:date" class="date-display-single">{{nearest_seminar.seminardate|date:"d M Y - H:i"}}</span></h3>
         </ul>
         </div>
         <p>{% richflatblock 'seminar.block' %}</p>
