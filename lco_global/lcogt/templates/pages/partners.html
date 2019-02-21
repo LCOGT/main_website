@@ -28,9 +28,9 @@
     {% endwith %}
     <div class="caption">
       <a href="{{ partner.get_absolute_url }}">
-        <div class="partner-title">{{ partner.title }}</div>
+        <h3>{{ partner.title }}</h3>
       </a>
-      <div class="partner-desc">{{ partner.description|safe|truncatechars_html:60 }}</div>
+      <div class="partner-desc">{{ partner.description|safe|truncatewords_html:8 }}</div>
     </div>
     </div>
   </div>
