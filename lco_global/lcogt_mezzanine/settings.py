@@ -15,8 +15,11 @@ import os, sys
 # Controls the ordering and grouping of the admin menu.
 #
 
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
 CURRENT_PATH = os.path.dirname(os.path.realpath(__file__))
 PRODUCTION = True if CURRENT_PATH.startswith('/var/www') else False
+
 
 
 ADMIN_MENU_ORDER = (
@@ -183,11 +186,38 @@ CACHE_MIDDLEWARE_KEY_PREFIX = PROJECT_DIRNAME
 # LCOGT Media and Static settings #
 ###################################
 
-STATIC_URL = '/static/'
-STATIC_ROOT = '/var/www/html/static/'
+AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY','')
+AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET','')
+AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_BUCKET_NAME','')
+AWS_DEFAULT_ACL = 'public-read'
+AWS_S3_OBJECT_PARAMETERS = {'CacheControl': 'max-age=86400'}
+AWS_REGION='eu-west-2'
+AWS_S3_HOST = 's3.eu-west-2.amazonaws.com'
+AWS_S3_CUSTOM_DOMAIN = '{}/{}'.format(AWS_S3_HOST, AWS_STORAGE_BUCKET_NAME)
 
-MEDIA_URL = '/files/'
-MEDIA_ROOT = '/var/www/html/files/'
+
+S3_USE_SIGV4 = True
+AWS_S3_SIGNATURE_VERSION = 's3v4'
+
+AWS_LOCATION = 'static'
+
+AWS_PRELOAD_METADATA = True
+AWS_DEFAULT_ACL = 'public-read'
+
+DEFAULT_FILE_STORAGE = 'lcogt_mezzanine.s3utils.S3Storage'
+STATICFILES_STORAGE = 'lcogt_mezzanine.s3utils.S3Storage'
+STATIC_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION) if AWS_ACCESS_KEY_ID else '/static/'
+
+FILEBROWSER_DIRECTORY = 'media'
+
+# s3 public media settings
+PUBLIC_MEDIA_LOCATION = 'media'
+MEDIA_URL = STATIC_URL
+FILEBROWSER_MEDIA_URL = MEDIA_URL
+
+ADMIN_MEDIA_PREFIX = STATIC_URL + 'grappelli/'
+
+# STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 
 ROOT_URLCONF = "%s.urls" % PROJECT_DIRNAME
 
@@ -197,8 +227,6 @@ ROOT_URLCONF = "%s.urls" % PROJECT_DIRNAME
 
 # Set where Filebrowser looks for these files
 FILEBROWSER_MAX_UPLOAD_SIZE = 50000000
-FILEBROWSER_DIRECTORY = ''
-FILEBROWSER_MEDIA_URL = MEDIA_URL
 
 RICHTEXT_FILTER_LEVEL = 3
 RICHTEXT_ALLOWED_TAGS = ('a', 'abbr', 'acronym', 'address', 'area', 'article', 'aside', 'b', 'bdo', 'big', 'blockquote', 'br', 'button', 'caption', 'center', 'cite', 'code', 'col', 'colgroup', 'dd', 'del', 'dfn', 'dir', 'div', 'dl', 'dt', 'em', 'fieldset', 'figure', 'font', 'footer', 'form', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'header', 'hr', 'i', 'img', 'input', 'ins', 'kbd', 'label', 'legend', 'li', 'map', 'men', 'nav', 'ol', 'optgroup', 'option', 'p', 'pre', 'q', 's', 'samp', 'section', 'select', 'small', 'span', 'strike', 'strong', 'sub', 'sup', 'table', 'tbody', 'td', 'textarea', 'tfoot', 'th', 'thead', 'tr', 'tt', 'ul', 'var', 'wbr' ,'i')

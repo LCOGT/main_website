@@ -7,3 +7,5 @@ git+git://github.com/zemogle/mezzanine-blocks.git#egg=mezzanine-blocks
 gunicorn[gevent]==19.8.1
 django-reversion
 whitenoise==3.3.1
+boto3
+django-storages
