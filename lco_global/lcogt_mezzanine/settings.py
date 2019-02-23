@@ -191,8 +191,10 @@ AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET','')
 AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_BUCKET_NAME','')
 AWS_DEFAULT_ACL = 'public-read'
 AWS_S3_OBJECT_PARAMETERS = {'CacheControl': 'max-age=86400'}
+# Following 2 settings to be replaced by AWS region and Host
 AWS_REGION='eu-west-2'
 AWS_S3_HOST = 's3.eu-west-2.amazonaws.com'
+# Following is to be replaced by Bucket URL
 AWS_S3_CUSTOM_DOMAIN = '{}/{}'.format(AWS_S3_HOST, AWS_STORAGE_BUCKET_NAME)
 
 
@@ -212,6 +214,7 @@ FILEBROWSER_DIRECTORY = 'media'
 
 # s3 public media settings
 PUBLIC_MEDIA_LOCATION = 'media'
+# Because of internal Mezzanine reasons these are equal
 MEDIA_URL = STATIC_URL
 FILEBROWSER_MEDIA_URL = MEDIA_URL
 
