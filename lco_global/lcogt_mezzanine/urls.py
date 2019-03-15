@@ -46,9 +46,11 @@ urlpatterns = [
     url(r'^spacebook/$',SpaceBook.as_view(), name='spacebook'),
     url(r'^publications/', include(biblio.urls)),
 
-    # MEZZANINE'S URLS
+    # Announcement URL structure in News
     # ----------------
-    url('^news/', include("mezzanine.blog.urls")),
+    url("^news/category/(?P<category>.*)/$", blogv.blog_post_list, name="blog_post_list_category"),
+    url("^news/(?P<slug>.*)/$", blogv.blog_post_detail, name="blog_post_detail"),
+    url("^news/$", lco_blog_post_list, name="blog_post_list"),
 
     url(r'^admin/', include(admin.site.urls)),
     url(r"^", include("mezzanine.urls")),
