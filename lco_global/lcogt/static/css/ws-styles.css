@@ -113,3 +113,24 @@ a.activity-icon:hover {
   text-overflow: ellipsis;
   overflow: hidden;
 }
+
+@media (max-width: 1196px) {
+  .edu-partners {
+    background-image: url('../img/global-sky-partners-banner.jpg');
+  }
+}
+
+
+@media (min-width: 1197px){
+  .edu-partners {
+    background-image: url('../img/global-sky-partners-banner-earth.jpg');
+    background-repeat: no-repeat;
+    background-position: center, bottom;
+    background-size:auto;
+    min-height:216px;
+    }
+}
+
+.edu-partners {
+  text-align:center;
+}
