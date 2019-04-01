@@ -123,7 +123,7 @@ a.activity-icon:hover {
 
 @media (min-width: 1197px){
   .edu-partners {
-    background-image: url('../img/global-sky-partners-banner-earth.jpg');
+    background-image: url('../img/global-sky-partners-banner-withEarth.jpg');
     background-repeat: no-repeat;
     background-position: center, bottom;
     background-size:auto;
