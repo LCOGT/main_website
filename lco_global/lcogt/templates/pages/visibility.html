@@ -7,10 +7,16 @@
 {% block header_script %}
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-<script src="/files/visibility/js/visibility.v2.js" type="text/javascript"></script>
+<script src="//visibility.lco.global/static/js/visibility.v2.js" type="text/javascript"></script>
 <script type="text/javascript">
 $(function() {
   var visibility_calc = new Visibility();
+  visibility_calc.defaults = {
+                  url       : 'https://visibility.lco.global/visibility.png',
+                  width     : 944,
+                  height    : 400,
+                  airmass   : 2,
+        }
   $('#date-submit').on("click", function(event) {
         var data = {
             season    : false,
