@@ -1,4 +1,4 @@
-{% extends "pages/page.html" %}
+{% extends "pages/partners.html" %}
 
 {% load mezzanine_tags block_tags %}
 {% block left_wrapper %}
@@ -9,7 +9,9 @@
 {% block main_span_size %}{% if page.partnerpage.no_side_block %}col-md-12 {%else%}col-md-8 leftCol{%endif%}{% endblock %}
 
 {% block title %}
-Global Sky Partners
+{% with parentpage=page.get_ascendants|first %}
+{{parentpage.title}}
+{% endwith %}
 {% endblock %}
 
 {% block subtitle %}

@@ -57,7 +57,7 @@ def user_profile(request,username):
     return render(request, 'pages/userprofile.html', {'profile': profile,'papers':papers})
 
 def seminar_home(request):
-    starttime = datetime.utcnow() - timedelta(minutes=360)
+    starttime = datetime.utcnow() - timedelta(hours=9)
     seminars = Seminar.objects.filter(seminardate__gt=starttime).order_by('seminardate')
     if seminars:
         nearest_seminar = seminars.order_by('seminardate')[0]

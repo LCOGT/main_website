@@ -3,10 +3,19 @@
 
 {% block main_span_size %}col-md-12{% endblock %}
 
-{% block title %}
-{% editable page.title %}{{ page.title }}{% endeditable %}
-{%endblock%}
 
+{% block banner %}
+<div class="intro downPage edu-partners">
+  <div class="container wide">
+    <div class="row no-gutter">
+      <div class="col-md-12 title" id="title-container">
+        <h1>{% block title %}{{ page.title }}{% endblock %}</h1>
+      </div>
+
+    </div>
+  </div>
+</div>
+{% endblock %}
 
 {% block main %}{{block.super}}
 
