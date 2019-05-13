@@ -1,5 +1,5 @@
 from __future__ import absolute_import, unicode_literals
-import os, sys
+import os, sys, ast
 
 ######################
 # MEZZANINE SETTINGS #
@@ -20,7 +20,13 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CURRENT_PATH = os.path.dirname(os.path.realpath(__file__))
 PRODUCTION = True if CURRENT_PATH.startswith('/var/www') else False
 
+SECRET_KEY = os.environ.get('SECRET_KEY','')
+if not SECRET_KEY:
+    chars = 'abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)'
+    SECRET_KEY = get_random_string(50, chars)
 
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = ast.literal_eval(os.environ.get('DEBUG', 'False'))
 
 ADMIN_MENU_ORDER = (
     ("Content", (
@@ -95,11 +101,6 @@ _ = lambda s: s
 LANGUAGES = (
     ('en', _('English')),
 )
-
-# A boolean that turns on/off debug mode. When set to ``True``, stack traces
-# are displayed for error pages. Should always be set to ``False`` in
-# production. Best set to ``True`` in local_settings.py
-DEBUG = False
 
 # Whether a user's session cookie expires when the Web browser is closed.
 SESSION_EXPIRE_AT_BROWSER_CLOSE = False
@@ -186,36 +187,40 @@ CACHE_MIDDLEWARE_KEY_PREFIX = PROJECT_DIRNAME
 # LCOGT Media and Static settings #
 ###################################
 
-AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY','')
-AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET','')
-AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_BUCKET_NAME','')
-AWS_DEFAULT_ACL = 'public-read'
-AWS_S3_OBJECT_PARAMETERS = {'CacheControl': 'max-age=86400'}
-# Following 2 settings to be replaced by AWS region and Host
-AWS_REGION='eu-west-2'
-AWS_S3_HOST = 's3.eu-west-2.amazonaws.com'
-# Following is to be replaced by Bucket URL
-AWS_S3_CUSTOM_DOMAIN = '{}/{}'.format(AWS_S3_HOST, AWS_STORAGE_BUCKET_NAME)
+STATIC_ROOT = '/static/'
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'observe', 'static'),
+]
+
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'files')
+MEDIA_URL = '/files/'
+
+if ast.literal_eval(os.getenv('USE_S3', 'False')):
+    # aws settings
+    AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
+    AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
+    AWS_STORAGE_BUCKET_NAME = os.getenv('AWS_STORAGE_BUCKET_NAME')
+    AWS_S3_REGION_NAME = os.getenv('AWS_DEFAULT_REGION', 'us-west-2')
+    AWS_DEFAULT_ACL = None
+    AWS_S3_OBJECT_PARAMETERS = {'CacheControl': 'max-age=86400'}
+    AWS_S3_SIGNATURE_VERSION = 's3v4'
+    # s3 public media settings
+    PUBLIC_MEDIA_LOCATION = 'files'
+    MEDIA_URL = f'https://s3-{AWS_S3_REGION_NAME}.amazonaws.com/{AWS_STORAGE_BUCKET_NAME}/{PUBLIC_MEDIA_LOCATION}/'
+    DEFAULT_FILE_STORAGE = 'lcogt_mezzanine.storage_backends.PublicMediaStorage'
+
+EMAIL_ENABLED = ast.literal_eval(os.environ.get('EMAIL_ENABLED', 'False'))
+if EMAIL_ENABLED:
+    EMAIL_BACKEND       = 'django.core.mail.backends.smtp.EmailBackend'
+    EMAIL_USE_TLS       = True
+    EMAIL_HOST          = 'smtp.gmail.com'
+    EMAIL_HOST_USER     = os.environ.get('EMAIL_USERNAME','')
+    EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASSWORD','')
+    EMAIL_PORT          =  587
+    DEFAULT_FROM_EMAIL  = 'LCO webmaster <portal@lco.global>'
 
 
-S3_USE_SIGV4 = True
-AWS_S3_SIGNATURE_VERSION = 's3v4'
-
-AWS_LOCATION = 'static'
-
-AWS_PRELOAD_METADATA = True
-AWS_DEFAULT_ACL = 'public-read'
-
-DEFAULT_FILE_STORAGE = 'lcogt_mezzanine.s3utils.S3Storage'
-STATICFILES_STORAGE = 'lcogt_mezzanine.s3utils.S3Storage'
-STATIC_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION) if AWS_ACCESS_KEY_ID else '/static/'
-
-FILEBROWSER_DIRECTORY = 'media'
-
-# s3 public media settings
-PUBLIC_MEDIA_LOCATION = 'media'
-# Because of internal Mezzanine reasons these are equal
-MEDIA_URL = STATIC_URL
 FILEBROWSER_MEDIA_URL = MEDIA_URL
 
 ADMIN_MEDIA_PREFIX = STATIC_URL + 'grappelli/'
@@ -228,7 +233,6 @@ ROOT_URLCONF = "%s.urls" % PROJECT_DIRNAME
 # Filebrowser settings
 ######################
 
-# Set where Filebrowser looks for these files
 FILEBROWSER_MAX_UPLOAD_SIZE = 50000000
 
 RICHTEXT_FILTER_LEVEL = 3
@@ -239,12 +243,6 @@ RICHTEXT_ALLOWED_TAGS = ('a', 'abbr', 'acronym', 'address', 'area', 'article', '
 FIXTURE_DIRS = (os.path.join(PROJECT_ROOT,'lco_global','fixtures'),)
 MAX_PAGING_LINKS = 5
 
-if os.environ.get('SECRET_KEY', ''):
-    SECRET_KEY = os.environ.get('SECRET_KEY', '')
-else:
-    import random
-    chars = 'abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)'
-    SECRET_KEY = ''.join(random.SystemRandom().choice(chars) for _ in range(50))
 
 ################
 # APPLICATIONS #
@@ -418,17 +416,6 @@ LOGGING = {
 }
 
 
-###################
-# Email settings  #
-###################
-
-EMAIL_USE_TLS       = True
-EMAIL_HOST          = 'smtp.gmail.com'
-EMAIL_HOST_USER     = os.environ.get('EMAIL_USER','')
-EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASSWORD','')
-EMAIL_PORT          =  587
-DEFAULT_FROM_EMAIL  = 'Webmaster <portal@lcogt.net>'
-
 ADS_TOKEN = os.environ.get('ADS_TOKEN','')
 
 
@@ -439,7 +426,7 @@ ADS_TOKEN = os.environ.get('ADS_TOKEN','')
 # Allow any settings to be defined in local_settings.py which should be
 # ignored in your version control system allowing for settings to be
 # defined per machine.
-if not CURRENT_PATH.startswith('/var/www'):
+if not CURRENT_PATH.startswith('/app'):
     try:
         from .local_settings import *
     except ImportError as e:
