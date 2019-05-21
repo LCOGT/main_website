@@ -38,8 +38,6 @@ ADMIN_MENU_ORDER = (
             "lcogt.Seminar",
             "blog.BlogPost",
             "mezzanine_blocks.RichBlock",
-
-            ("Media Library", "fb_browse"),
         )
     ),
 )
@@ -350,8 +348,7 @@ OPTIONAL_APPS = (
     "debug_toolbar",
     "django_extensions",
     "compressor",
-    PACKAGE_NAME_FILEBROWSER,
-    PACKAGE_NAME_GRAPPELLI,
+    # PACKAGE_NAME_GRAPPELLI
 )
 
 LOGGING = {

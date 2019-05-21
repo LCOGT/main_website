@@ -63,7 +63,7 @@ class Command(BaseCommand):
                 new_link = self.replace_image(link['src'])
                 link['src'] = new_link
             print('***********')
-            print(str(soup))
+            print(page.slug)
         return
 
     def test_link(self, path, referrer):

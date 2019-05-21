@@ -7,6 +7,8 @@ from mezzanine.forms.models import  Form
 from mezzanine.blog.models import BlogPost
 from mezzanine.blog.admin import BlogPostAdmin
 
+from import_export import resources
+
 from lcogt.models import Activity, Seminar, Profile, LCOPage, SpacePage, PartnerPage
 
 from django.contrib.auth.admin import UserAdmin
@@ -18,6 +20,31 @@ from reversion.admin import VersionAdmin
 class PageReversion(PageAdmin, VersionAdmin):
     pass
 
+
+class PageResource(resources.ModelResource):
+
+    class Meta:
+        model = LCOPage
+
+class SeminarResource(resources.ModelResource):
+
+    class Meta:
+        model = Seminar
+
+class PartnerResource(resources.ModelResource):
+
+    class Meta:
+        model = PartnerPage
+
+class ActivityResource(resources.ModelResource):
+
+    class Meta:
+        model = Activity
+
+class SpaceResource(resources.ModelResource):
+
+    class Meta:
+        model = SpacePage
 
 class LCOBlogAdmin(BlogPostAdmin):
     fieldsets =  (

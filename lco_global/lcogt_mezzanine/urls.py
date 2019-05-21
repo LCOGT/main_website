@@ -54,6 +54,7 @@ urlpatterns = [
 
     url(r'^admin/', include(admin.site.urls)),
     url(r"^", include("mezzanine.urls")),
+    # url(r'^filer/', include('filer.urls')),
     url(r'^accounts/', include('django.contrib.auth.urls'))
     ]
 
