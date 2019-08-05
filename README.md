@@ -1,3 +1,7 @@
+## This is not the live LCO website software
+
+The LCO website now uses a differen Django-based CMS, Wagtail. The new repo is call [LCO_global](https://github.com/LCOGT/lco_global)
+
 # Las Cumbres Observatory Website
 
 This is the project containing the Las Cumbres Observatory website, available
